@@ -98,21 +98,21 @@
                         <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
                             <div class="card">
                                 <div class="card-body">
-                                    <p><strong>Organización de la información:</strong> Elaborar un informe permite estructurar los datos de manera lógica y comprensible, facilitando su análisis. Esto ayuda a evitar confusión y mejora la comunicación en entornos empresariales y académicos.</p>
+                                    <p><strong>ventaja 1</strong></p>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
                             <div class="card">
                                 <div class="card-body">
-                                    <p><strong>Toma de decisiones fundamentadas:</strong> Un informe bien elaborado proporciona datos precisos y análisis detallados, lo que facilita la evaluación de situaciones y permite tomar decisiones estratégicas con mayor confianza.</p>
+                                    <p><strong>Ventaja 2</strong> </p>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
                             <div class="card">
                                 <div class="card-body">
-                                    <p><strong>Registro y seguimiento:</strong> Los informes permiten llevar un registro de actividades, avances y problemas. Esto es fundamental para el seguimiento de proyectos, auditorías y mejoras continuas dentro de una organización.</p>
+                                    <p><strong>Ventaja 3</strong></p>
                                 </div>
                             </div>
                         </div>
@@ -121,13 +121,13 @@
             </section>
         </div>
 
-        <!-- Footer -->
+       
         <footer class="main-footer text-center">
             <strong>INFORMACIÓN</strong>
         </footer>
     </div>
 
-    <!-- Scripts -->
+
     <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js"></script>

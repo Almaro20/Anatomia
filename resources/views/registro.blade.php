@@ -3,95 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro e Inicio de Sesión</title>
-    
-    
-    <style>
-        .login-register-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 80vh;
-        }
-        .card {
-            border-radius: 10px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-        }
-    </style>
+    <title>Registro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="hold-transition sidebar-mini">
-    <div class="wrapper">
-        <!-- Header -->
-        <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-            <ul class="navbar-nav">
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="" class="nav-link">Inicio</a>
-                    
+<body class="bg-gray-100 flex flex-col min-h-screen">
+
+    <nav class="bg-blue-600 text-white p-4 shadow-md">
+        <div class="container mx-auto flex justify-between items-center">
+            <img src="{{ url('../img/logo.png') }}" alt="LOGO" class="w-10 h-auto">
+            <ul class="flex space-x-4">
+                <li><a href="{{ url('index') }}" class="text-white-300 hover:text-white">Inicio</a>
+                </li>
+                <li><a href="{{ url('login') }}" class="text-white-300 hover:text-white">Login</a>
                 </li>
             </ul>
-        </nav>
-        
-        
-        <div class="content-wrapper">
-            <section class="content">
-                <div class="container-fluid">
-                    <div class="row justify-content-center">
-                        <div class="col-lg-6">
-                            <div class="card">
-                                <div class="card-body">
-                                    <ul class="nav nav-tabs" id="authTab" role="tablist">
-                                        <li class="nav-item">
-                                            <a class="nav-link active" id="login-tab" data-toggle="tab" href="#login" role="tab">Iniciar Sesión</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" id="register-tab" data-toggle="tab" href="#register" role="tab">Registrarse</a>
-                                        </li>
-                                    </ul>
-                                    <div class="tab-content mt-3">
-                                        <div class="tab-pane fade show active" id="login" role="tabpanel">
-                                            <form>
-                                                <div class="form-group">
-                                                    <label for="login-email">Correo Electrónico</label>
-                                                    <input type="email" class="form-control" id="login-email" required>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="login-password">Contraseña</label>
-                                                    <input type="password" class="form-control" id="login-password" required>
-                                                </div>
-                                                <button type="submit" class="btn btn-primary btn-block">Ingresar</button>
-                                            </form>
-                                        </div>
-                                        <div class="tab-pane fade" id="register" role="tabpanel">
-                                            <form>
-                                                <div class="form-group">
-                                                    <label for="register-name">Nombre</label>
-                                                    <input type="text" class="form-control" id="register-name" required>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="register-email">Correo Electrónico</label>
-                                                    <input type="email" class="form-control" id="register-email" required>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="register-password">Contraseña</label>
-                                                    <input type="password" class="form-control" id="register-password" required>
-                                                </div>
-                                                <button type="submit" class="btn btn-success btn-block">Registrarse</button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+        </div>
+    </nav>
+
+   
+    <div class="flex-1 p-6">
+        <div class="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-lg">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">Crear una cuenta</h2>
+            <form>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label for="nombre" class="block font-semibold mb-1">Nombre</label>
+                        <input type="text" id="nombre" class="w-full p-3 border rounded-lg" placeholder="Ingresa tu nombre">
+                    </div>
+                    <div>
+                        <label for="apellido" class="block font-semibold mb-1">Apellido</label>
+                        <input type="text" id="apellido" class="w-full p-3 border rounded-lg" placeholder="Ingresa tu apellido">
+                    </div>
+                    <div>
+                        <label for="email" class="block font-semibold mb-1">Correo Electrónico</label>
+                        <input type="email" id="email" class="w-full p-3 border rounded-lg" placeholder="correo@ejemplo.com">
+                    </div>
+                    <div>
+                        <label for="telefono" class="block font-semibold mb-1">Teléfono</label>
+                        <input type="tel" id="telefono" class="w-full p-3 border rounded-lg" placeholder="Número de contacto">
+                    </div>
+                    <div>
+                        <label for="password" class="block font-semibold mb-1">Contraseña</label>
+                        <input type="password" id="password" class="w-full p-3 border rounded-lg" placeholder="Crea una contraseña">
+                    </div>
+                    <div>
+                        <label for="confirm_password" class="block font-semibold mb-1">Confirmar Contraseña</label>
+                        <input type="password" id="confirm_password" class="w-full p-3 border rounded-lg" placeholder="Confirma tu contraseña">
                     </div>
                 </div>
-            </section>
+                <button type="submit" class="mt-6 w-full bg-blue-500 text-white py-3 rounded-lg shadow-md hover:bg-blue-600 transition">
+                    Registrarse
+                </button>
+            </form>
         </div>
-        
-        <footer class="main-footer text-center">
-            <strong>INFORMACIÓN</strong>
-        </footer>
     </div>
-    
- 
+
+  
+    <footer class="bg-gray-800 text-white text-center py-4 mt-auto">
+        <p>Información</p>
+    </footer>
 </body>
 </html>

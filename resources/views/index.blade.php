@@ -26,9 +26,9 @@
         <div class="container mx-auto flex justify-between items-center">
             <img src="{{ url('../img/logo.png') }}" alt="LOGO" class="w-10 h-auto">
             <ul class="flex space-x-4">
-                <li><a href="{{ url('informe') }}" class="text-white-300 hover:text-white">informe</a>
+                <li><a href="{{ url('informe') }}" class="text-white-300 hover:text-white">Informe</a>
                 </li>
-                <li><a href="{{ url('Login') }}" class="text-white-300 hover:text-white">Login</a>
+                <li><a href="{{ url('login') }}" class="text-white-300 hover:text-white">Login</a>
                 </li>
                 <li><a href="{{ url('registro') }}" class="text-white-300 hover:text-white">Registrarse</a>
                 </li>
@@ -47,7 +47,8 @@
             <div class="relative z-10">
                 <h2 class="text-3xl font-bold">Genera y consulta informes fácilmente</h2>
                 <p class="mt-4">Administra y visualiza todos tus informes en un solo lugar</p>
-                <a href="#" class="mt-6 inline-block bg-white text-blue-600 px-6 py-2 rounded-lg font-semibold hover:bg-gray-200">Ver informes</a>
+                <a href="{{ url('muestra') }}" class="mt-6 inline-block bg-white text-blue-600 px-6 py-2 rounded-lg font-semibold hover:bg-gray-200">Ver Informes</a>
+                
             </div>
         </header>
 

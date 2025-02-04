@@ -12,3 +12,9 @@ Route::get('/informe', function () {
 Route::get('/registro', function () {
     return view('registro');
 });
+Route::get('/login', function () {
+    return view('login');
+});
+Route::get('/muestra', function () {
+    return view('muestra');
+});

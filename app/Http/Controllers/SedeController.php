@@ -20,4 +20,10 @@ class SedeController extends Controller
         }
         return response()->json($sede);
     }
+
+    public function obtenerSedes()
+    {
+        $sedes = Sede::all(); 
+        return response()->json($sedes);
+    }
 }

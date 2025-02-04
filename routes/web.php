@@ -20,6 +20,11 @@ Route::get('/muestra', function () {
     return view('muestra');
 });
 
-Route::get('/sedes/{id}', [SedeController::class, 'show']);
-Route::get('/sedes', [SedeController::class, 'index']);
+// Route::get('/sedes/{id}', [SedeController::class, 'show']);
+// Route::get('/sedes', [SedeController::class, 'index']);
+
+
+
+
+Route::get('/sedes', [SedeController::class, 'obtenerSedes']);
 

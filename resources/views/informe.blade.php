@@ -56,7 +56,7 @@
                     <div>
                         <label for="procedencia" class="block font-bold">Centro de procedencia</label>
                         <select id="procedencia" class="w-full p-2 border rounded">
-                            <option>Sede</option>
+                            <option value="">Seleccione una sede</option>
                         </select>
 
                     </div>

@@ -42,7 +42,7 @@
 
         
         
-        <header class="relative bg-cover bg-center text-white text-center py-20" style="background-image: url('/img/banner.png');">
+        <header class="relative bg-cover bg-center text-white text-center py-20" style="background-image: url('../img/banner.png');">
             <div class="absolute inset-0 bg-blue-700 opacity-60"></div>
             <div class="relative z-10">
                 <h2 class="text-3xl font-bold">Genera y consulta informes fácilmente</h2>

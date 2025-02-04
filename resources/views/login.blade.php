@@ -10,11 +10,12 @@
   
     <nav class="bg-blue-600 text-white p-4 shadow-md">
         <div class="container mx-auto flex justify-between items-center">
-            <img src="{{ url('../img/logo.png') }}" alt="LOGO" class="w-10 h-auto">
+            <a href="{{ url('index') }}">
+                <img src="{{ url('../img/logo.png') }}" alt="LOGO" class="w-10 h-auto">
+            </a>
             <ul class="flex space-x-4">
-                <li><a href="{{ url('index') }}" class="text-white-300 hover:text-white">Inicio</a></li>
                 <li><a href="{{ url('login') }}" class="text-white-300 hover:text-white">Login</a></li>
-                <li><a href="{{ url('registrarse') }}" class="text-white-300 hover:text-white">Registrarse</a></li>
+                <li><a href="{{ url('registro') }}" class="text-white-300 hover:text-white">Registrarse</a></li>
             </ul>
         </div>
     </nav>
@@ -45,8 +46,19 @@
     </div>
 
     
-    <footer class="bg-gray-800 text-white text-center py-4 mt-auto">
-        <p>Información</p>
+    <footer class="bg-gray-800 text-white text-center py-6 mt-auto">
+        <div class="container mx-auto">
+            <p class="font-bold text-lg">Campeones</p>
+            <p class="mt-2 text-sm">
+                Somos una empresa especializada en la generación y consulta de informes detallados. Ofrecemos una plataforma intuitiva y segura para gestionar toda tu información en un solo lugar.
+            </p>
+            <p class="mt-2 text-sm">
+                Contáctanos: <a href="mailto:campeones@informes.com" class="text-blue-400 hover:underline">contacto@informes.com</a>
+            </p>
+            
+                
+            </p>
+        </div>
     </footer>
 </body>
 </html>

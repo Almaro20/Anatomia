@@ -3,5 +3,5 @@
 use App\Http\Controllers\SedeController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/sedes', [SedeController::class, 'index']);
-Route::get('/sedes/{id}', [SedeController::class, 'show']);
+Route::get('api/sedes', [SedeController::class, 'index']);
+Route::get('api/sedes/{id}', [SedeController::class, 'show']);

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SedeController;
 
 
 Route::get('/index', function () {
@@ -18,3 +19,7 @@ Route::get('/login', function () {
 Route::get('/muestra', function () {
     return view('muestra');
 });
+
+Route::get('/sedes/{id}', [SedeController::class, 'show']);
+Route::get('/sedes', [SedeController::class, 'index']);
+

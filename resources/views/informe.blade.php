@@ -7,12 +7,20 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100 flex flex-col min-h-screen">
-    <nav class="bg-white shadow-md py-4 px-6 flex justify-between items-center">
-        <div class="flex space-x-4">
-            <a href="#" class="text-gray-700 font-semibold">Inicio</a>
-            <a href="#" class="text-gray-700 font-semibold">Contacto</a>
+    <nav class="bg-blue-600 text-white p-4 shadow-md">
+        <div class="container mx-auto flex justify-between items-center">
+            <img src="{{ url('../img/logo.png') }}" alt="LOGO" class="w-10 h-auto">
+            <ul class="flex space-x-4">
+                <li><a href="{{ url('index') }}" class="text-white-300 hover:text-white">inicio</a>
+                </li>
+                <li><a href="{{ url('login') }}" class="text-white-300 hover:text-white">Login</a>
+                </li>
+                <li><a href="{{ url('registrarse') }}" class="text-white-300 hover:text-white">Registrarse</a>
+                </li>
+            </ul>
         </div>
     </nav>
+
     
     <div class="flex-1 p-6">
         <div class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-md">
@@ -61,5 +69,8 @@
             </form>
         </div>
     </div>
+    <footer class="bg-gray-800 text-white text-center py-4 mt-auto">
+        <p>Informacion</p>
+    </footer>
 </body>
 </html>

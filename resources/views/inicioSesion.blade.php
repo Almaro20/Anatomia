@@ -22,13 +22,15 @@
 <body class="hold-transition sidebar-mini">
     <div class="wrapper">
         <!-- Header -->
-        <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-            <ul class="navbar-nav">
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="" class="nav-link">Inicio</a>
-                    
-                </li>
-            </ul>
+        <nav class="bg-blue-600 text-white p-4 shadow-md">
+            <div class="container mx-auto flex justify-between items-center">
+                <img src="{{ url('../img/logo.png') }}" alt="LOGO" class="w-10 h-auto">
+                <ul class="flex space-x-4">
+                    <li><a href="" class="hover:underline">Informe</a></li>
+                    <li><a href="#" class="hover:underline">Login</a></li>
+                    <li><a href="#" class="hover:underline">Registrarse</a></li>
+                </ul>
+            </div>
         </nav>
         
         
@@ -87,8 +89,8 @@
             </section>
         </div>
         
-        <footer class="main-footer text-center">
-            <strong>INFORMACIÓN</strong>
+        <footer class="bg-gray-800 text-white text-center py-4 mt-auto">
+            <p>Informacion</p>
         </footer>
     </div>
     

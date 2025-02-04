@@ -70,12 +70,25 @@
     </main>
 
    
-    <footer class="bg-gray-800 text-white text-center py-4 mt-auto">
-        <p>Informacion</p>
-
-        </main>
+   
 
     </div>
+    
+        <footer class="bg-gray-800 text-white text-center py-6 mt-auto">
+            <div class="container mx-auto">
+                <p class="font-bold text-lg">Campeones</p>
+                <p class="mt-2 text-sm">
+                    Somos una empresa especializada en la generación y consulta de informes detallados. Ofrecemos una plataforma intuitiva y segura para gestionar toda tu información en un solo lugar.
+                </p>
+                <p class="mt-2 text-sm">
+                    Contáctanos: <a href="mailto:campeones@informes.com" class="text-blue-400 hover:underline">contacto@informes.com</a>
+                </p>
+                
+                    
+                </p>
+            </div>
+        </footer>
+   
     
 
 </body>

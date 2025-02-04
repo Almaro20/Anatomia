@@ -12,7 +12,8 @@ return new class extends Migration
             $table->id('muestra_id');
             $table->string('codigo', 50);
             $table->date('fechaEntrada');
-            $table->string('organo', 100);
+            $table->enum('organo', ['B', 'BV', 'CB', 'CV', 'EX', 'O', 'E', 'ES', 'T', 'F']) // Tipos de muestra
+                  ->comment('B: Biopsias, BV: Biopsias veterinarias, CB: Cavidad bucal, CV: Citología vaginal, EX: Extensión sanguínea, O: Orinas, E: Esputos, ES: Semen, T: Improntas, F: Frotis');
             $table->text('descripcionMuestra');
             $table->foreignId('tipoNaturaleza_id')->constrained('tipo_naturaleza', 'tipoNaturaleza_id');
             $table->foreignId('formato_id')->constrained('formato', 'formato_id');

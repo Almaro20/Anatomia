@@ -9,3 +9,6 @@ Route::get('/index', function () {
 Route::get('/informe', function () {
     return view('informe');
 });
+Route::get('/registro', function () {
+    return view('registro');
+});

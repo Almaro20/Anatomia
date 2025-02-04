@@ -1,4 +1,6 @@
-botonSiguiente = document.getElementById('vistainforme')
+botonSiguiente = document.querySelector('#vistainforme')
+
+
 botonSiguiente.addEventListener('click', async () => {
 
     // Capturar los datos del formulario
@@ -32,3 +34,4 @@ botonSiguiente.addEventListener('click', async () => {
         alert('Error en la conexión con el servidor');
     }
 });
+

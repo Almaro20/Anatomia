@@ -70,19 +70,29 @@
                         </form>
                     
                         <script>
-                            document.getElementById('uploadForm').addEventListener('submit', function (e) {
+                        document.addEventListener('DOMContentLoaded', function () {
+                            document.getElementById('uploadForm')?.addEventListener('submit', function (e) {
                                 const fileInput = document.getElementById('archivo_foto');
+
+                                if (!fileInput) {
+                                    alert('No se encontró el input de archivos.');
+                                    e.preventDefault();
+                                    return;
+                                }
+
                                 const files = fileInput.files;
-                    
-                                // Validar el número de archivos seleccionados
+
+                                // Validar el número de archivos seleccionados (mínimo 1, máximo 6)
                                 if (files.length < 1 || files.length > 6) {
-                                    e.preventDefault(); // Evita que el formulario se envíe
+                                    e.preventDefault(); // Detiene el envío del formulario
                                     alert('Por favor, selecciona entre 1 y 6 archivos.');
+                                    return;
                                 }
                             });
+                        });
+
                         </script>
                     </div>
-                    
                     
                 </div>
                 <button type="submit" id="vistainforme" class="mt-4 bg-blue-500 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-blue-600">Siguiente</button>

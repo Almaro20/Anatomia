@@ -10,12 +10,12 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ionicons/dist/css/ionicons.min.css">
 
     <style>
-       
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-     
+
+            display:flex
+            justify-content:center
+            align-items:center
+        
+
         .card {
             border-radius: 10px;
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
@@ -69,13 +69,13 @@
             </div>
         </aside>
 
-     
+
         <div class="content-wrapper">
             <div class="content-header">
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                          
+
                         </div>
                     </div>
                 </div>
@@ -121,7 +121,7 @@
             </section>
         </div>
 
-       
+
         <footer class="main-footer text-center">
             <strong>INFORMACIÓN</strong>
         </footer>

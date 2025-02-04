@@ -13,6 +13,7 @@ class DatabaseSeeder extends Seeder
             ImagenSeeder::class,
             TipoEstudioSeeder::class,
             UsersSeeder::class,
+            SedeSeeder::class,
         ]);
     }
 }

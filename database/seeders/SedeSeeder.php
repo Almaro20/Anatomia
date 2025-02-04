@@ -1,18 +1,15 @@
 <?php
 
-namespace Database\Factories;
+namespace Database\Seeders;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\Sede;
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
-class SedeFactory extends Factory
+class SedeSeeder extends Seeder
 {
-    protected $model = Sede::class;
-
-    public function definition()
+    public function run()
     {
-        // Lista fija de sedes con su código y nombre
-        $sedes = [
+        DB::table('sede')->insert([
             ['codigo' => 'A', 'nombre' => 'Albacete'],
             ['codigo' => 'AL', 'nombre' => 'Alicante'],
             ['codigo' => 'ALII', 'nombre' => 'Alicante 2'],
@@ -28,14 +25,6 @@ class SedeFactory extends Factory
             ['codigo' => 'S', 'nombre' => 'Sevilla'],
             ['codigo' => 'V', 'nombre' => 'Valencia'],
             ['codigo' => 'Z', 'nombre' => 'Zaragoza']
-        ];
-
-        // Selecciona aleatoriamente una sede de la lista
-        $sede = $this->faker->unique()->randomElement($sedes);
-
-        return [
-            'codigo' => $sede['codigo'],
-            'nombre' => $sede['nombre'],
-        ];
+        ]);
     }
 }

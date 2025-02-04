@@ -11,9 +11,12 @@
         <div class="container mx-auto flex justify-between items-center">
             <img src="{{ url('../img/logo.png') }}" alt="LOGO" class="w-10 h-auto">
             <ul class="flex space-x-4">
-                <li><a href="" class="hover:underline">Inico</a></li>
-                <li><a href="#" class="hover:underline">Login</a></li>
-                <li><a href="#" class="hover:underline">Registrarse</a></li>
+                <li><a href="{{ url('index') }}" class="text-white-300 hover:text-white">inicio</a>
+                </li>
+                <li><a href="{{ url('login') }}" class="text-white-300 hover:text-white">Login</a>
+                </li>
+                <li><a href="{{ url('registrarse') }}" class="text-white-300 hover:text-white">Registrarse</a>
+                </li>
             </ul>
         </div>
     </nav>

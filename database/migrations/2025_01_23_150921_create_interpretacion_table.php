@@ -13,7 +13,6 @@ return new class extends Migration
             $table->text('texto');
             $table->foreignId('muestra_id')->constrained('muestra', 'muestra_id');
             $table->foreignId('userAutor_id')->constrained('users', 'user_id');
-            $table->timestamps();
         });
     }
 

@@ -13,7 +13,6 @@ return new class extends Migration
             $table->id('sede_id');
             $table->string('codigo', 10);
             $table->string('nombre', 100);
-            $table->timestamps();
         });
 
         // Insertar las provincias con sus siglas

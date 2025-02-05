@@ -13,7 +13,6 @@ return new class extends Migration
             $table->string('ruta', 200);
             $table->string('zoom', 10);
             $table->foreignId('muestra_id')->constrained('muestra', 'muestra_id')->onDelete('cascade');
-            $table->timestamps();
         });
     }
 

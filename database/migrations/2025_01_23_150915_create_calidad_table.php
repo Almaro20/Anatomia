@@ -11,7 +11,6 @@ return new class extends Migration
         Schema::create('calidad', function (Blueprint $table) {
             $table->id('calidad_id');
             $table->string('nombre', 50);
-            $table->timestamps();
         });
     }
 

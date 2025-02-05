@@ -17,7 +17,7 @@
         <nav class="main-header navbar navbar-expand navbar-white navbar-light">
             <div class="container-fluid">
                 <a href="{{ url('index') }}" class="navbar-brand">
-                    <img src="{{ url('../public/img/logo.png') }}" alt="LOGO" class="brand-image img-circle elevation-3" style="width: 30px; height: auto;">
+                    <img src="{{ url('../public/img/logo.png') }}" alt="LOGO" style="width: 30px; height: auto;">
                 </a>
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item"><a href="{{ url('login') }}" class="nav-link">Login</a></li>
@@ -61,61 +61,76 @@
         <div class="content-wrapper">
           
             <section class="content-header">
-                <div class="container-fluid">
-                    <div class="row mb-2">
-                        <div class="col-sm-12 text-center">
-                            <h2 class="text-grey-100">Genera y consulta informes fácilmente</h2>
-                            <p class="text-grey-50">Administra y visualiza todos tus informes en un solo lugar</p>
-                           
-                        </div>
+    <div class="container-fluid">
+        <div class="row mb-4">
+            <div class="col-sm-12 text-center">
+                <h2 class="title-header">Genera y consulta informes fácilmente</h2>
+                <p class="subtitle-header">Administra y visualiza todos tus informes en un solo lugar</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+       
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Fácil de usar</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>Nuestra plataforma es intuitiva y rápida, diseñada para facilitar el acceso y la navegación. No importa si eres nuevo o un experto, podrás encontrar lo que necesitas en pocos pasos.</p>
                     </div>
                 </div>
-            </section>
+            </div>
 
-            <section class="content">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="card card-primary">
-                                <div class="card-body text-center">
-                                    <h3 class="card-title">Fácil de usar</h3>
-                                    <p>Nuestra plataforma es intuitiva y rápida.</p>
-                                </div>
-                            </div>
-                        </div>
 
-                        <div class="col-md-4">
-                            <div class="card card-primary">
-                                <div class="card-body text-center">
-                                    <h3 class="card-title">Acceso seguro</h3>
-                                    <p>Protegemos tu información con los mejores estándares.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="card card-primary">
-                                <div class="card-body text-center">
-                                    <h3 class="card-title">Informes detallados</h3>
-                                    <p>Consulta datos detallados en tiempo real.</p>
-                                </div>
-                            </div>
-                        </div>
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Acceso seguro</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>Nos tomamos la seguridad muy en serio. Implementamos los más altos estándares para proteger tu información y garantizar que tu experiencia en nuestra plataforma sea segura y privada.</p>
                     </div>
                 </div>
-            </section>
+            </div>
+
+    
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Informes detallados</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>Nuestra plataforma te permite consultar informes detallados en tiempo real. Tendrás acceso a la información que necesitas de forma clara y accesible, ayudándote a tomar decisiones informadas.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+            
+            
+           
+            
+            
 
         </div>
 
        
-        <footer class="main-footer">
-            <div class="container-fluid text-center">
+        <footer class="main-footer" style="background-color: #004085; color: white;">
+            <div class="container-fluid text-center py-4">
                 <p class="font-weight-bold text-lg">Campeones</p>
                 <p class="mt-2 text-sm">
                     Somos una empresa especializada en la generación y consulta de informes detallados. Ofrecemos una plataforma intuitiva y segura para gestionar toda tu información en un solo lugar.
                 </p>
                 <p class="mt-2 text-sm">
-                    Contáctanos: <a href="mailto:campeones@informes.com" class="text-blue-400">contacto@informes.com</a>
+                    Contáctanos: <a href="mailto:campeones@informes.com" class="text-blue-200">contacto@informes.com</a>
                 </p>
             </div>
         </footer>

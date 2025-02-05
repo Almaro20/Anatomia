@@ -1,23 +1,7 @@
 import './bootstrap';
-import './informes.js';
 
+import Alpine from 'alpinejs';
 
-// import React from 'react';
-// import Navbar from './components/Navbar';
-// import Sidebar from './components/Sidebar';
-// import MainContent from './components/MainContent';
-// import Footer from './components/Footer';
+window.Alpine = Alpine;
 
-// const App = () => {
-//     return (
-//         <div className="wrapper">
-//             <Navbar />
-//             <Sidebar />
-//             <MainContent />
-//             <Footer />
-//         </div>
-//     );
-// };
-
-// export default App;
-
+Alpine.start();

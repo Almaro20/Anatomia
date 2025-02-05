@@ -1,30 +1,29 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\SedeController;
 
+/*Route::get('/', function () {
+    return view('welcome');
+})->name('welcome');*/
 
-Route::get('/index', function () {
+Route::get('/', function () {
+    return view('dashboard');
+})->name('dashboard');
+
+Route::get('/', function () {
     return view('index');
+})->name('index');
+
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard2');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-Route::get('/informe', function () {
-    return view('informe');
-});
-Route::get('/registro', function () {
-    return view('registro');
-});
-Route::get('/login', function () {
-    return view('login');
-});
-Route::get('/muestra', function () {
-    return view('muestra');
-});
 
-// Route::get('/sedes/{id}', [SedeController::class, 'show']);
-// Route::get('/sedes', [SedeController::class, 'index']);
-
-
-
-
-Route::get('/sedes', [SedeController::class, 'obtenerSedes']);
-
+require __DIR__.'/auth.php';

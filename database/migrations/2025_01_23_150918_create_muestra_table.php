@@ -12,7 +12,7 @@ return new class extends Migration
             $table->id('muestra_id');
             $table->string('codigo', 50);
             $table->date('fechaEntrada');
-            $table->enum('organo', ['B', 'BV', 'CB', 'CV', 'EX', 'O', 'E', 'ES', 'T', 'F']); // Tipos de muestra
+            $table->enum('organo', ['B', 'BV', 'CB', 'CV', 'EX', 'O', 'E', 'ES', 'T', 'F']);
             $table->text('descripcionMuestra');
             $table->foreignId('tipoNaturaleza_id')->constrained('tipo_naturaleza', 'tipoNaturaleza_id');
             $table->foreignId('formato_id')->constrained('formato', 'formato_id');
@@ -20,7 +20,6 @@ return new class extends Migration
             $table->foreignId('tipoEstudio_id')->constrained('tipo_estudio', 'tipoEstudio_id');
             $table->foreignId('sede_id')->constrained('sede', 'sede_id');
             $table->foreignId('userCreador_id')->constrained('users', 'user_id');
-            $table->timestamps();
         });
     }
 

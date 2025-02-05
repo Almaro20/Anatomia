@@ -1,22 +1,18 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Facades\DB;
+namespace Database\Factories;
 
-return new class extends Migration
+use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\Sede;
+
+class SedeFactory extends Factory
 {
-    public function up()
-    {
-        Schema::create('sede', function (Blueprint $table) {
-            $table->id('sede_id');
-            $table->string('codigo', 10);
-            $table->string('nombre', 100);
-        });
+    protected $model = Sede::class;
 
-        // Insertar las provincias con sus siglas
-        DB::table('sede')->insert([
+    public function definition()
+    {
+        // Lista fija de sedes con su código y nombre
+        $sedes = [
             ['codigo' => 'A', 'nombre' => 'Albacete'],
             ['codigo' => 'AL', 'nombre' => 'Alicante'],
             ['codigo' => 'ALII', 'nombre' => 'Alicante 2'],
@@ -32,11 +28,14 @@ return new class extends Migration
             ['codigo' => 'S', 'nombre' => 'Sevilla'],
             ['codigo' => 'V', 'nombre' => 'Valencia'],
             ['codigo' => 'Z', 'nombre' => 'Zaragoza']
-        ]);
-    }
+        ];
 
-    public function down()
-    {
-        Schema::dropIfExists('sede');
+        // Selecciona aleatoriamente una sede de la lista
+        $sede = $this->faker->unique()->randomElement($sedes);
+
+        return [
+            'codigo' => $sede['codigo'],
+            'nombre' => $sede['nombre'],
+        ];
     }
-};
+}

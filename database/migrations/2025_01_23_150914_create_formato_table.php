@@ -11,7 +11,6 @@ return new class extends Migration
         Schema::create('formato', function (Blueprint $table) {
             $table->id('formato_id');
             $table->string('nombre', 50);
-            $table->timestamps();
         });
     }
 

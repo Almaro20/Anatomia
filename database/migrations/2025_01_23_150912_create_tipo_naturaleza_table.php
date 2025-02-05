@@ -12,7 +12,6 @@ return new class extends Migration
             $table->id('tipoNaturaleza_id');
             $table->string('codigo', 10);
             $table->string('nombre', 100);
-            $table->timestamps();
         });
     }
 
@@ -21,4 +20,3 @@ return new class extends Migration
         Schema::dropIfExists('tipo_naturaleza');
     }
 };
- 

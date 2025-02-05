@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -9,5 +10,11 @@ class Calidad extends Model
     use HasFactory;
 
     protected $table = 'calidad';
-    protected $fillable = ['nombre'];
+    protected $primaryKey = 'calidad_id';
+    public $timestamps = false;
+
+    protected $fillable = [
+        'codigo',
+        'descripcion'
+    ];
 }

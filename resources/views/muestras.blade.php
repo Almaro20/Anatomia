@@ -3,21 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Informe - Inicio</title>
+    <title>Nuevo Informe</title>
 
- 
+    <!-- AdminLTE CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/css/adminlte.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ionicons/dist/css/ionicons.min.css">
+
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 
     <div class="wrapper">
-       
+        <!-- Navbar -->
         <nav class="main-header navbar navbar-expand navbar-white navbar-light">
             <div class="container-fluid">
                 <a href="{{ url('index') }}" class="navbar-brand">
                     <img src="{{ url('../public/img/logo.png') }}" alt="LOGO" class="brand-image img-circle elevation-3" style="width: 30px; height: auto;">
+                    
                 </a>
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item"><a href="{{ url('login') }}" class="nav-link">Login</a></li>
@@ -26,7 +28,7 @@
             </div>
         </nav>
 
-      
+        <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <div class="sidebar">
                 <nav class="mt-2">
@@ -40,74 +42,40 @@
                         </li>
                         <li class="nav-item">
                             <a href="{{ url('informe') }}" class="nav-link">
-                               
+                                
                                 <p>Crear Informe</p>
                                 
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ url('muestras') }}" class="nav-link">
-                              
+                               
                                 <p>Mis Informes</p>
                                 
                             </a>
                         </li>
+
                     </ul>
                 </nav>
             </div>
         </aside>
 
-       
+        <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
-          
-            <section class="content-header">
-                <div class="container-fluid">
-                    <div class="row mb-2">
-                        <div class="col-sm-12 text-center">
-                            <h2 class="text-grey-100">Genera y consulta informes fácilmente</h2>
-                            <p class="text-grey-50">Administra y visualiza todos tus informes en un solo lugar</p>
-                           
-                        </div>
-                    </div>
-                </div>
-            </section>
-
+            <!-- Main content -->
             <section class="content">
                 <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="card card-primary">
-                                <div class="card-body text-center">
-                                    <h3 class="card-title">Fácil de usar</h3>
-                                    <p>Nuestra plataforma es intuitiva y rápida.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="card card-primary">
-                                <div class="card-body text-center">
-                                    <h3 class="card-title">Acceso seguro</h3>
-                                    <p>Protegemos tu información con los mejores estándares.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="card card-primary">
-                                <div class="card-body text-center">
-                                    <h3 class="card-title">Informes detallados</h3>
-                                    <p>Consulta datos detallados en tiempo real.</p>
-                                </div>
-                            </div>
+                    <!-- Title Section -->
+                    <div class="row justify-content-center">
+                        <div class="col-md-6 text-center">
+                            <h1 class="display-4 text-gray-800 font-weight-bold">INFORMES</h1>
                         </div>
                     </div>
                 </div>
             </section>
-
         </div>
 
-       
+        <!-- Footer -->
         <footer class="main-footer">
             <div class="container-fluid text-center">
                 <p class="font-weight-bold text-lg">Campeones</p>
@@ -121,7 +89,7 @@
         </footer>
     </div>
 
+    <!-- AdminLTE JS -->
     <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js"></script>
-
 </body>
 </html>

@@ -28,3 +28,6 @@ Route::prefix('tipo-naturaleza')->group(function () {
     Route::delete('/{id}', [TipoNaturalezaController::class, 'destroy']); // Eliminar un tipo de naturaleza
 });
 
+
+Route::get('/tipo-naturaleza', [TipoNaturalezaController::class, 'index']);
+

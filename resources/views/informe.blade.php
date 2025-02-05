@@ -168,7 +168,41 @@
         });
     </script>
 
-<script src="{{ asset('js/informe.js') }}"></script>
+{{-- <script src="{{ asset('js/informe.js') }}"></script> --}}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Selecciona el combo-box de naturaleza
+        const selectNaturaleza = document.getElementById('naturaleza');
+
+        // Función para cargar los datos desde la API
+        async function cargarNaturaleza() {
+            try {
+                // Realiza la solicitud GET a la API
+                const response = await fetch('{{ url('api/tipo-naturaleza') }}');
+
+                if (!response.ok) {
+                    throw new Error(`Error al cargar los datos: ${response.statusText}`);
+                }
+
+                // Convierte la respuesta a JSON
+                const datos = await response.json();
+
+                // Agrega cada tipo de naturaleza como una opción
+                datos.forEach(tipo => {
+                    const option = document.createElement('option');
+                    option.textContent = tipo.nombre; // Nombre del tipo de naturaleza
+                    selectNaturaleza.appendChild(option);
+                });
+            } catch (error) {
+                alert('Hubo un error al cargar los tipos de naturaleza');
+            }
+        }
+        // Llama a la función para cargar los datos al inicializar la página
+        cargarNaturaleza();
+    });
+</script>
+
+
 
 </body>
 </html>

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nuevo Informe</title>
 
-    <!-- AdminLTE CSS -->
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/css/adminlte.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ionicons/dist/css/ionicons.min.css">
@@ -14,11 +14,11 @@
 <body class="hold-transition sidebar-mini layout-fixed">
 
     <div class="wrapper">
-        <!-- Navbar -->
+        
         <nav class="main-header navbar navbar-expand navbar-white navbar-light">
             <div class="container-fluid">
                 <a href="{{ url('index') }}" class="navbar-brand">
-                    <img src="{{ url('../public/img/logo.png') }}" alt="LOGO" class="brand-image img-circle elevation-3" style="width: 30px; height: auto;">
+                    <img src="{{ url('../public/img/logo.png') }}" alt="LOGO" style="width: 30px; height: auto;">
                     
                 </a>
                 <ul class="navbar-nav ml-auto">
@@ -28,7 +28,7 @@
             </div>
         </nav>
 
-        <!-- Main Sidebar Container -->
+      
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <div class="sidebar">
                 <nav class="mt-2">
@@ -60,12 +60,11 @@
             </div>
         </aside>
 
-        <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
-            <!-- Main content -->
+       
             <section class="content">
                 <div class="container-fluid">
-                    <!-- Title Section -->
+            
                     <div class="row justify-content-center">
                         <div class="col-md-6 text-center">
                             <h1 class="display-4 text-gray-800 font-weight-bold">INFORMES</h1>
@@ -75,21 +74,19 @@
             </section>
         </div>
 
-        <!-- Footer -->
-        <footer class="main-footer">
-            <div class="container-fluid text-center">
+        <footer class="main-footer" style="background-color: #004085; color: white;">
+            <div class="container-fluid text-center py-4">
                 <p class="font-weight-bold text-lg">Campeones</p>
                 <p class="mt-2 text-sm">
                     Somos una empresa especializada en la generación y consulta de informes detallados. Ofrecemos una plataforma intuitiva y segura para gestionar toda tu información en un solo lugar.
                 </p>
                 <p class="mt-2 text-sm">
-                    Contáctanos: <a href="mailto:campeones@informes.com" class="text-blue-400">contacto@informes.com</a>
+                    Contáctanos: <a href="mailto:campeones@informes.com" class="text-blue-200">contacto@informes.com</a>
                 </p>
             </div>
         </footer>
     </div>
 
-    <!-- AdminLTE JS -->
     <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js"></script>
 </body>
 </html>

@@ -77,7 +77,7 @@
                             <h3 class="card-title">Datos del Informe</h3>
                         </div>
                         <div class="card-body">
-                            <form>
+                            <form id="uploadForm">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
@@ -95,10 +95,10 @@
                                         <div class="form-group">
                                             <label for="naturaleza">Naturaleza de la muestra</label>
                                             <select id="naturaleza" class="form-control">
-                                                <option>Tipo</option>
+                                                <option value="">Selecciona un tipo</option>
                                             </select>
                                         </div>
-                                    </div>
+                                    </div>                                    
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="biopsia">Opciones biopsia</label>
@@ -130,7 +130,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <button type="submit" id="vistainforme" class="btn btn-primary mt-4">Siguiente</button>
+                                <button type="submit" id="vistainforme" class="btn btn-primary mt-4">Guardar</button>
                             </form>
                         </div>
                     </div>
@@ -149,7 +149,7 @@
         </footer>
     </div>
 
-    <!-- AdminLTE JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2.0/dist/js/adminlte.min.js"></script>
 
     <!-- Script de validación de archivos -->
@@ -165,5 +165,8 @@
             }
         });
     </script>
+
+<script src="{{ asset('js/informe.js') }}"></script>
+
 </body>
 </html>

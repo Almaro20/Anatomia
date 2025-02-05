@@ -12,7 +12,7 @@ return new class extends Migration
             $table->id('muestra_id');
             $table->string('codigo', 50);
             $table->date('fechaEntrada');
-            $table->enum('organo', ['B', 'BV', 'CB', 'CV', 'EX', 'O', 'E', 'ES', 'T', 'F']);
+            $table->string('organo', 10);
             $table->text('descripcionMuestra');
             $table->foreignId('tipoNaturaleza_id')->constrained('tipo_naturaleza', 'tipoNaturaleza_id');
             $table->foreignId('formato_id')->constrained('formato', 'formato_id');

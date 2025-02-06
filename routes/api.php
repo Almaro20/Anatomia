@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\TipoNaturalezaController;
 use App\Http\Controllers\SedeController;
 use App\Http\Controllers\CalidadController;
+use App\Http\Controllers\OrganoController;
 
 
 // Ruta protegida para obtener el usuario autenticado (requiere Sanctum)
@@ -28,6 +29,7 @@ Route::get('/sedes', [SedeController::class, 'index']);
 
 Route::get('/tipo-naturaleza', [TipoNaturalezaController::class, 'index']);
 
-
 Route::get('/calidades', [CalidadController::class, 'index']);
+
+Route::get('/organos', [OrganoController::class, 'index']);
 

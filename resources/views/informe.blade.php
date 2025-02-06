@@ -181,7 +181,7 @@
                 const response = await fetch('{{ url('api/tipo-naturaleza') }}');
 
                 if (!response.ok) {
-                    throw new Error(`Error al cargar los datos: ${response.statusText}`);
+                    throw new Error(`Error al cargar los datos`);
                 }
 
                 // Convierte la respuesta a JSON
@@ -200,6 +200,62 @@
         // Llama a la función para cargar los datos al inicializar la página
         cargarNaturaleza();
     });
+
+
+const selectSede = document.getElementById('procedencia');
+
+        // Función para cargar los datos desde la API
+        async function cargarSede() {
+            try {
+                // Realiza la solicitud GET a la API
+                const response = await fetch('{{ url('api/sedes') }}');
+
+                if (!response.ok) {
+                    throw new Error(`Error al cargar los datos`);
+                }
+
+                // Convierte la respuesta a JSON
+                const datos = await response.json();
+
+                // Agrega cada tipo de naturaleza como una opción
+                datos.forEach(tipo => {
+                    const option = document.createElement('option');
+                    option.textContent = tipo.nombre; // Nombre del tipo de naturaleza
+                    selectSede.appendChild(option);
+                });
+            } catch (error) {
+                alert('Hubo un error al cargar los tipos de sedes');
+            }
+        }
+        // Llama a la función para cargar los datos al inicializar la página
+        cargarSede();
+
+
+        const selectConservacion = document.getElementById('conservacion');
+
+        // Función para cargar los datos desde la API
+        async function cargarConservacion() {
+            try {
+                // Realiza la solicitud GET a la API
+                const response = await fetch('{{ url('api/calidades') }}');
+
+                if (!response.ok) {
+                    throw new Error(`Error al cargar los datos`);
+                }
+
+                // Convierte la respuesta a JSON
+                const datos = await response.json();
+
+                datos.forEach(tipo => {
+                    const option = document.createElement('option');
+                    option.textContent = tipo.descripcion; 
+                    selectConservacion.appendChild(option);
+                });
+            } catch (error) {
+                alert('Hubo un error al cargar los tipos de conservacion');
+            }
+        }
+        cargarConservacion();
 </script>
 
 

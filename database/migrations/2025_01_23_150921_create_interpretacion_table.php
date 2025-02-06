@@ -11,8 +11,10 @@ return new class extends Migration
         Schema::create('interpretacion', function (Blueprint $table) {
             $table->id('interpretacion_id');
             $table->text('texto');
-            $table->foreignId('muestra_id')->constrained('muestra', 'muestra_id');
-            $table->foreignId('userAutor_id')->constrained('users', 'user_id');
+
+            // Corregir la referencia a la tabla 'muestra' y 'users'
+            $table->foreignId('muestra_id')->constrained('muestra', 'muestra_id'); // Referencia correcta para muestra_id
+            $table->foreignId('userAutor_id')->constrained('users', 'id'); // Referencia correcta para user_id, ahora usa 'id' como clave primaria
         });
     }
 

@@ -9,7 +9,7 @@ class CalidadSeeder extends Seeder
 {
     public function run()
     {
-        DB::table('calidad')->insert([
+        $calidadData = [
             ['codigo' => 'C.1', 'descripcion' => 'Toma válida para examen.'],
             ['codigo' => 'C.2', 'descripcion' => 'Toma válida para examen aunque limitada por ausencia de células endocervicales/zona de transición.'],
             ['codigo' => 'C.3', 'descripcion' => 'Toma válida para examen aunque limitada por hemorragia.'],
@@ -18,7 +18,19 @@ class CalidadSeeder extends Seeder
             ['codigo' => 'C.6', 'descripcion' => 'Toma válida para examen aunque limitada por otra condición.'],
             ['codigo' => 'C.7', 'descripcion' => 'Toma no valorable por desecación.'],
             ['codigo' => 'C.8', 'descripcion' => 'Toma no valorable por ausencia de células.'],
-            ['codigo' => 'C.9', 'descripcion' => 'Toma no valorable por otra condición.']
-        ]);
+            ['codigo' => 'C.9', 'descripcion' => 'Toma no valorable por otra condición.'],
+        ];
+
+        foreach ($calidadData as $data) {
+            DB::table('calidad')->updateOrInsert(
+                ['codigo' => $data['codigo']],
+                ['descripcion' => $data['descripcion']]
+            );
+        }
     }
-}
+
+
+    }
+
+
+

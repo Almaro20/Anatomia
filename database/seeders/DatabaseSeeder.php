@@ -23,11 +23,9 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             CalidadSeeder::class,
-            ImagenSeeder::class,
-            InterpretacionSeeder::class,
             MuestraSeeder::class,
             OrganoSeeder::class,
-            // SedeTableSeeder::class,
+             //SedeTableSeeder::class,
             // TipoEstudioTableSeeder::class,
             // TipoNaturalezaTableSeeder::class,
             // UsersTableSeeder::class,

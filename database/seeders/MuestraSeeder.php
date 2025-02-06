@@ -37,3 +37,4 @@ class MuestraSeeder extends Seeder
         ]);
     }
 }
+

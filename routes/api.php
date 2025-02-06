@@ -33,3 +33,5 @@ Route::get('/calidades', [CalidadController::class, 'index']);
 
 Route::get('/organos', [OrganoController::class, 'index']);
 
+
+

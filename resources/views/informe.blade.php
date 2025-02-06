@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nuevo Informe</title>
- 
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2.0/dist/css/adminlte.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
- 
+
         <nav class="main-header navbar navbar-expand navbar-white navbar-light">
             <div class="container-fluid">
                 <a href="{{ url('index') }}" class="navbar-brand">
@@ -22,31 +22,31 @@
             </div>
         </nav>
 
-   
+
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <div class="sidebar">
-      
+
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <li class="nav-item">
                             <a href="{{ url('index') }}" class="nav-link">
-                                
+
                                 <p>Inicio</p>
-                                
+
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ url('informe') }}" class="nav-link">
-                                
+
                                 <p>Crear Informe</p>
-                                
+
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ url('muestras') }}" class="nav-link">
-                                
+
                                 <p>Mis Informes</p>
-                                
+
                             </a>
                         </li>
                     </ul>
@@ -54,9 +54,9 @@
             </div>
         </aside>
 
-      
+
         <div class="content-wrapper">
-          
+
             <div class="content-header">
                 <div class="container-fluid">
                     <div class="row mb-2">
@@ -67,10 +67,10 @@
                 </div>
             </div>
 
-         
+
             <div class="content">
                 <div class="container-fluid">
-            
+
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">Datos del Informe</h3>
@@ -97,7 +97,7 @@
                                                 <option value="">Selecciona un tipo</option>
                                             </select>
                                         </div>
-                                    </div>                                    
+                                    </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="biopsia">Opciones biopsia</label>
@@ -137,7 +137,7 @@
             </div>
         </div>
 
-    
+
         <footer class="main-footer" style="background-color: #004085; color: white;">
             <div class="container-fluid text-center py-4">
                 <p class="font-weight-bold text-lg">Campeones</p>
@@ -154,7 +154,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2.0/dist/js/adminlte.min.js"></script>
 
-  
+
     <script>
         document.getElementById('uploadForm').addEventListener('submit', function (e) {
             const fileInput = document.getElementById('archivo_foto');
@@ -248,7 +248,7 @@ const selectSede = document.getElementById('procedencia');
 
                 datos.forEach(tipo => {
                     const option = document.createElement('option');
-                    option.textContent = tipo.descripcion; 
+                    option.textContent = tipo.descripcion;
                     selectConservacion.appendChild(option);
                 });
             } catch (error) {
@@ -275,7 +275,7 @@ const selectSede = document.getElementById('procedencia');
 
                 datos.forEach(tipo => {
                     const option = document.createElement('option');
-                    option.textContent = tipo.nombre; 
+                    option.textContent = tipo.nombre;
                     selectOrgano.appendChild(option);
                 });
             } catch (error) {
@@ -285,6 +285,41 @@ const selectSede = document.getElementById('procedencia');
         cargarOrgano();
 
 
+    document.getElementById('uploadForm').addEventListener('submit', async function (e) {
+        e.preventDefault(); // Evita que la página se recargue
+
+        const formData = {
+            codigo: document.getElementById('codigo').value,
+            fecha: document.getElementById('fecha').value,
+            tipoNaturaleza_id: document.getElementById('naturaleza').value,
+            formato_id: document.getElementById('conservacion').value,
+            calidad_id: document.getElementById('conservacion').value,
+            sede_id: document.getElementById('procedencia').value,
+            organo_id: document.getElementById('biopsia').value,
+            descripcionMuestra: "Descripción de prueba"
+        };
+
+        try {
+            const response = await fetch('{{ url('api/muestras') }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            });
+
+            if (!response.ok) {
+                throw new Error('Error al guardar la muestra');
+            }
+
+            const data = await response.json();
+            alert('Muestra guardada correctamente');
+            console.log(data);
+        } catch (error) {
+            alert('Hubo un error al guardar la muestra');
+            console.error(error);
+        }
+    });
 </script>
 
 

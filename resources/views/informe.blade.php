@@ -114,78 +114,58 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
 document.addEventListener('DOMContentLoaded', function () {
-        // Selecciona el combo-box de naturaleza
         const selectNaturaleza = document.getElementById('naturaleza');
-
-        // Función para cargar los datos desde la API
         async function cargarNaturaleza() {
             try {
-                // Realiza la solicitud GET a la API
                 const response = await fetch('{{ url('api/tipo-naturaleza') }}');
 
                 if (!response.ok) {
                     throw new Error(`Error al cargar los datos: ${response.statusText}`);
                 }
 
-                // Convierte la respuesta a JSON
                 const datos = await response.json();
-
-                // Agrega cada tipo de naturaleza como una opción
                 datos.forEach(tipo => {
                     const option = document.createElement('option');
-                    option.textContent = tipo.nombre; // Nombre del tipo de naturaleza
+                    option.textContent = tipo.nombre; 
                     selectNaturaleza.appendChild(option);
                 });
             } catch (error) {
                 alert('Hubo un error al cargar los tipos de naturaleza');
             }
         }
-        // Llama a la función para cargar los datos al inicializar la página
         cargarNaturaleza();
         });
 
         const selectSede = document.getElementById('procedencia');
-
-        // Función para cargar los datos desde la API
         async function cargarSede() {
             try {
-                // Realiza la solicitud GET a la API
                 const response = await fetch('{{ url('api/sedes') }}');
 
                 if (!response.ok) {
                     throw new Error(`Error al cargar los datos`);
                 }
 
-                // Convierte la respuesta a JSON
                 const datos = await response.json();
-
-                // Agrega cada tipo de naturaleza como una opción
                 datos.forEach(tipo => {
                     const option = document.createElement('option');
-                    option.textContent = tipo.nombre; // Nombre del tipo de naturaleza
+                    option.textContent = tipo.nombre;
                     selectSede.appendChild(option);
                 });
             } catch (error) {
                 alert('Hubo un error al cargar los tipos de sedes');
             }
         }
-        // Llama a la función para cargar los datos al inicializar la página
         cargarSede();
 
 
         const selectConservacion = document.getElementById('conservacion');
-
-        // Función para cargar los datos desde la API
         async function cargarConservacion() {
             try {
-                // Realiza la solicitud GET a la API
                 const response = await fetch('{{ url('api/calidades') }}');
 
                 if (!response.ok) {
                     throw new Error(`Error al cargar los datos`);
                 }
-
-                // Convierte la respuesta a JSON
                 const datos = await response.json();
 
                 datos.forEach(tipo => {
@@ -199,9 +179,30 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         cargarConservacion();
 
+        const selectOrgano = document.getElementById('biopsia');
+        async function cargarOrgano() {
+            try {
+                const response = await fetch('{{ url('api/organos') }}');
+
+                if (!response.ok) {
+                    throw new Error(`Error al cargar los datos`);
+                }
+                const datos = await response.json();
+
+                datos.forEach(tipo => {
+                    const option = document.createElement('option');
+                    option.textContent = tipo.nombre; 
+                    selectOrgano.appendChild(option);
+                });
+            } catch (error) {
+                alert('Hubo un error al cargar los tipos de organos');
+            }
+        }
+        cargarOrgano();
 
 
 
+        
         document.getElementById('uploadForm').addEventListener('submit', async function (e) {
             e.preventDefault();
             const formData = {

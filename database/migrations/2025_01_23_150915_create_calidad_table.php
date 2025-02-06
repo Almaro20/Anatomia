@@ -13,10 +13,9 @@ return new class extends Migration
             $table->id('calidad_id');
             $table->string('codigo', 10)->unique();
             $table->string('descripcion', 255);
-            $table->engine = 'InnoDB'; 
+            $table->engine = 'InnoDB';
         });
 
-        // Insertar valores iniciales
         DB::table('calidad')->insert([
             ['codigo' => 'C.1', 'descripcion' => 'Toma válida para examen.'],
             ['codigo' => 'C.2', 'descripcion' => 'Toma válida para examen aunque limitada por ausencia de células endocervicales/zona de transición.'],

@@ -2,9 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\User;
+use App\Models\Sede;  // Asegúrate de usar las clases correctas
+use App\Models\TipoEstudio;
+use App\Models\TipoNaturaleza;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,11 +15,22 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
+        // Crear un usuario de prueba
         User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
+        ]);
+
+        $this->call([
+            CalidadSeeder::class,
+            ImagenSeeder::class,
+            InterpretacionSeeder::class,
+            MuestraSeeder::class,
+            OrganoSeeder::class,
+            // SedeTableSeeder::class,
+            // TipoEstudioTableSeeder::class,
+            // TipoNaturalezaTableSeeder::class,
+            // UsersTableSeeder::class,
         ]);
     }
 }

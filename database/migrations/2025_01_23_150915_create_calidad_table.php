@@ -13,7 +13,7 @@ return new class extends Migration
             $table->id('calidad_id');
             $table->string('codigo', 10)->unique();
             $table->string('descripcion', 255);
-            $table->engine = 'InnoDB'; // Asegúrate de usar InnoDB
+            $table->engine = 'InnoDB'; 
         });
 
         // Insertar valores iniciales

@@ -13,10 +13,9 @@ return new class extends Migration
             $table->id('sede_id');
             $table->string('codigo', 10);
             $table->string('nombre', 100);
-            $table->engine = 'InnoDB'; // Asegúrate de usar InnoDB
+            $table->engine = 'InnoDB';
         });
 
-        // Insertar las provincias con sus siglas
         DB::table('sede')->insert([
             ['codigo' => 'A', 'nombre' => 'Albacete'],
             ['codigo' => 'AL', 'nombre' => 'Alicante'],

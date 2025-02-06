@@ -13,10 +13,10 @@ return new class extends Migration
             $table->id('muestra_id');
             $table->string('codigo', 50);
             $table->date('fechaEntrada');
-            $table->enum('organo', ['B', 'BV', 'CB', 'CV', 'EX', 'O', 'E', 'ES', 'T', 'F']); // Tipos de muestra
+            $table->enum('organo', ['B', 'BV', 'CB', 'CV', 'EX', 'O', 'E', 'ES', 'T', 'F']);
             $table->text('descripcionMuestra');
 
-            // Claves foráneas con referencia directa a la tabla sin usar el método `constrained`
+
             $table->foreignId('tipoNaturaleza_id');
             $table->foreignId('formato_id');
             $table->foreignId('calidad_id');
@@ -32,10 +32,8 @@ return new class extends Migration
             $table->foreign('sede_id')->references('sede_id')->on('sede')->onDelete('cascade');
             $table->foreign('userCreador_id')->references('user_id')->on('users')->onDelete('cascade');
 
-            // Timestamps
-            $table->timestamps();
 
-            // Asegurar que la tabla utilice el motor InnoDB para las claves foráneas
+
             $table->engine = 'InnoDB';
         });
     }

@@ -10,13 +10,12 @@ return new class extends Migration
     public function up()
     {
         Schema::create('tipo_naturaleza', function (Blueprint $table) {
-            $table->id('tipoNaturaleza_id'); // Asegúrate de tener un nombre adecuado para la columna primaria
+            $table->id('tipoNaturaleza_id');
             $table->string('codigo', 10);
             $table->string('nombre', 100);
-            $table->engine = 'InnoDB'; // Asegúrate de usar InnoDB
+            $table->engine = 'InnoDB';
         });
 
-        // Insertar los valores en la tabla
         DB::table('tipo_naturaleza')->insert([
             ['codigo' => 'B', 'nombre' => 'Biopsias'],
             ['codigo' => 'BV', 'nombre' => 'Biopsias veterinarias'],

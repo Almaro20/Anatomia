@@ -11,7 +11,7 @@ return new class extends Migration
         Schema::create('tipo_estudio', function (Blueprint $table) {
             $table->id('tipoEstudio_id');
             $table->string('nombre', 100);
-            $table->engine = 'InnoDB'; // Asegúrate de usar InnoDB
+            $table->engine = 'InnoDB';// Asegúrate de usar InnoDB
         });
     }
 

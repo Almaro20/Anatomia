@@ -9,32 +9,30 @@ return new class extends Migration
     public function up()
     {
         Schema::create('muestra', function (Blueprint $table) {
+            // Definir la columna primaria
             $table->id('muestra_id');
             $table->string('codigo', 50);
             $table->date('fechaEntrada');
             $table->enum('organo', ['B', 'BV', 'CB', 'CV', 'EX', 'O', 'E', 'ES', 'T', 'F']); // Tipos de muestra
             $table->text('descripcionMuestra');
 
-            // Definición de claves foráneas con restricciones
-            $table->foreignId('tipoNaturaleza_id')
-                ->constrained('tipo_naturaleza', 'tipoNaturaleza_id')
-                ->onDelete('cascade');
-            $table->foreignId('formato_id')
-                ->constrained('formato', 'formato_id')
-                ->onDelete('cascade');
-            $table->foreignId('calidad_id')
-                ->constrained('calidad', 'calidad_id')
-                ->onDelete('cascade');
-            $table->foreignId('tipoEstudio_id')
-                ->constrained('tipo_estudio', 'tipoEstudio_id')
-                ->onDelete('cascade');
-            $table->foreignId('sede_id')
-                ->constrained('sede', 'sede_id')
-                ->onDelete('cascade');
-            $table->foreignId('userCreador_id')
-                ->constrained('users', 'user_id')
-                ->onDelete('cascade');
+            // Claves foráneas con referencia directa a la tabla sin usar el método `constrained`
+            $table->foreignId('tipoNaturaleza_id');
+            $table->foreignId('formato_id');
+            $table->foreignId('calidad_id');
+            $table->foreignId('tipoEstudio_id');
+            $table->foreignId('sede_id');
+            $table->foreignId('userCreador_id');
 
+            // Añadir los constraints de las claves foráneas manualmente
+            $table->foreign('tipoNaturaleza_id')->references('tipoNaturaleza_id')->on('tipo_naturaleza')->onDelete('cascade');
+            $table->foreign('formato_id')->references('formato_id')->on('formato')->onDelete('cascade');
+            $table->foreign('calidad_id')->references('calidad_id')->on('calidad')->onDelete('cascade');
+            $table->foreign('tipoEstudio_id')->references('tipoEstudio_id')->on('tipo_estudio')->onDelete('cascade');
+            $table->foreign('sede_id')->references('sede_id')->on('sede')->onDelete('cascade');
+            $table->foreign('userCreador_id')->references('user_id')->on('users')->onDelete('cascade');
+
+            // Timestamps
             $table->timestamps();
 
             // Asegurar que la tabla utilice el motor InnoDB para las claves foráneas

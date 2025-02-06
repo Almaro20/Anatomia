@@ -9,6 +9,12 @@ class CalidadSeeder extends Seeder
 {
     public function run()
     {
+        // Limpia la tabla y elimina cualquier dato existente
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;'); // Desactiva las restricciones de claves foráneas
+        DB::table('calidad')->truncate();         // Vacía la tabla
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;'); // Reactiva las restricciones
+
+        // Inserta los nuevos registros
         $calidadData = [
             ['codigo' => 'C.1', 'descripcion' => 'Toma válida para examen.'],
             ['codigo' => 'C.2', 'descripcion' => 'Toma válida para examen aunque limitada por ausencia de células endocervicales/zona de transición.'],
@@ -21,16 +27,6 @@ class CalidadSeeder extends Seeder
             ['codigo' => 'C.9', 'descripcion' => 'Toma no valorable por otra condición.'],
         ];
 
-        foreach ($calidadData as $data) {
-            DB::table('calidad')->updateOrInsert(
-                ['codigo' => $data['codigo']],
-                ['descripcion' => $data['descripcion']]
-            );
-        }
+        DB::table('calidad')->insert($calidadData); // Inserta todos los registros
     }
-
-
-    }
-
-
-
+}

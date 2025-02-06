@@ -9,17 +9,25 @@ return new class extends Migration
     public function up()
     {
         Schema::create('muestra', function (Blueprint $table) {
-            $table->id('muestra_id');
+            $table->id();
             $table->string('codigo', 50);
-            $table->date('fechaEntrada');
-            $table->string('organo', 10);
-            $table->text('descripcionMuestra');
-            $table->foreignId('tipoNaturaleza_id')->constrained('tipo_naturaleza', 'tipoNaturaleza_id');
-            $table->foreignId('formato_id')->constrained('formato', 'formato_id');
-            $table->foreignId('calidad_id')->constrained('calidad', 'calidad_id');
-            $table->foreignId('tipoEstudio_id')->constrained('tipo_estudio', 'tipoEstudio_id');
-            $table->foreignId('sede_id')->constrained('sede', 'sede_id');
-            $table->foreignId('userCreador_id')->constrained('users', 'user_id');
+            $table->date('fecha');
+            $table->unsignedBigInteger('tipo_naturaleza_id');
+            $table->unsignedBigInteger('organo_id');
+            $table->unsignedBigInteger('formato_id');
+            $table->unsignedBigInteger('calidad_id');
+            $table->unsignedBigInteger('sede_id');
+            $table->text('descripcionMuestra')->nullable();
+            $table->timestamps();
+            $table->engine = 'InnoDB';
+
+            // Claves foráneas
+            $table->foreign('tipo_naturaleza_id')->references('id')->on('tipo_naturaleza')->onDelete('cascade');
+            $table->foreign('organo_id')->references('id')->on('organo')->onDelete('cascade');
+            $table->foreign('formato_id')->references('id')->on('formato')->onDelete('cascade');
+            $table->foreign('calidad_id')->references('id')->on('calidad')->onDelete('cascade');
+            $table->foreign('sede_id')->references('id')->on('sede')->onDelete('cascade');
+
         });
     }
 

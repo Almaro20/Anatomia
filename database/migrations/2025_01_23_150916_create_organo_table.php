@@ -10,11 +10,13 @@ return new class extends Migration
     public function up()
     {
         Schema::create('organo', function (Blueprint $table) {
-            $table->id('organo_id');
-            $table->string('codigo', 10)->unique(); 
+            $table->id(); 
+            $table->string('codigo', 10)->unique();
             $table->string('nombre', 50);
+            $table->engine = 'InnoDB'; // Asegurar InnoDB
         });
 
+        // Insertar datos iniciales
         DB::table('organo')->insert([
             ['codigo' => 'BC', 'nombre' => 'Corazón'],
             ['codigo' => 'BB', 'nombre' => 'Bazo'],

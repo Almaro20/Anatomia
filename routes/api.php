@@ -33,5 +33,6 @@ Route::get('/calidades', [CalidadController::class, 'index']);
 
 Route::get('/organos', [OrganoController::class, 'index']);
 
+Route::get('/insertar-muestra-prueba', [MuestraController::class, 'insertarMuestraPrueba']);
 
 

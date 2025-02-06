@@ -256,6 +256,35 @@ const selectSede = document.getElementById('procedencia');
             }
         }
         cargarConservacion();
+
+
+        const selectOrgano = document.getElementById('biopsia');
+
+        // Función para cargar los datos desde la API
+        async function cargarOrgano() {
+            try {
+                // Realiza la solicitud GET a la API
+                const response = await fetch('{{ url('api/organos') }}');
+
+                if (!response.ok) {
+                    throw new Error(`Error al cargar los datos`);
+                }
+
+                // Convierte la respuesta a JSON
+                const datos = await response.json();
+
+                datos.forEach(tipo => {
+                    const option = document.createElement('option');
+                    option.textContent = tipo.nombre; 
+                    selectOrgano.appendChild(option);
+                });
+            } catch (error) {
+                alert('Hubo un error al cargar los tipos de organos');
+            }
+        }
+        cargarOrgano();
+
+
 </script>
 
 

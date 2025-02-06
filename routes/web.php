@@ -11,18 +11,6 @@ Route::get('/', function () {
     return view('dashboard');
 })->name('dashboard');
 
-Route::get('/index', function () {
-    return view('index');
-})->name('index');
-Route::get('/informe', function () {
-    return view('informe');
-})->name('informe');
-Route::get('/muestras', function () {
-    return view('muestras');
-})->name('muestras');
-
-
-
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard2');

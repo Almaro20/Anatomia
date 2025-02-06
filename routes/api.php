@@ -15,24 +15,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-// Rutas de Muestra (CRUD)
-Route::prefix('muestras')->group(function () {
-    Route::get('/', [MuestraController::class, 'index']); // Listar todas las muestras
-    Route::post('/', [MuestraController::class, 'store']); // Crear una muestra
-    Route::get('/{id}', [MuestraController::class, 'show']); // Ver una muestra específica
-    Route::put('/{id}', [MuestraController::class, 'update']); // Actualizar muestra
-    Route::delete('/{id}', [MuestraController::class, 'destroy']); // Eliminar muestra
-});
-
-
-Route::get('/sedes', [SedeController::class, 'index']);
-
+Route::get('/muestras', [MuestraController::class, 'index']);
+Route::post('/muestras', [MuestraController::class, 'store']);
 Route::get('/tipo-naturaleza', [TipoNaturalezaController::class, 'index']);
-
-Route::get('/calidades', [CalidadController::class, 'index']);
-
 Route::get('/organos', [OrganoController::class, 'index']);
-
-Route::get('/insertar-muestra-prueba', [MuestraController::class, 'insertarMuestraPrueba']);
+Route::get('/calidades', [CalidadController::class, 'index']);
+Route::get('/sedes', [SedeController::class, 'index']);
 
 

@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -9,21 +8,17 @@ class Muestra extends Model
 {
     use HasFactory;
 
-    protected $table = 'muestra'; // Nombre de la tabla
-
-    protected $primaryKey = 'muestra_id'; // Clave primaria
-
-    public $timestamps = true; // Habilitar timestamps
+    protected $table = 'muestra';
 
     protected $fillable = [
         'codigo',
-        'fecha',
+        'fechaEntrada',
         'tipoNaturaleza_id',
         'organo_id',
         'formato_id',
         'calidad_id',
         'sede_id',
-        'descripcionMuestra',
+        'descripcionMuestra'
     ];
 
     // Relaciones

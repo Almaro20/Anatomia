@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Nuevo Informe</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2.0/dist/css/adminlte.min.css">
 </head>
@@ -11,7 +12,7 @@
         <nav class="main-header navbar navbar-expand navbar-white navbar-light">
             <div class="container-fluid">
                 <a href="{{ url('index') }}" class="navbar-brand">
-                    <img src="{{ url('../public/img/logo.png') }}" alt="LOGO" style="width: 30px; height: auto;">
+                    <img src="{{ url('img/logo.png') }}" alt="LOGO" style="width: 30px; height: auto;">
                 </a>
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item"><a href="{{ url('login') }}" class="nav-link">Login</a></li>
@@ -98,7 +99,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary mt-4">Guardar</button>
+                                <button type="button" id="guardarMuestra" class="btn btn-primary mt-4">Guardar</button>
                             </form>
                         </div>
                     </div>
@@ -111,39 +112,83 @@
             </div>
         </footer>
     </div>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        document.getElementById('uploadForm').addEventListener('submit', async function (e) {
-            e.preventDefault();
-            const formData = {
-                codigo: document.getElementById('codigo').value,
-                fecha: document.getElementById('fecha').value,
-                tipoNaturaleza_id: document.getElementById('naturaleza').value,
-                organo_id: document.getElementById('biopsia').value,
-                formato_id: document.getElementById('conservacion').value,
-                calidad_id: document.getElementById('conservacion').value,
-                sede_id: document.getElementById('procedencia').value,
-                descripcionMuestra: "Ejemplo desde formulario"
+        document.addEventListener('DOMContentLoaded', function () {
+            const endpoints = {
+                naturaleza: '{{ url("api/tipo-naturaleza") }}',
+                organo: '{{ url("api/organos") }}',
+                conservacion: '{{ url("api/calidades") }}',
+                procedencia: '{{ url("api/sedes") }}',
+                guardar: '{{ url("api/muestras") }}'
             };
 
-            try {
-                const response = await fetch('{{ url('api/muestras') }}', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(formData)
-                });
-
-                if (!response.ok) {
-                    const errorData = await response.json();
-                    throw new Error(errorData.message || 'Error desconocido');
+            // Función para cargar datos en un combobox
+            async function cargarDatos(endpoint, selectId, idField, nameField) {
+                const select = document.getElementById(selectId);
+                try {
+                    const response = await fetch(endpoint);
+                    if (!response.ok) throw new Error('Error al cargar los datos');
+                    const data = await response.json();
+                    data.forEach(item => {
+                        const option = document.createElement('option');
+                        option.value = item[idField];
+                        option.textContent = item[nameField];
+                        select.appendChild(option);
+                    });
+                } catch (error) {
+                    alert('Error al cargar los datos');
+                    console.error('Error al cargar:', error);
                 }
-
-                alert('Muestra guardada correctamente');
-            } catch (error) {
-                alert(`Error al guardar la muestra: ${error.message}`);
-                console.error(error);
             }
+
+            // Cargar datos para cada combo box
+            cargarDatos(endpoints.naturaleza, 'naturaleza', 'tipoNaturaleza_id', 'nombre');
+            cargarDatos(endpoints.organo, 'biopsia', 'organo_id', 'nombre');
+            cargarDatos(endpoints.conservacion, 'conservacion', 'calidad_id', 'descripcion');
+            cargarDatos(endpoints.procedencia, 'procedencia', 'sede_id', 'nombre');
+
+            // Manejar el clic del botón Guardar
+            document.getElementById('guardarMuestra').addEventListener('click', async function () {
+                // Crear el objeto formData con los valores del formulario
+                const formData = {
+                    codigo: document.getElementById('codigo').value,
+                    fechaEntrada: document.getElementById('fecha').value,
+                    tipoNaturaleza_id: document.getElementById('naturaleza').value,
+                    organo_id: document.getElementById('biopsia').value, // organo_id enviado correctamente
+                    formato_id: document.getElementById('conservacion').value,
+                    calidad_id: document.getElementById('conservacion').value,
+                    sede_id: document.getElementById('procedencia').value,
+                    descripcionMuestra: "Ejemplo desde formulario"
+                };
+
+                console.log("Datos enviados al backend:", formData); // Depuración
+
+                try {
+                    const response = await fetch(endpoints.guardar, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector("meta[name='csrf-token']").getAttribute("content")
+                        },
+                        body: JSON.stringify(formData)
+                    });
+
+                    if (!response.ok) {
+                        const errorData = await response.json();
+                        console.error('Errores devueltos por el backend:', errorData);
+                        throw new Error(errorData.message || 'Error desconocido');
+                    }
+
+                    const data = await response.json();
+                    console.log("Respuesta del servidor:", data);
+                    alert('Muestra guardada correctamente.');
+                } catch (error) {
+                    alert(`Error al guardar la muestra: ${error.message}`);
+                    console.error("Error al guardar la muestra:", error);
+                }
+            });
         });
-    </script>
+        </script>
+
 </body>
 </html>

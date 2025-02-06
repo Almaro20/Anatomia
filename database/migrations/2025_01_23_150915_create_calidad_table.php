@@ -12,7 +12,8 @@ return new class extends Migration
         Schema::create('calidad', function (Blueprint $table) {
             $table->id('calidad_id');
             $table->string('codigo', 10)->unique();
-            $table->string('descripcion', 255); 
+            $table->string('descripcion', 255);
+            $table->engine = 'InnoDB'; // Asegúrate de usar InnoDB
         });
 
         // Insertar valores iniciales

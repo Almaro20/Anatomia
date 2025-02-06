@@ -10,7 +10,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('organo', function (Blueprint $table) {
-            $table->id(); 
+            $table->id('organo_id'); // Se ha especificado un nombre para la columna primaria
             $table->string('codigo', 10)->unique();
             $table->string('nombre', 50);
             $table->engine = 'InnoDB'; // Asegurar InnoDB

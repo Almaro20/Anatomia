@@ -13,6 +13,7 @@ return new class extends Migration
             $table->id('sede_id');
             $table->string('codigo', 10);
             $table->string('nombre', 100);
+            $table->engine = 'InnoDB'; // Asegúrate de usar InnoDB
         });
 
         // Insertar las provincias con sus siglas

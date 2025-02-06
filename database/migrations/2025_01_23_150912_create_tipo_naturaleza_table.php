@@ -5,15 +5,15 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB;
 
-
 return new class extends Migration
 {
     public function up()
     {
         Schema::create('tipo_naturaleza', function (Blueprint $table) {
-            $table->id(); 
+            $table->id('tipoNaturaleza_id'); // Asegúrate de tener un nombre adecuado para la columna primaria
             $table->string('codigo', 10);
             $table->string('nombre', 100);
+            $table->engine = 'InnoDB'; // Asegúrate de usar InnoDB
         });
 
         // Insertar los valores en la tabla

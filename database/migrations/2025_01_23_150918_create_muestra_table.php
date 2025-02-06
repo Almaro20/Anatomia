@@ -24,7 +24,6 @@ return new class extends Migration
             $table->foreignId('sede_id');
             $table->foreignId('userCreador_id');
 
-            // Añadir los constraints de las claves foráneas manualmente
             $table->foreign('tipoNaturaleza_id')->references('tipoNaturaleza_id')->on('tipo_naturaleza')->onDelete('cascade');
             $table->foreign('formato_id')->references('formato_id')->on('formato')->onDelete('cascade');
             $table->foreign('calidad_id')->references('calidad_id')->on('calidad')->onDelete('cascade');

@@ -11,12 +11,15 @@ return new class extends Migration
         Schema::create('calidad', function (Blueprint $table) {
             $table->id();
             $table->string('codigo');
-            $table->string('descripcion');
+            $table->text('descripcion');
+            $table->unsignedBigInteger('tipoEstudio_id'); // esta columna no debe ser nullable
+            $table->foreign('tipoEstudio_id')->references('id')->on('tipo_estudio'); // asegúrate de que esto sea correcto
+            $table->timestamps();
+
             $table->engine = 'InnoDB';
 
-            $table->foreignId('tipoEstudio_id')->references('id')->on('tipo_estudio');
-
         });
+
     }
 
     public function down()

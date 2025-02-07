@@ -12,18 +12,20 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('muestras_interpretacion', function (Blueprint $table) {
-            $table->id(); // Clave primaria correcta
+            $table->id(); // Clave primaria
             $table->string('calidad');
             $table->unsignedBigInteger('idMuestras');
             $table->unsignedBigInteger('idInterpretacion');
 
-            $table->foreign('idMuestras')->references('id')->on('muestra');
-            $table->foreign('idInterpretacion')->references('id')->on('interpretacion');
+            // Verificar si las tablas existen antes de agregar claves foráneas
+            if (Schema::hasTable('muestra')) {
+                $table->foreign('idMuestras')->references('id')->on('muestra')->onDelete('cascade');
+            }
+
+            if (Schema::hasTable('interpretacion')) {
+                $table->foreign('idInterpretacion')->references('id')->on('interpretacion')->onDelete('cascade');
+            }
         });
-
-
-
-        //
     }
 
     /**
@@ -31,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('muestras_interpretacion');
     }
 };

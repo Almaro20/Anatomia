@@ -11,7 +11,7 @@ return new class extends Migration
         Schema::create('tipo_estudio', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
-            $table->string('descripcion');
+            $table->string('descripcion')->default('Descripción por defecto')->change();
 
             $table->engine = 'InnoDB';
         });

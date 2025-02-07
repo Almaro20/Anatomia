@@ -15,6 +15,12 @@ class Calidad extends Model
 
     protected $fillable = [
         'codigo',
-        'descripcion'
+        'descripcion',
+        'tipo_estudio_id', // Debe ser fillable
     ];
+
+    public function tipoEstudio()
+    {
+        return $this->belongsTo(TipoEstudio::class, 'tipo_estudio_id'); // Relación correcta
+    }
 }

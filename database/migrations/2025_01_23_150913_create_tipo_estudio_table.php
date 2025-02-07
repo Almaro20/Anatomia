@@ -9,8 +9,12 @@ return new class extends Migration
     public function up()
     {
         Schema::create('tipo_estudio', function (Blueprint $table) {
-            $table->id('tipoEstudio_id');
-            $table->string('nombre', 100);
+            $table->id();
+            $table->string('nombre');
+            $table->string('descripcion')->default('Descripción por defecto')->change();
+            $table->softDeletes(); 
+
+
             $table->engine = 'InnoDB';
         });
     }

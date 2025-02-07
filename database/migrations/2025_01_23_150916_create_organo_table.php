@@ -13,6 +13,8 @@ return new class extends Migration
             $table->string('codigo');
             $table->string('nombre');
             $table->engine = 'InnoDB';
+            $table->softDeletes();
+
         });
     }
 

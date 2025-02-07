@@ -14,6 +14,8 @@ return new class extends Migration
             $table->date('fechaEntrada');
             $table->enum('organo', ['B', 'BV', 'CB', 'CV', 'EX', 'O', 'E', 'ES', 'T', 'F']);
             $table->text('descripcionMuestra');
+            $table->softDeletes();
+
 
             // Definir claves foráneas correctamente
             $table->foreignId('tipoNaturaleza_id')->constrained('tipo_naturaleza');

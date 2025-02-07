@@ -12,6 +12,8 @@ return new class extends Migration
             $table->id();
             $table->string('nombre');
             $table->string('descripcion')->default('Descripción por defecto')->change();
+            $table->softDeletes(); 
+
 
             $table->engine = 'InnoDB';
         });

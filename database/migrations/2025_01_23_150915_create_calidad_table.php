@@ -15,6 +15,8 @@ return new class extends Migration
             $table->unsignedBigInteger('tipoEstudio_id'); // esta columna no debe ser nullable
             $table->foreign('tipoEstudio_id')->references('id')->on('tipo_estudio'); // asegúrate de que esto sea correcto
             $table->timestamps();
+            $table->softDeletes();
+
 
             $table->engine = 'InnoDB';
 

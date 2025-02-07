@@ -9,9 +9,11 @@ return new class extends Migration
     public function up()
     {
         Schema::create('tipo_naturaleza', function (Blueprint $table) {
-            $table->id(); // Clave primaria predeterminada (id) ✅
-            $table->string('codigo'); // Código único ✅
+            $table->id();
+            $table->string('codigo');
             $table->string('nombre');
+            $table->softDeletes();
+
         });
     }
 

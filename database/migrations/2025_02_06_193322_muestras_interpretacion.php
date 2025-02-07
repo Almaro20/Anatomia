@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('calidad');
             $table->unsignedBigInteger('idMuestras');
             $table->unsignedBigInteger('idInterpretacion');
+            $table->softDeletes();
+
 
             // Verificar si las tablas existen antes de agregar claves foráneas
             if (Schema::hasTable('muestra')) {

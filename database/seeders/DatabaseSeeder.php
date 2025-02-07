@@ -7,29 +7,24 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 
+
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     */
     public function run()
     {
-        $this->call([
-            TipoEstudioTableSeeder::class,      // Tipos de estudio
-            SedeTableSeeder::class,             // Sedes (relación 1:N con Muestra)
-            TipoNaturalezaTableSeeder::class,   // Tipos de naturaleza (relación N:1 con Muestra)
-            UsersTableSeeder::class,            // Usuarios (relación 1:N con Muestra)
-            MuestraSeeder::class,
-            CalidadSeeder::class,
-            FormatoSeeder::class,               // Formatos (relación N:1 con Muestra)
+        // Primero los seeders de tablas sin dependencias
+        $this->call(UsersTableSeeder::class);
+        $this->call(SedeTableSeeder::class);
+        $this->call(TipoNaturalezaTableSeeder::class);
+        $this->call(TipoEstudioTableSeeder::class);
+        $this->call(CalidadSeeder::class);
+        $this->call(FormatoSeeder::class);
 
-        ]);
-
-
+        // Por último los seeders que dependen de otras tablas
+        $this->call(MuestraSeeder::class);
     }
+}
 
-
-    }
 
 
     class UsersTableSeeder extends Seeder

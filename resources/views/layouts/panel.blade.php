@@ -8,10 +8,10 @@
     <title>@yield('title')</title>
     <link rel="icon" type="image/ico" href="{{ asset('img/favicon.ico') }}"/>
 
-    <!-- Google Icons -->
+   
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
 
-    <!-- Vite Config -->
+
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
@@ -19,20 +19,25 @@
     
     <nav class="bg-white fixed top-0 w-full z-50 shadow-md">
         <div class="mx-auto max-w-full sm:px-4 lg:px-8">
-            <div class="flex justify-between lg:justify-center items-center h-14">
-                <div class="flex transition-all duration-200 ease-in-out">
+            <div class="flex justify-between items-center h-14">
+              
+                <div class="flex items-center transition-all duration-200 ease-in-out">
                     <a href="{{ route('dashboard') }}">
                         <img class="h-12" src="{{ asset('img/logo.png') }}" alt="logo" />
                     </a>
-                </div> 
-                <button id="mostrar_menu" class="lg:hidden mr-5 text-black">
-                    <span class="material-icons-round scale-125">
-                        menu
-                    </span>
-                </button>
+                </div>
+    
+                <!-- Botón Registrarse -->
+                <div class="ml-auto">
+                    <button class="flex items-center justify-center px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
+                        Registrarse
+                    </button>
+                </div>
+    
             </div>
         </div>
     </nav>
+    
 
     <!-- Panel -->
     <div>
@@ -51,80 +56,38 @@
                             <span class="material-icons-round text-slate-600 ml-4 mr-2">
                                 account_balance
                             </span>
-                            Informes
+                            Inicio
                         </a>
                     </li>
 
                     <li @class(['mb-1 flex', request()->routeIs('welcome') ? 'px-3 font-medium hover:font-semibold bg-blue-100 w-full rounded-md box-border' : 'hover:px-3 hover:bg-blue-50 hover:rounded-md ease-in-out hover:transition-all duration-200'])>
-                        <a href="{{ route('dashboard') }}" class="text-gray-600 w-full flex justify-start items-center">
+                        <a href="{{ route('informe') }}" class="text-gray-600 w-full flex justify-start items-center">
                             <span class="material-icons-round text-slate-600 ml-4 mr-2">
-                                workspaces
+                                info
                             </span>
-                            Interpretaciones
+                            Informes
                         </a>
                     </li> 
 
                     <li @class(['mb-1 flex', request()->routeIs('welcome') ? 'px-3 font-medium hover:font-semibold bg-blue-100 w-full rounded-md box-border' : 'hover:px-3 hover:bg-blue-50 hover:rounded-md ease-in-out hover:transition-all duration-200'])>
-                        <a href="{{ route('dashboard') }}" class="text-gray-600 w-full flex justify-start items-center">
+                        <a href="{{ route('usuarios') }}" class="text-gray-600 w-full flex justify-start items-center">
                             <span class="material-icons-round text-slate-600 ml-4 mr-2">
-                                send
+                                    account_circle
                             </span>
-                            Imágenes
+                            Usuarios
                         </a>
                     </li>
 
-                    <button class="accordion-submenu text-gray-600 w-full flex justify-start items-center hover:bg-blue-50 hover:rounded-md ease-in-out hover:transition-all duration-200">
-                        <span class="material-icons-round text-slate-600 ml-4 mr-2">
-                            manage_accounts
-                        </span>
-                            Otros
-
-                        <span class="material-icons-round text-slate-600 ml-2">
-                            expand_more
-                        </span>
-                    </button>
 
                     <div @class(['submenu', request()->routeIs('welcome') || request()->routeIs('welcome') || request()->routeIs('welcome') ? 'submenu-visible' : ''])>
 
-                        <li @class(['mb-1 flex', request()->routeIs('welcome') ? 'px-9 font-medium hover:font-semibold bg-blue-100 w-full rounded-md box-border' : 'px-6 hover:px-9 hover:bg-blue-50 hover:rounded-md ease-in-out hover:transition-all duration-200'])>
-                            <a href="{{ route('dashboard') }}" class="text-gray-600 w-full flex justify-start items-center">
-                                <span class="material-icons-round text-slate-600 ml-4 mr-2">
-                                    manage_accounts
-                                </span>
-                                Otros1
-                            </a>
-                        </li>
-
-                        <li @class(['mb-1 flex', request()->routeIs('welcome') ? 'px-9 font-medium hover:font-semibold bg-blue-100 w-full rounded-md box-border' : 'px-6 hover:px-9 hover:bg-blue-50 hover:rounded-md ease-in-out hover:transition-all duration-200'])>
-                            <a href="{{ route('dashboard') }}" class="text-gray-600 w-full flex justify-start items-center">
-                                <span class="material-icons-round text-slate-600 ml-4 mr-2">
-                                    manage_accounts
-                                </span>
-                                Otros2
-                            </a>
-                        </li>
-
-                        <li @class(['mb-1 flex', request()->routeIs('welcome') ? 'px-9 font-medium hover:font-semibold bg-blue-100 w-full rounded-md box-border' : 'px-6 hover:px-9 hover:bg-blue-50 hover:rounded-md ease-in-out hover:transition-all duration-200'])>
-                            <a href="{{ route('dashboard') }}" class="text-gray-600 w-full flex justify-start items-center">
-                                <span class="material-icons-round text-slate-600 ml-4 mr-2">
-                                    manage_accounts
-                                </span>
-                                Otros3
-                            </a>
-                        </li>
+                        
                         
                     </div>
 
                     <hr class="my-4 border-gray-300" />
 
-                    <li @class(['mb-1 flex', request()->routeIs('welcome') ? 'px-3 font-medium hover:font-semibold bg-blue-100 w-full rounded-md box-border' : 'hover:px-3 hover:bg-blue-50 hover:rounded-md ease-in-out hover:transition-all duration-200'])>
-                        <a href="{{ route('dashboard') }}" class="w-full flex justify-start items-center">
-                            <span class="material-icons-round text-slate-600 ml-4 mr-2">
-                                account_box
-                            </span>
-                            Perfil
-                        </a>
-                    </li>
+                    
 
                     <li @class(['mb-1 flex', request()->routeIs('welcome') ? 'px-3 font-medium hover:font-semibold bg-blue-100 w-full rounded-md box-border' : 'hover:px-3 hover:bg-blue-50 hover:rounded-md ease-in-out hover:transition-all duration-200'])>
                         <a href="{{ route('dashboard') }}" class="text-red-600 hover:text-red-700 w-full flex justify-start items-center">
@@ -146,6 +109,9 @@
         </div>
 
     </div>
+    
+    
+    
 
     @vite(['resources/js/panel.js'])
 

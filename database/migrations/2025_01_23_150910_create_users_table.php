@@ -11,13 +11,15 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id(); // La columna 'id' se crea por defecto
             $table->string('name');
-            $table->string('email')->unique();
+            $table->string('email');
             $table->string('password');
             $table->rememberToken();
 
-            // Agregar las columnas 'created_at', 'updated_at', y 'email_verified_at'
-            $table->timestamps(); // Esto agrega 'created_at' y 'updated_at'
-            $table->timestamp('email_verified_at')->nullable(); // Esta es la columna que falta
+            $table->timestamps();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->softDeletes();
+
+
 
         });
     }

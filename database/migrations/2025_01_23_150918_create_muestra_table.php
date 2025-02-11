@@ -9,28 +9,20 @@ return new class extends Migration
     public function up()
     {
         Schema::create('muestra', function (Blueprint $table) {
-            // Definir la columna primaria
-            $table->id('muestra_id'); // Usamos el id predeterminado como primary key
-            $table->string('codigo', 50);
+            $table->id(); // Clave primaria correcta
+            $table->string('codigo');
             $table->date('fechaEntrada');
             $table->enum('organo', ['B', 'BV', 'CB', 'CV', 'EX', 'O', 'E', 'ES', 'T', 'F']);
             $table->text('descripcionMuestra');
+            $table->softDeletes();
 
-            // Definir las claves foráneas con unsignedBigInteger y luego referenciarlas
-            $table->unsignedBigInteger('tipoNaturaleza_id');
-            $table->unsignedBigInteger('formato_id');
-            $table->unsignedBigInteger('calidad_id');
-            $table->unsignedBigInteger('tipoEstudio_id');
-            $table->unsignedBigInteger('sede_id');
-            $table->unsignedBigInteger('userCreador_id');
 
-            // Establecer las relaciones de las claves foráneas
-            $table->foreign('tipoNaturaleza_id')->references('tipoNaturaleza_id')->on('tipo_naturaleza')->onDelete('cascade');
-            $table->foreign('formato_id')->references('formato_id')->on('formato')->onDelete('cascade');
-            $table->foreign('calidad_id')->references('calidad_id')->on('calidad')->onDelete('cascade');
-            $table->foreign('tipoEstudio_id')->references('tipoEstudio_id')->on('tipo_estudio')->onDelete('cascade');
-            $table->foreign('sede_id')->references('sede_id')->on('sede')->onDelete('cascade');
-            $table->foreign('userCreador_id')->references('id')->on('users')->onDelete('cascade');
+            // Definir claves foráneas correctamente
+            $table->foreignId('tipoNaturaleza_id')->constrained('tipo_naturaleza');
+            $table->foreignId('formato_id')->constrained('formato'); // Clave corregida
+            $table->foreignId('calidad_id')->constrained('calidad');
+            $table->foreignId('sede_id')->constrained('sede');
+            $table->foreignId('userCreador_id')->constrained('users');
 
             // Establecer el motor InnoDB
             $table->engine = 'InnoDB';

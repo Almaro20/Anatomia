@@ -4,33 +4,42 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use App\Models\TipoEstudio;
 
 class CalidadSeeder extends Seeder
 {
     public function run()
     {
-        $calidadData = [
-            ['codigo' => 'C.1', 'descripcion' => 'Toma válida para examen.'],
-            ['codigo' => 'C.2', 'descripcion' => 'Toma válida para examen aunque limitada por ausencia de células endocervicales/zona de transición.'],
-            ['codigo' => 'C.3', 'descripcion' => 'Toma válida para examen aunque limitada por hemorragia.'],
-            ['codigo' => 'C.4', 'descripcion' => 'Toma válida para examen aunque limitada por escasez de células.'],
-            ['codigo' => 'C.5', 'descripcion' => 'Toma válida para examen aunque limitada por intensa citolisis.'],
-            ['codigo' => 'C.6', 'descripcion' => 'Toma válida para examen aunque limitada por otra condición.'],
-            ['codigo' => 'C.7', 'descripcion' => 'Toma no valorable por desecación.'],
-            ['codigo' => 'C.8', 'descripcion' => 'Toma no valorable por ausencia de células.'],
-            ['codigo' => 'C.9', 'descripcion' => 'Toma no valorable por otra condición.'],
-        ];
+        // Obtener los IDs de tipo_estudio
+        $tipoEstudios = TipoEstudio::pluck('id', 'nombre')->toArray();
 
-        foreach ($calidadData as $data) {
-            DB::table('calidad')->updateOrInsert(
-                ['codigo' => $data['codigo']],
-                ['descripcion' => $data['descripcion']]
-            );
-        }
+        // Insertar los datos en la tabla calidad
+        DB::table('calidad')->insert([
+            [
+                'codigo' => 'C.1',
+                'descripcion' => 'Toma válida para examen.',
+                'tipoEstudio_id' => $tipoEstudios['Estudio Radiológico'], // Usando el ID correcto
+            ],
+            [
+                'codigo' => 'C.2',
+                'descripcion' => 'Toma válida para examen aunque limitada por ausencia de células endocervicales/zona de transición.',
+                'tipoEstudio_id' => $tipoEstudios['Estudio Clínico'], // Usando el ID correcto
+            ],
+            [
+                'codigo' => 'C.3',
+                'descripcion' => 'Toma válida para examen aunque limitada por hemorragia.',
+                'tipoEstudio_id' => $tipoEstudios['Estudio Radiológico'], // Usando el ID correcto
+            ],
+            [
+                'codigo' => 'C.4',
+                'descripcion' => 'Toma válida para examen aunque limitada por escasez de células.',
+                'tipoEstudio_id' => $tipoEstudios['Estudio Clínico'], // Usando el ID correcto
+            ],
+            [
+                'codigo' => 'C.5',
+                'descripcion' => 'Toma válida para examen aunque limitada por intensa citolisis.',
+                'tipoEstudio_id' => $tipoEstudios['Estudio Radiológico'], // Usando el ID correcto
+            ],
+        ]);
     }
-
-
-    }
-
-
-
+}

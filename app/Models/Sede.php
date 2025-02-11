@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -9,8 +8,7 @@ class Sede extends Model
 {
     use HasFactory;
 
-    protected $table = 'sede';
-    protected $primaryKey = 'sede_id';
+    protected $table = 'sedes'; // Laravel ya lo infiere, pero lo puedes especificar
 
     protected $fillable = [
         'codigo',

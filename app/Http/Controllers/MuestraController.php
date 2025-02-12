@@ -41,4 +41,3 @@ class MuestraController extends Controller
         return response()->json(['message' => 'Muestra eliminada'], 200);
     }
 }
-

@@ -94,7 +94,9 @@ document.addEventListener("DOMContentLoaded", () => {
     // Cargar las muestras desde la API cuando la página se carga
     const cargarMuestras = async () => {
         try {
+
             let response = await fetch("http://localhost/Anatomia/public/api/v1/muestras/listar", {
+
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json"
@@ -173,7 +175,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const nuevaMuestra = {
             codigo: "M003",
             fechaEntrada: "2024-02-06",
-            organo: "B", 
+            organo: "B",
             descripcionMuestra: "Descripción de la muestra",
             tipoNaturaleza_id: 1,
             formato_id: 1,

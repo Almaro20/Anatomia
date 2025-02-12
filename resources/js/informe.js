@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const cargarMuestras = async () => {
         try {
             let response = await fetch("http://localhost/Anatomia/public/api/v1/muestras", {
-                method: "GET", // Obtener muestras
+                method: "GET",
                 headers: {
                     "Content-Type": "application/json"
                 }
@@ -31,36 +31,43 @@ document.addEventListener("DOMContentLoaded", () => {
         container.innerHTML = ""; // Limpiar las muestras previas
 
         muestras.forEach(muestra => {
-            const div = document.createElement("div");
-            div.classList.add("col-md-4", "mt-8");
-            div.innerHTML = `
-                <div class="border border-dark" style="width: 100%; height: 150px; overflow: hidden;">
-                    <p><strong>Código:</strong> ${muestra.codigo}</p>
-                    <p><strong>Órgano:</strong> ${muestra.organo}</p>
-                    <p><strong>Descripción:</strong> ${muestra.descripcionMuestra}</p>
-                </div>
-            `;
-            container.appendChild(div);
+            agregarMuestraAlDOM(muestra);
         });
+    };
+
+    // Función para agregar una muestra individual al DOM
+    const agregarMuestraAlDOM = (muestra) => {
+        const container = document.querySelector(".container .row");
+
+        const div = document.createElement("div");
+        div.classList.add("col-md-4", "mt-8");
+        div.innerHTML = `
+            <div class="border border-dark p-2 rounded-lg shadow-md bg-white">
+                <p><strong>Código:</strong> ${muestra.codigo}</p>
+                <p><strong>Órgano:</strong> ${muestra.organo}</p>
+                <p><strong>Descripción:</strong> ${muestra.descripcionMuestra}</p>
+            </div>
+        `;
+        container.appendChild(div);
     };
 
     // Evento para crear una nueva muestra cuando se hace click en el botón
     btnCrear.addEventListener("click", async () => {
         const nuevaMuestra = {
-            codigo: "COD123", // Puedes actualizar estos valores con datos dinámicos
+            codigo: "COD" + Math.floor(Math.random() * 1000), // Genera un código aleatorio
             fechaEntrada: new Date().toISOString().split("T")[0], // Fecha actual en formato YYYY-MM-DD
-            organo: "B", // Ejemplo, puedes usar un campo de formulario para esto
-            descripcionMuestra: "Descripción de la muestra", // Lo mismo aquí
-            tipoNaturaleza_id: 1, // Usualmente puedes obtener estos valores desde algún formulario
+            organo: "Corazón", // Puedes cambiarlo según necesites
+            descripcionMuestra: "Ejemplo de muestra", 
+            tipoNaturaleza_id: 1,
             formato_id: 1,
             calidad_id: 1,
             sede_id: 1,
-            userCreador_id: 1 // Este valor generalmente lo obtienes del usuario autenticado
+            userCreador_id: 1
         };
 
         try {
             let response = await fetch("http://localhost/Anatomia/public/api/v1/muestras", {
-                method: "POST", // Crear muestra
+                method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
@@ -72,16 +79,13 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             let muestra = await response.json();
-            // Después de crear la muestra, volvemos a cargar todas las muestras
-            cargarMuestras(); // Volver a cargar todas las muestras
+            agregarMuestraAlDOM(muestra); // Solo agrega la nueva muestra sin recargar todas
 
         } catch (error) {
             console.error("Error:", error);
         }
     });
 });
-
-
 
 // document.addEventListener("DOMContentLoaded", () => {
 //     const btnCrear = document.querySelector("#btncrear");

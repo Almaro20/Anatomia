@@ -10,10 +10,18 @@ class UserTableSeeder extends Seeder
 {
     public function run()
     {
+        // Crear el primer usuario
         User::create([
             'name' => 'Juan Pérez',
             'email' => 'juan@example.com',
-            'password' => Hash::make('password123'), // Asegúrate de usar un hash para las contraseñas
+            'password' => Hash::make('password123'),
+        ]);
+
+        // Crear el segundo usuario
+        User::create([
+            'name' => 'Ana García',
+            'email' => 'ana@example.com',
+            'password' => Hash::make('password456'),
         ]);
     }
 }

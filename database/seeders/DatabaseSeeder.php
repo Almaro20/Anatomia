@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             FormatoTableSeeder::class,                   // Seeder de la tabla 'organo'
             OrganoSeeder::class,                   // Seeder de la tabla 'organo'
             CalidadSeeder::class,                  // Seeder de la tabla 'calidad'
+            UserTableSeeder::class,                  // Seeder de la tabla 'calidad'
             MuestraSeeder::class,                  // Seeder de la tabla 'muestra'
             // Aquí puedes añadir más seeders si los tienes
         ]);

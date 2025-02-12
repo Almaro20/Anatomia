@@ -3,13 +3,13 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+use App\Models\Organo; // Asegúrate de tener el modelo Organo
 
 class OrganoSeeder extends Seeder
 {
     public function run()
     {
-        DB::table('organo')->insert([
+        Organo::insert([
             ['codigo' => 'BC', 'nombre' => 'Corazón'],
             ['codigo' => 'BB', 'nombre' => 'Bazo'],
             ['codigo' => 'BH', 'nombre' => 'Hígado'],

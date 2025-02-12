@@ -3,14 +3,14 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+use App\Models\TipoEstudio; // Asegúrate de tener el modelo TipoEstudio
 
 class TipoEstudioTableSeeder extends Seeder
 {
     public function run()
     {
-        // Insertamos los registros correctamente con la clave 'nombre' para cada tipo de estudio
-        DB::table('tipo_estudio')->insert([
+        // Usamos el modelo Eloquent para insertar los registros
+        TipoEstudio::insert([
             ['nombre' => 'Estudio Clínico'],
             ['nombre' => 'Estudio Radiológico'],
             ['nombre' => 'Estudio de Laboratorio'],

@@ -22,7 +22,7 @@ return new class extends Migration
             $table->foreignId('formato_id')->constrained('formato'); // Clave corregida
             $table->foreignId('calidad_id')->constrained('calidad');
             $table->foreignId('sede_id')->constrained('sede');
-            $table->foreignId('userCreador_id')->constrained('users');
+            $table->foreignId('user_id')->constrained('user');
 
             // Establecer el motor InnoDB
             $table->engine = 'InnoDB';

@@ -8,7 +8,7 @@ class Sede extends Model
 {
     use HasFactory;
 
-    protected $table = 'sedes'; // Laravel ya lo infiere, pero lo puedes especificar
+    protected $table = 'sede'; // Laravel ya lo infiere, pero lo puedes especificar
 
     protected $fillable = [
         'codigo',

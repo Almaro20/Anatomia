@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Cargar las muestras desde la API cuando la página se carga
     const cargarMuestras = async () => {
         try {
-            let response = await fetch("http://localhost/Anatomia/public/api/v1/muestras", {
+            let response = await fetch("http://localhost:8080/public/api/v1/muestras/listar", {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json"
@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
             codigo: "COD" + Math.floor(Math.random() * 1000), // Genera un código aleatorio
             fechaEntrada: new Date().toISOString().split("T")[0], // Fecha actual en formato YYYY-MM-DD
             organo: "Corazón", // Puedes cambiarlo según necesites
-            descripcionMuestra: "Ejemplo de muestra", 
+            descripcionMuestra: "Ejemplo de muestra",
             tipoNaturaleza_id: 1,
             formato_id: 1,
             calidad_id: 1,

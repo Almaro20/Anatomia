@@ -7,27 +7,27 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     public function up()
-    {
-        Schema::create('muestra', function (Blueprint $table) {
-            $table->id(); // Clave primaria correcta
-            $table->string('codigo');
-            $table->date('fechaEntrada');
-            $table->enum('organo', ['B', 'BV', 'CB', 'CV', 'EX', 'O', 'E', 'ES', 'T', 'F']);
-            $table->text('descripcionMuestra');
-            $table->softDeletes();
+{
+    Schema::create('muestra', function (Blueprint $table) {
+        $table->id();
+        $table->string('codigo');
+        $table->date('fechaEntrada');
+        $table->enum('organo', ['B', 'BV', 'CB', 'CV', 'EX', 'O', 'E', 'ES', 'T', 'F']);
+        $table->text('descripcionMuestra');
+        $table->softDeletes();
+        
+        // Agregar los timestamps
+        $table->timestamps();
 
-
-            // Definir claves foráneas correctamente
-            $table->foreignId('tipoNaturaleza_id')->constrained('tipo_naturaleza');
-            $table->foreignId('formato_id')->constrained('formato'); // Clave corregida
-            $table->foreignId('calidad_id')->constrained('calidad');
-            $table->foreignId('sede_id')->constrained('sede');
-            $table->foreignId('user_id')->constrained('user');
-
-            // Establecer el motor InnoDB
-            $table->engine = 'InnoDB';
-        });
-    }
+        $table->foreignId('tipoNaturaleza_id')->constrained('tipo_naturaleza');
+        $table->foreignId('formato_id')->constrained('formato');
+        $table->foreignId('calidad_id')->constrained('calidad');
+        $table->foreignId('sede_id')->constrained('sede');
+        $table->foreignId('user_id')->constrained('user');
+        
+        $table->engine = 'InnoDB';
+    });
+}
 
     public function down()
     {

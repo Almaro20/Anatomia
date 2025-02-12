@@ -12,21 +12,7 @@ Panel
 </div>
 <div class="container mt-10">
     <div class="row">
-        <div class="col-md-4 mt-8">
-            <div class="border border-dark" style="width: 100%; height: 150px; overflow: hidden;">
-                <p>Muestra</p>
-            </div>
-        </div>
-        <div class="col-md-4 mt-8">
-            <div class="border border-dark" style="width: 100%; height: 150px; overflow: hidden;">
-                <p>Muestra</p>
-            </div>
-        </div>
-        <div class="col-md-4 mt-8">
-            <div class="border border-dark" style="width: 100%; height: 150px; overflow: hidden;">
-                <p>Muestra</p>
-            </div>
-        </div>
+        <!-- Aquí se insertarán dinámicamente las muestras -->
     </div>
 </div>
 

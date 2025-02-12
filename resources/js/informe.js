@@ -4,7 +4,9 @@ document.addEventListener("DOMContentLoaded", () => {
     // Cargar las muestras desde la API cuando la página se carga
     const cargarMuestras = async () => {
         try {
-            let response = await fetch("http://localhost:8080/public/api/v1/muestras/listar", {
+
+            let response = await fetch("http://localhost/Anatomia/public/api/v1/muestras/listar", {
+
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json"
@@ -54,19 +56,23 @@ document.addEventListener("DOMContentLoaded", () => {
     // Evento para crear una nueva muestra cuando se hace click en el botón
     btnCrear.addEventListener("click", async () => {
         const nuevaMuestra = {
-            codigo: "COD" + Math.floor(Math.random() * 1000), // Genera un código aleatorio
-            fechaEntrada: new Date().toISOString().split("T")[0], // Fecha actual en formato YYYY-MM-DD
-            organo: "Corazón", // Puedes cambiarlo según necesites
-            descripcionMuestra: "Ejemplo de muestra",
+            codigo: "M003",
+            fechaEntrada: "2024-02-06",
+            organo: "B",
+            descripcionMuestra: "Descripción de la muestra",
             tipoNaturaleza_id: 1,
             formato_id: 1,
             calidad_id: 1,
             sede_id: 1,
-            userCreador_id: 1
+            user_id: 1
         };
 
         try {
+<<<<<<< HEAD
             let response = await fetch("http://localhost:8080/public/api/v1/muestras", {
+=======
+            let response = await fetch("http://localhost/Anatomia/public/api/v1/muestras/crear", {
+>>>>>>> ba61b2314c9ad817a15fe9275c21399e49abbbf7
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -86,56 +92,3 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 });
-
-// document.addEventListener("DOMContentLoaded", () => {
-//     const btnCrear = document.querySelector("#btncrear");
-
-//     btnCrear.addEventListener("click", async () => {
-//         const nuevaMuestra = {
-//             codigo: "COD123",
-//             fechaEntrada: new Date().toISOString().split("T")[0],
-//             organo: "B",
-//             descripcionMuestra: "Descripción de la muestra",
-//             tipoNaturaleza_id: 1,
-//             formato_id: 1,
-//             calidad_id: 1,
-//             sede_id: 1,
-//             userCreador_id: 1
-//         };
-
-//         console.log("hola");
-
-//         try {
-//             let response = await fetch("http://localhost/Anatomia/public/api/v1/muestras", {
-//                 method: "GET",
-//                 headers: {
-//                     "Content-Type": "application/json"
-//                 },
-//                 body: JSON.stringify(nuevaMuestra)
-//             });
-
-//             if (!response.ok) {
-//                 throw new Error(`Error al crear la muestra: ${response.status}`);
-//             }
-
-//             let muestra = await response.json();
-//             agregarMuestraAlDOM(muestra);
-//         } catch (error) {
-//             console.error("Error:", error);
-//         }
-//     });
-
-//     function agregarMuestraAlDOM(muestra) {
-//         const container = document.querySelector(".container .row");
-//         const div = document.createElement("div");
-//         div.classList.add("col-md-4", "mt-8");
-//         div.innerHTML = `
-//             <div class="border border-dark" style="width: 100%; height: 150px; overflow: hidden;">
-//                 <p><strong>Código:</strong> ${muestra.codigo}</p>
-//                 <p><strong>Órgano:</strong> ${muestra.organo}</p>
-//                 <p><strong>Descripción:</strong> ${muestra.descripcionMuestra}</p>
-//             </div>
-//         `;
-//         container.appendChild(div);
-//     }
-// });

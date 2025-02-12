@@ -10,17 +10,20 @@ class Muestra extends Model
 
     protected $table = 'muestra';
 
+    public $timestamps = false;
+
     protected $fillable = [
         'codigo',
         'fechaEntrada',
         'tipoNaturaleza_id',
-        'organo_id',
+        'organo',
         'formato_id',
         'calidad_id',
         'sede_id',
-        'user',
+        'user_id',
         'descripcionMuestra'
     ];
+
 
     // Relaciones
     public function tipoNaturaleza()

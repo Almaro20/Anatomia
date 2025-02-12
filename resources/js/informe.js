@@ -68,11 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
         };
 
         try {
-<<<<<<< HEAD
-            let response = await fetch("http://localhost:8080/public/api/v1/muestras", {
-=======
             let response = await fetch("http://localhost/Anatomia/public/api/v1/muestras/crear", {
->>>>>>> ba61b2314c9ad817a15fe9275c21399e49abbbf7
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

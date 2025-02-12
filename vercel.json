@@ -1,21 +1,21 @@
 {
     "version": 2,
-      "framework": null,
+    "framework": null,
     "functions": {
         "api/index.php": { "runtime": "vercel-php@0.6.1" }
     },
     "routes": [
         {
             "src": "/build/(.*)",
-            "dest": "/public/build/assets/"
+            "dest": "/public/build/$1"
         },
         {
             "src": "/img/(.*)",
-            "dest": "/public/img/"
+            "dest": "/public/img/$1"
         },
         {
             "src": "/favicon.ico",
-            "dest": "/public/img/"
+            "dest": "/public/favicon.ico"
         },
         {
             "src": "/(.*)",
@@ -24,9 +24,9 @@
     ],
     "env": {
         "APP_ENV": "production",
-        "APP_DEBUG": "true",
+        "APP_DEBUG": "false",
         "APP_URL": "https://laravel-admin-panel.vercel.app",
-        "APP_KEY":"base64:je9wcQGFkSaVUYL8w1YXhEMJ/x1kiQOmiOIj6r6n0Dw=",
+        "APP_KEY": "base64:je9wcQGFkSaVUYL8w1YXhEMJ/x1kiQOmiOIj6r6n0Dw=",
 
         "APP_CONFIG_CACHE": "/tmp/config.php",
         "APP_EVENTS_CACHE": "/tmp/events.php",
@@ -37,6 +37,7 @@
 
         "CACHE_DRIVER": "array",
         "LOG_CHANNEL": "stderr",
-        "SESSION_DRIVER": "cookie"
+        "SESSION_DRIVER": "cookie",
+        "SESSION_LIFETIME": "120"
     }
 }

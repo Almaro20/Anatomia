@@ -3,18 +3,13 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+use App\Models\TipoNaturaleza;
 
 class TipoNaturalezaTableSeeder extends Seeder
 {
     public function run()
     {
-        // Limpia la tabla antes de insertar nuevos datos
-        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-        DB::table('tipo_naturaleza')->truncate();
-        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
-
-        // Insertar datos evitando duplicados
+        // Ya no necesitas truncar la tabla, simplemente inserta o actualiza los datos
         $data = [
             ['codigo' => 'B', 'nombre' => 'Biopsias'],
             ['codigo' => 'BV', 'nombre' => 'Biopsias veterinarias'],
@@ -28,10 +23,11 @@ class TipoNaturalezaTableSeeder extends Seeder
             ['codigo' => 'F', 'nombre' => 'Frotis'],
         ];
 
+        // Usamos 'updateOrCreate' de Eloquent para insertar o actualizar
         foreach ($data as $item) {
-            DB::table('tipo_naturaleza')->updateOrInsert(
-                ['codigo' => $item['codigo']], // Evita duplicados
-                ['nombre' => $item['nombre']]
+            TipoNaturaleza::updateOrCreate(
+                ['codigo' => $item['codigo']], // Condición para evitar duplicados
+                ['nombre' => $item['nombre']]  // Los valores que se van a insertar o actualizar
             );
         }
     }

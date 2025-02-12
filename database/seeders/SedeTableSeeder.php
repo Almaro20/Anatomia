@@ -3,13 +3,13 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+use App\Models\Sede; // Asegúrate de tener el modelo Sede
 
 class SedeTableSeeder extends Seeder
 {
     public function run()
     {
-        DB::table('sede')->insert([
+        Sede::insert([
             ['codigo' => 'A', 'nombre' => 'Albacete'],
             ['codigo' => 'AL', 'nombre' => 'Alicante'],
             ['codigo' => 'ALII', 'nombre' => 'Alicante 2'],

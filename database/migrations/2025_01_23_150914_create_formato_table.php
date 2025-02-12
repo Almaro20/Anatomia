@@ -9,11 +9,11 @@ return new class extends Migration
     public function up()
     {
         Schema::create('formato', function (Blueprint $table) {
-            $table->id(); // Se corrige para usar 'id' como clave primaria
+            $table->id(); // Clave primaria
             $table->string('nombre');
             $table->string('codigo');
             $table->softDeletes();
-
+            $table->timestamps();  // Esto agrega las columnas created_at y updated_at
 
             $table->engine = 'InnoDB';
         });
@@ -24,3 +24,4 @@ return new class extends Migration
         Schema::dropIfExists('formato');
     }
 };
+

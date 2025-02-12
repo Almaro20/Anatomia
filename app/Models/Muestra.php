@@ -18,6 +18,7 @@ class Muestra extends Model
         'formato_id',
         'calidad_id',
         'sede_id',
+        'user',
         'descripcionMuestra'
     ];
 
@@ -45,5 +46,10 @@ class Muestra extends Model
     public function sede()
     {
         return $this->belongsTo(Sede::class, 'sede_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

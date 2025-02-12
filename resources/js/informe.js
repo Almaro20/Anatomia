@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Cargar las muestras desde la API cuando la página se carga
     const cargarMuestras = async () => {
         try {
-            let response = await fetch("http://localhost/public/api/v1/muestras/listar", {
+            let response = await fetch("http://localhost:8080/public/api/v1/muestras/listar", {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json"
@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
         };
 
         try {
-            let response = await fetch("http://localhost/public/api/v1/muestras", {
+            let response = await fetch("http://localhost:8080/public/api/v1/muestras", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

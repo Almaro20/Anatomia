@@ -3,8 +3,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Cargar las muestras desde la API cuando la página se carga
     const cargarMuestras = async () => {
+
         try {
-            let response = await fetch("http://localhost/Anatomia/public/api/v1/muestras/listar", {
+            let response = await fetch("http://localhost:8080/public/api/v1/muestras/listar", {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json"
@@ -48,14 +49,14 @@ document.addEventListener("DOMContentLoaded", () => {
             </div>`;
 
             container.appendChild(div);
-
+            cargarMuestras();
         // Agregar evento de eliminación al botón
         div.querySelector("#btn-eliminar").addEventListener("click", () => eliminarMuestra(muestra.id, div));
     };
 
     const eliminarMuestra = async (id, elemento) => {
         try {
-            let response = await fetch(`http://localhost/Anatomia/public/api/v1/muestras/eliminar/${id}`, {
+            let response = await fetch(`http://localhost:8080/public/api/v1/muestras/eliminar/${id}`, {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json"
@@ -68,7 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 let data = await response.json();
                 alert(data.message);
-                elemento.remove(); 
+                elemento.remove();
             } catch (error) {
                 console.error("Error:", error);
             }
@@ -102,7 +103,7 @@ document.addEventListener("DOMContentLoaded", () => {
         };
 
         try {
-            let response = await fetch("http://localhost/Anatomia/public/api/v1/muestras/crear", {
+            let response = await fetch("http://localhost:8080/public/api/v1/muestras/crear", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -122,6 +123,7 @@ document.addEventListener("DOMContentLoaded", () => {
         } catch (error) {
             console.error("Error:", error);
         }
+
     });
 
     // Funciones para cargar opciones dinámicamente
@@ -139,8 +141,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
             datos.forEach(tipo => {
                 const option = document.createElement('option');
-                option.value = tipo.id; 
-                option.textContent = tipo.nombre || tipo.descripcion; 
+                option.value = tipo.id;
+                option.textContent = tipo.nombre || tipo.descripcion;
                 select.appendChild(option);
             });
         } catch (error) {
@@ -148,8 +150,8 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
 
-    cargarOpciones("http://localhost/Anatomia/public/api/v1/tipos-naturaleza", "#naturaleza");
-    cargarOpciones("http://localhost/Anatomia/public/api/v1/sedes", "#procedencia");
-    cargarOpciones("http://localhost/Anatomia/public/api/v1/calidades", "#conservacion");
-    cargarOpciones("http://localhost/Anatomia/public/api/v1/organos", "#biopsia");
+    cargarOpciones("http://localhost:8080/public/api/v1/tipos-naturaleza", "#naturaleza");
+    cargarOpciones("http://localhost:8080/public/api/v1/sedes", "#procedencia");
+    cargarOpciones("http://localhost:8080/public/api/v1/calidades", "#conservacion");
+    cargarOpciones("http://localhost:8080/public/api/v1/organos", "#biopsia");
 });

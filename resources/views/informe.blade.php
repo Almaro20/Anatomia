@@ -76,9 +76,16 @@ Panel
 </div>
 
 <script>
-    function abrirModal() {
-        document.getElementById('modalInforme').classList.remove('hidden');
-    }
+function abrirModal() {
+    document.querySelector("#codigo").value = "";
+    document.querySelector("#fecha").value = "";
+    document.querySelector("#biopsia").value = "";
+    document.querySelector("#descripcion").value = "";
+    document.querySelector("#naturaleza").value = "";
+    document.querySelector("#conservacion").value = "";
+    document.querySelector("#procedencia").value = "";
+    document.getElementById('modalInforme').classList.remove('hidden');
+}
 
     function cerrarModal() {
         document.getElementById('modalInforme').classList.add('hidden');

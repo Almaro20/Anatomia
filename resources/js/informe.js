@@ -66,12 +66,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 throw new Error(`Error al eliminar la muestra: ${response.status}`);
             }
 
-            let data = await response.json();
-            alert(data.message);
-            elemento.remove(); 
-        } catch (error) {
-            console.error("Error:", error);
-        }
+                let data = await response.json();
+                alert(data.message);
+                elemento.remove(); 
+            } catch (error) {
+                console.error("Error:", error);
+            }
     };
 
     // Crear muestra desde el modal

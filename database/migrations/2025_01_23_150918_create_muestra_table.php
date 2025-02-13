@@ -15,7 +15,7 @@ return new class extends Migration
         $table->enum('organo', ['B', 'BV', 'CB', 'CV', 'EX', 'O', 'E', 'ES', 'T', 'F']);
         $table->text('descripcionMuestra');
         $table->softDeletes();
-        
+    
         // Agregar los timestamps
         $table->timestamps();
 

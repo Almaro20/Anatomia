@@ -60,9 +60,9 @@ Panel
                             <option>Sede</option>
                         </select>
                     </div>
-                    <div class="col-span-2">
-                        <label for="archivo_foto" class="block text-sm font-medium text-gray-700">Selecciona de 1 a 6 archivos para subir:</label>
-                        <input type="file" id="archivo_foto" multiple class="w-full border border-gray-300 rounded-lg px-3 py-2">
+                    <div>
+                        <label for="descripcion" class="block text-sm font-medium text-gray-700">Descripcion</label>
+                        <input type="text" id="descripcion" class="w-full border border-gray-300 rounded-lg px-3 py-2">
                     </div>
                 </div>
                 <div class="mt-4 flex justify-end">

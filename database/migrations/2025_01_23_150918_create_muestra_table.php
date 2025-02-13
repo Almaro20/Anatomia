@@ -12,10 +12,12 @@ return new class extends Migration
         $table->id();
         $table->string('codigo');
         $table->date('fechaEntrada');
-        $table->enum('organo', ['B', 'BV', 'CB', 'CV', 'EX', 'O', 'E', 'ES', 'T', 'F']);
+        $table->enum('organo', ['BC', 'BB', 'BH', 'BF', 'BES', 'BCB', 'BR', 'BL', 'BU', 'BO', 'BI', 'BTF', 'BEF', 'BPA', 'BT', 'BPI', 'BP']);
         $table->text('descripcionMuestra');
         $table->softDeletes();
-        
+
+
+
         // Agregar los timestamps
         $table->timestamps();
 
@@ -24,7 +26,7 @@ return new class extends Migration
         $table->foreignId('calidad_id')->constrained('calidad');
         $table->foreignId('sede_id')->constrained('sede');
         $table->foreignId('user_id')->constrained('user');
-        
+
         $table->engine = 'InnoDB';
     });
 }

@@ -56,7 +56,7 @@
 //         const nuevaMuestra = {
 //             codigo: "M003",
 //             fechaEntrada: "2024-02-06",
-//             organo: "B", 
+//             organo: "B",
 //             descripcionMuestra: "Descripción de la muestra",
 //             tipoNaturaleza_id: 1,
 //             formato_id: 1,
@@ -164,7 +164,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 let data = await response.json();
                 alert(data.message);
-                elemento.remove(); 
+                elemento.remove();
             } catch (error) {
                 console.error("Error:", error);
             }

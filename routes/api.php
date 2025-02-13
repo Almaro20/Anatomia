@@ -11,7 +11,11 @@ use App\Http\Controllers\FormatoController;
 use App\Http\Controllers\ImagenController;
 
 Route::prefix('v1')->group(function () {
-    Route::apiResource('muestras', MuestraController::class);
+    Route::get('muestras/listar', [MuestraController::class, 'getAll']);
+    Route::post('muestras/crear', [MuestraController::class, 'create']);
+    Route::get('muestras/ver/{id}', [MuestraController::class, 'getById']);
+    Route::put('muestras/editar/{id}', [MuestraController::class, 'update']);
+    Route::delete('muestras/eliminar/{id}', [MuestraController::class, 'delete']);
     Route::get('organos', [OrganoController::class, 'index']);
     Route::get('sedes', [SedeController::class, 'index']);
     Route::get('tipos-estudio', [TipoEstudioController::class, 'index']);

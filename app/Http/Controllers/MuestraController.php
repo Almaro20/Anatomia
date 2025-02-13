@@ -1,39 +1,43 @@
 <?php
-
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Models\Muestra;
 use Illuminate\Http\Request;
+use App\Models\Muestra;
 
 class MuestraController extends Controller
 {
-    public function index()
-    {
+    public function getAll() {
         return response()->json(Muestra::all(), 200);
     }
 
-    public function store(Request $request)
-    {
+    public function create(Request $request) {
         $muestra = Muestra::create($request->all());
         return response()->json($muestra, 201);
     }
 
-    public function show($id)
-    {
-        return response()->json(Muestra::findOrFail($id), 200);
+    public function getById($id) {
+        $muestra = Muestra::find($id);
+        if (!$muestra) {
+            return response()->json(['message' => 'Muestra no encontrada'], 404);
+        }
+        return response()->json($muestra, 200);
     }
 
-    public function update(Request $request, $id)
-    {
-        $muestra = Muestra::findOrFail($id);
+    public function update(Request $request, $id) {
+        $muestra = Muestra::find($id);
+        if (!$muestra) {
+            return response()->json(['message' => 'Muestra no encontrada'], 404);
+        }
         $muestra->update($request->all());
         return response()->json($muestra, 200);
     }
 
-    public function destroy($id)
-    {
-        Muestra::destroy($id);
-        return response()->json(null, 204);
+    public function delete($id) {
+        $muestra = Muestra::find($id);
+        if (!$muestra) {
+            return response()->json(['message' => 'Muestra no encontrada'], 404);
+        }
+        $muestra->delete();
+        return response()->json(['message' => 'Muestra eliminada'], 200);
     }
 }

@@ -40,7 +40,7 @@ class MuestraSeeder extends Seeder
         [
             'codigo' => 'M001',
             'fechaEntrada' => '2024-02-06',
-            'organo' => 'B',
+            'organo' => 'BC',
             'descripcionMuestra' => 'Muestra de tejido blando.',
             'tipoNaturaleza_id' => $tipoNaturaleza[0], // Corregido
             'formato_id' => $formato[0],
@@ -51,7 +51,7 @@ class MuestraSeeder extends Seeder
         [
             'codigo' => 'M002',
             'fechaEntrada' => '2024-02-06',
-            'organo' => 'CV',
+            'organo' => 'BC',
             'descripcionMuestra' => 'Muestra de tejido cardiaco.',
             'tipoNaturaleza_id' => $tipoNaturaleza[1] ?? null, // Corregido
             'formato_id' => $formato[1] ?? null,

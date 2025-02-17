@@ -21,7 +21,7 @@ Route::get('/usuarios', function () {
 
 
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth')->group(function () { //esto es pa la movida esa d tener q loguearte
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

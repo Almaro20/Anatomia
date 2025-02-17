@@ -1,11 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
     const btnCrear = document.querySelector("#btncrear");
-    let muestraEditando = null; // Variable para saber si estamos editando una muestra
+    let muestraEditando = null;
 
     // Cargar las muestras desde la API cuando la página se carga
     const cargarMuestras = async () => {
         try {
-            let response = await fetch("http://localhost/Anatomia/public/api/v1/muestras/listar");
+            let response = await fetch("http://localhost:8080/public/api/v1/muestras/listar");
             if (!response.ok) throw new Error(`Error al cargar las muestras: ${response.status}`);
 
             let muestras = await response.json();
@@ -43,16 +43,20 @@ document.addEventListener("DOMContentLoaded", () => {
         div.querySelector(".btn-editar").addEventListener("click", () => abrirModalEdicion(muestra));
     };
 
+  
     const eliminarMuestra = async (id, elemento) => {
         try {
-            let response = await fetch(`http://localhost/Anatomia/public/api/v1/muestras/eliminar/${id}`, { method: "DELETE" });
+            let response = await fetch(`http://localhost:8080/public/api/v1/muestras/eliminar/${id}`, { method: "DELETE" });
+    
             if (!response.ok) throw new Error(`Error al eliminar la muestra: ${response.status}`);
-
+    
             let data = await response.json();
-            alert(data.message);
+            
+            toastr.error("Muestra eliminada con éxito", "Eliminado", { timeOut: 3000 });
             elemento.remove();
         } catch (error) {
             console.error("Error:", error);
+            toastr.error("Error al eliminar la muestra", "Error", { timeOut: 3000 });
         }
     };
 
@@ -68,7 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
         document.querySelector("#procedencia").value = muestra.sede_id;
 
         document.getElementById("modalInforme").classList.remove("hidden");
-        btnCrear.innerText = "Actualizar Informe"; // Cambia el texto del botón
+        btnCrear.innerText = "Actualizar Informe";
     };
 
     // Función para crear o editar la muestra
@@ -91,7 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
             let response, mensaje;
             if (muestraEditando) {
                 // EDITAR MUESTRA
-                response = await fetch(`http://localhost/Anatomia/public/api/v1/muestras/editar/${muestraEditando.id}`, {
+                response = await fetch(`http://localhost:8080/public/api/v1/muestras/editar/${muestraEditando.id}`, {
                     method: "PUT",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(nuevaMuestra)
@@ -99,7 +103,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 mensaje = "Muestra actualizada con éxito";
             } else {
                 // CREAR MUESTRA
-                response = await fetch("http://localhost/Anatomia/public/api/v1/muestras/crear", {
+                response = await fetch("http://localhost:8080/public/api/v1/muestras/crear", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(nuevaMuestra)
@@ -108,8 +112,8 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             if (!response.ok) throw new Error(`Error en la operación: ${response.status}`);
-
-            alert(mensaje);
+            toastr.success(mensaje);
+            //alert(mensaje);
             cerrarModal();
             cargarMuestras(); // Recargar la lista
         } catch (error) {
@@ -144,8 +148,8 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
 
-    cargarOpciones("http://localhost/Anatomia/public/api/v1/tipos-naturaleza", "#naturaleza");
-    cargarOpciones("http://localhost/Anatomia/public/api/v1/sedes", "#procedencia");
-    cargarOpciones("http://localhost/Anatomia/public/api/v1/calidades", "#conservacion");
-    cargarOpciones("http://localhost/Anatomia/public/api/v1/organos", "#biopsia");
+    cargarOpciones("http://localhost:8080/public/api/v1/tipos-naturaleza", "#naturaleza");
+    cargarOpciones("http://localhost:8080/public/api/v1/sedes", "#procedencia");
+    cargarOpciones("http://localhost:8080/public/api/v1/calidades", "#conservacion");
+    cargarOpciones("http://localhost:8080/public/api/v1/organos", "#biopsia");
 });

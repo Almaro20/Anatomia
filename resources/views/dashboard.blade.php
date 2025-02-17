@@ -4,17 +4,23 @@
 Panel
 @endsection
 
+
 @section('content')
+
 
 <header class="relative bg-cover bg-center text-white text-center p-20" style="background-image: url('{{ asset('img/banner.png') }}');">
     <div class="absolute inset-0 bg-blue-700 opacity-60"></div>
     <div class="relative z-10">
-        <h2 class="text-3xl font-bold">Genera y consulta informes fácilmente</h2>
-        <p class="mt-4">Administra y visualiza todos tus informes en un solo lugar</p>
+        <h2 class="text-3xl md:text-4xl font-bold">Genera y consulta informes fácilmente</h2>
+        <p class="mt-4 text-lg">Administra y visualiza todos tus informes en un solo lugar</p>
     </div>
-</header class="">
+</header>
+
+<!-- Botones de Login y Sign Up -->
+
+
 <div class="container mx-auto px-4 py-12">
-    <h3 class="text-3xl font-bold text-center text-blue-800 mb-10">🚀 Ventajas de hacer un informe</h3>
+    <h3 class="text-3xl md:text-4xl font-bold text-center text-blue-800 mb-10">🚀 Ventajas de hacer un informe</h3>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
         <!-- Tarjeta 1 -->
         <div class="bg-gradient-to-r from-blue-500 to-indigo-500 text-white shadow-xl rounded-3xl p-8 transform hover:scale-105 transition duration-300">
@@ -35,7 +41,6 @@ Panel
         </div>
     </div>
 </div>
-
 
 @endsection
 

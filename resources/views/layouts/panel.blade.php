@@ -7,9 +7,12 @@
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <title>@yield('title')</title>
     <link rel="icon" type="image/ico" href="{{ asset('img/favicon.ico') }}"/>
+
+   
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
+
 
 <body class="bg-gray-100 text-sm">
     <nav class="bg-white fixed top-0 w-full z-50 shadow-md">
@@ -20,6 +23,10 @@
                         <img class="h-12" src="{{ asset('img/logo.png') }}" alt="logo" />
                     </a>
                 </div>
+    
+                <!-- Botón Registrarse -->
+             
+    
             </div>
         </div>
     </nav>

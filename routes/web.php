@@ -26,6 +26,10 @@ Route::get('/register', function () {
     return view('register');
 })->name('register');
 
+Route::get('/principal', function () {
+    return view('principal');
+})->name('principal');
+
 
 
 Route::middleware('auth')->group(function () {

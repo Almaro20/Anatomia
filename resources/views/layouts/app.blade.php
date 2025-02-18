@@ -31,6 +31,21 @@
             <main>
                 {{ $slot }}
             </main>
+
+            <!-- Footer -->
+            <footer class="bg-white shadow">
+                <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
+                    <div class="flex justify-between items-center">
+                        <div class="text-sm text-white-100">
+                            <strong>Copyright &copy; {{ date('Y') }} {{ config('app.name', 'Laravel') }}.</strong>
+                            Todos los derechos reservados.
+                        </div>
+                        <div class="text-sm text-white">
+                            <span>Version 1.0.0</span>
+                        </div>
+                    </div>
+                </div>
+            </footer>
         </div>
     </body>
 </html>

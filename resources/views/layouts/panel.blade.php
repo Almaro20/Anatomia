@@ -8,12 +8,14 @@
     <title>@yield('title')</title>
     <link rel="icon" type="image/ico" href="{{ asset('img/favicon.ico') }}"/>
 
-   
+    
+
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
 
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
+
 
 <body class="bg-gray-100 text-sm">
     
@@ -26,6 +28,11 @@
                         <img class="h-12" src="{{ asset('img/logo.png') }}" alt="logo" />
                     </a>
                 </div>
+
+                <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                    {{ __('Profile') }}
+                </h2>
+               
     
                 <!-- Botón Registrarse -->
              

@@ -9,14 +9,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('dashboard');
-})->name('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/informe', function () {
     return view('informe');
-})->name('informe');
+})->middleware(['auth', 'verified'])->name('informe');
 Route::get('/usuarios', function () {
     return view('usuarios');
-})->name('usuarios');
+})->middleware(['auth', 'verified'])->name('usuarios');
 
 Route::get('/login', function () {
     return view('login');
@@ -38,7 +38,6 @@ use App\Http\Controllers\PDFController;
 
 
 Route::get('/imprimir/muestra/{id}', [PDFController::class, 'generarPDF']);
-
 
 
 Route::middleware('auth')->group(function () { //esto es pa la movida esa d tener q loguearte

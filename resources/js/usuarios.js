@@ -1,9 +1,10 @@
 document.addEventListener("DOMContentLoaded", () => {
+    const BASE_URL = "http://localhost/Anatomia/public/";
 
     // Cargar las muestras desde la API cuando la página se carga
     const cargarUsuarios = async () => {
         try {
-            let response = await fetch("http://localhost/Anatomia/public/api/v3/usuarios/listar");
+            let response = await fetch(`${BASE_URL}api/v3/usuarios/listar`);
             if (!response.ok) throw new Error(`Error al cargar las muestras: ${response.status}`);
 
             let usuarios = await response.json();

@@ -23,19 +23,34 @@ document.addEventListener("DOMContentLoaded", () => {
         muestras.forEach(muestra => agregarMuestraAlDOM(muestra));
     };
 
-    const agregarMuestraAlDOM = (muestra) => {
+
+    async function obtenerNombreOrgano(codigoOrgano) {
+        try {
+            const respuesta = await fetch(`http://localhost/Anatomia/public/api/v1/organo/${codigoOrgano}`);
+            if (!respuesta.ok) {
+                throw new Error("Órgano no encontrado");
+            }
+            const data = await respuesta.json();
+            return data.nombre;
+        } catch (error) {
+            console.error("Error obteniendo el órgano:", error);
+            return "Desconocido"; 
+        }
+    }
+
+    const agregarMuestraAlDOM = async (muestra) => {
+        const nombreOrgano =  await obtenerNombreOrgano(muestra.organo); // Obtener el nombre del órgano
         const container = document.querySelector(".container .row");
         const div = document.createElement("div");
         div.classList.add("col-md-4", "mt-8");
         div.innerHTML = `
             <div class="border border-dark p-2 rounded-lg shadow-md bg-white">
                 <p><strong>Código:</strong> ${muestra.codigo}</p>
-                <p><strong>Órgano:</strong> ${muestra.nombre}</p>
+                <p><strong>Órgano:</strong> ${nombreOrgano}</p>
                 <p><strong>Descripción:</strong> ${muestra.descripcionMuestra}</p>
                 <button class="btn-eliminar bg-red-600 text-white px-4 py-2 rounded" data-id="${muestra.id}" style="background-color: #dc2626; border-radius: 0.375rem;">Eliminar</button>
                 <button class="btn-editar bg-green-600 text-white px-4 py-2 rounded" data-id="${muestra.id}" style="background-color: #16a34a; border-radius: 0.375rem;">Editar</button>
             </div>`;
-
         container.appendChild(div);
 
         // Agregar eventos a los botones

@@ -32,7 +32,7 @@
     </nav>
 
     <!-- Panel -->
-    <div class="min-h-screen flex flex-col">
+    <div>
         <div id="mostrar_menu" class="select-none transform -translate-x-full lg:translate-x-0 transition-all duration-200 ease-in-out opacity-0 lg:opacity-100 invisible lg:visible md:flex lg:flex h-screen fixed top-14 left-0 bg-gray-100 z-50">
             <div class="w-64 h-screen px-6 py-4 bg-white shadow-lg">
                 <div class="flex flex-col">

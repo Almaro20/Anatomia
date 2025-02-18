@@ -31,6 +31,12 @@ Route::get('/principal', function () {
 })->name('principal');
 
 
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard2');
+
+
+
 
 Route::middleware('auth')->group(function () { //esto es pa la movida esa d tener q loguearte
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const BASE_URL = "http://localhost:8080/public/";
+    const BASE_URL = "http://localhost/Anatomia/public/";
     const btnCrear = document.querySelector("#btncrear");
     let muestraEditando = null;
 

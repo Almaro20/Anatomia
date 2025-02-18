@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const BASE_URL = "http://localhost:8080/public/";
+    const BASE_URL = "http://localhost/public/";
     const btnCrear = document.querySelector("#btncrear");
     let muestraEditando = null;
 
@@ -50,6 +50,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 <p><strong>Descripción:</strong> ${muestra.descripcionMuestra}</p>
                 <button class="btn-eliminar bg-red-600 text-white px-4 py-2 rounded" data-id="${muestra.id}" style="background-color: #dc2626; border-radius: 0.375rem;">Eliminar</button>
                 <button class="btn-editar bg-green-600 text-white px-4 py-2 rounded" data-id="${muestra.id}" style="background-color: #16a34a; border-radius: 0.375rem;">Editar</button>
+                <!-- Botón de Imprimir agregado -->
+                <button class="btn-imprimir bg-blue-600 text-white px-4 py-2 rounded" style="background-color: #1e40af; border-radius: 0.375rem;" data-id="${muestra.id}" onclick="imprimirMuestra(this)">Imprimir</button>
             </div>`;
         container.appendChild(div);
 
@@ -135,6 +137,16 @@ document.addEventListener("DOMContentLoaded", () => {
         muestraEditando = null;
         btnCrear.innerText = "Guardar Informe";
     }
+
+    window.imprimirMuestra = function(event) {
+        const muestraId = event.getAttribute('data-id');
+
+        // Redirigir al endpoint que genera el PDF
+        const url = `/public/imprimir/muestra/${muestraId}`;
+
+        // Realizar la solicitud para descargar el PDF
+        window.open(url, '_blank');
+    };
 
     // Mantener la carga de opciones dinámicas con BASE_URL
     const cargarOpciones = async (endpoint, selectId) => {

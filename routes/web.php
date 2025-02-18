@@ -30,6 +30,15 @@ Route::get('/principal', function () {
     return view('principal');
 })->name('principal');
 
+use Barryvdh\DomPDF\Facade\PDF;
+
+// routes/web.php
+
+use App\Http\Controllers\PDFController;
+
+
+Route::get('/imprimir/muestra/{id}', [PDFController::class, 'generarPDF']);
+
 
 
 Route::middleware('auth')->group(function () { //esto es pa la movida esa d tener q loguearte

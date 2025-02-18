@@ -1,11 +1,12 @@
 document.addEventListener("DOMContentLoaded", () => {
+    const BASE_URL = "http://localhost:8080/public/";
     const btnCrear = document.querySelector("#btncrear");
     let muestraEditando = null;
 
     // Cargar las muestras desde la API cuando la página se carga
     const cargarMuestras = async () => {
         try {
-            let response = await fetch("http://localhost/Anatomia/public/api/v2/muestras/listar");
+            let response = await fetch(`${BASE_URL}api/v2/muestras/listar`);
             if (!response.ok) throw new Error(`Error al cargar las muestras: ${response.status}`);
 
             let muestras = await response.json();
@@ -23,10 +24,9 @@ document.addEventListener("DOMContentLoaded", () => {
         muestras.forEach(muestra => agregarMuestraAlDOM(muestra));
     };
 
-
     async function obtenerNombreOrgano(codigoOrgano) {
         try {
-            const respuesta = await fetch(`http://localhost/Anatomia/public/api/v1/organo/${codigoOrgano}`);
+            const respuesta = await fetch(`${BASE_URL}api/v1/organo/${codigoOrgano}`);
             if (!respuesta.ok) {
                 throw new Error("Órgano no encontrado");
             }
@@ -34,12 +34,12 @@ document.addEventListener("DOMContentLoaded", () => {
             return data.nombre;
         } catch (error) {
             console.error("Error obteniendo el órgano:", error);
-            return "Desconocido"; 
+            return "Desconocido";
         }
     }
 
     const agregarMuestraAlDOM = async (muestra) => {
-        const nombreOrgano =  await obtenerNombreOrgano(muestra.organo); // Obtener el nombre del órgano
+        const nombreOrgano = await obtenerNombreOrgano(muestra.organo); // Obtener el nombre del órgano
         const container = document.querySelector(".container .row");
         const div = document.createElement("div");
         div.classList.add("col-md-4", "mt-8");
@@ -58,15 +58,12 @@ document.addEventListener("DOMContentLoaded", () => {
         div.querySelector(".btn-editar").addEventListener("click", () => abrirModalEdicion(muestra));
     };
 
-  
     const eliminarMuestra = async (id, elemento) => {
         try {
-            let response = await fetch(`http://localhost/Anatomia/public/api/v2/muestras/eliminar/${id}`, { method: "DELETE" });
-    
+            let response = await fetch(`${BASE_URL}api/v2/muestras/eliminar/${id}`, { method: "DELETE" });
+
             if (!response.ok) throw new Error(`Error al eliminar la muestra: ${response.status}`);
-    
-            let data = await response.json();
-            
+
             toastr.error("Muestra eliminada con éxito", "Eliminado", { timeOut: 3000 });
             elemento.remove();
         } catch (error) {
@@ -109,16 +106,14 @@ document.addEventListener("DOMContentLoaded", () => {
         try {
             let response, mensaje;
             if (muestraEditando) {
-                // EDITAR MUESTRA
-                response = await fetch(`http://localhost/Anatomia/public/api/v2/muestras/editar/${muestraEditando.id}`, {
+                response = await fetch(`${BASE_URL}api/v2/muestras/editar/${muestraEditando.id}`, {
                     method: "PUT",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(nuevaMuestra)
                 });
                 mensaje = "Muestra actualizada con éxito";
             } else {
-                // CREAR MUESTRA
-                response = await fetch("http://localhost/Anatomia/public/api/v2/muestras/crear", {
+                response = await fetch(`${BASE_URL}api/v2/muestras/crear`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(nuevaMuestra)
@@ -128,7 +123,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (!response.ok) throw new Error(`Error en la operación: ${response.status}`);
             toastr.success(mensaje);
-            //alert(mensaje);
             cerrarModal();
             cargarMuestras(); // Recargar la lista
         } catch (error) {
@@ -139,18 +133,18 @@ document.addEventListener("DOMContentLoaded", () => {
     function cerrarModal() {
         document.getElementById('modalInforme').classList.add('hidden');
         muestraEditando = null;
-        btnCrear.innerText = "Guardar Informe"; // Restaurar el botón al modo "Crear"
+        btnCrear.innerText = "Guardar Informe";
     }
 
-    // Mantener la carga de opciones dinámicas como estaba
-    const cargarOpciones = async (url, selectId) => {
+    // Mantener la carga de opciones dinámicas con BASE_URL
+    const cargarOpciones = async (endpoint, selectId) => {
         try {
-            const response = await fetch(url);
+            const response = await fetch(`${BASE_URL}${endpoint}`);
             if (!response.ok) throw new Error('Error al cargar los datos');
 
             const datos = await response.json();
             const select = document.querySelector(selectId);
-            select.innerHTML = ""; // Limpiar opciones previas
+            select.innerHTML = "";
 
             datos.forEach(tipo => {
                 const option = document.createElement('option');
@@ -163,8 +157,8 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
 
-    cargarOpciones("http://localhost/Anatomia/public/api/v1/tipos-naturaleza", "#naturaleza");
-    cargarOpciones("http://localhost/Anatomia/public/api/v1/sedes", "#procedencia");
-    cargarOpciones("http://localhost/Anatomia/public/api/v1/calidades", "#conservacion");
-    cargarOpciones("http://localhost/Anatomia/public/api/v1/organos", "#biopsia");
+    cargarOpciones("api/v1/tipos-naturaleza", "#naturaleza");
+    cargarOpciones("api/v1/sedes", "#procedencia");
+    cargarOpciones("api/v1/calidades", "#conservacion");
+    cargarOpciones("api/v1/organos", "#biopsia");
 });

@@ -12,4 +12,17 @@ class OrganoController extends Controller
     {
         return response()->json(Organo::all(), 200);
     }
+
+    public function getOrganoByCodigo($codigo)
+{
+    $organo = Organo::where('codigo', $codigo)->first();
+
+    if ($organo) {
+        return response()->json(['nombre' => $organo->nombre], 200);
+    } else {
+        return response()->json(['error' => 'Órgano no encontrado'], 404);
+    }
 }
+
+}
+

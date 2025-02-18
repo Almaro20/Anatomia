@@ -12,6 +12,7 @@ use App\Http\Controllers\ImagenController;
 
 Route::prefix('v1')->group(function () {
     Route::get('organos', [OrganoController::class, 'index']);
+    Route::get('/organo/{codigo}', [OrganoController::class, 'getOrganoByCodigo']);
     Route::get('sedes', [SedeController::class, 'index']);
     Route::get('tipos-estudio', [TipoEstudioController::class, 'index']);
     Route::get('tipos-naturaleza', [TipoNaturalezaController::class, 'index']);

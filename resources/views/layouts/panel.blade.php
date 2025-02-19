@@ -8,10 +8,6 @@
     <title>@yield('title')</title>
     <link rel="icon" type="image/ico" href="{{ asset('img/favicon.ico') }}"/>
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 31d0a0f146512717f27e6899ad4ccef6ab6c2c6c
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
@@ -25,10 +21,6 @@
                         <img class="h-12" src="{{ asset('img/logo.png') }}" alt="logo" />
                     </a>
                 </div>
-<<<<<<< HEAD
-=======
-
->>>>>>> 31d0a0f146512717f27e6899ad4ccef6ab6c2c6c
                 <div class="relative">
                     <button class="flex items-center text-white focus:outline-none" id="user-menu-button">
                         {{ Auth::user()->name }}
@@ -53,39 +45,13 @@
                 <div class="flex flex-col">
                     <h1 class="text-lg font-bold px-3 text-white">Bienvenido</h1>
                 </div>
-<<<<<<< HEAD
                 <hr class="my-4 border-blue-300" />
-=======
-
-                <hr class="my-4 border-gray-300" />
-
->>>>>>> 31d0a0f146512717f27e6899ad4ccef6ab6c2c6c
                 <ul class="text-sm mt-2 leading-8">
                     <li><a href="{{ route('dashboard') }}" class="text-white flex items-center px-3 py-2 hover:bg-blue-400 rounded-md">
                         <span class="material-icons-round text-white mr-2">account_balance</span>Inicio</a>
                     </li>
-<<<<<<< HEAD
                     <li><a href="{{ route('informe') }}" class="text-white flex items-center px-3 py-2 hover:bg-blue-400 rounded-md">
                         <span class="material-icons-round text-white mr-2">info</span>Informes</a>
-=======
-
-                    <li @class(['mb-1 flex', request()->routeIs('welcome') ? 'px-3 font-medium hover:font-semibold bg-blue-100 w-full rounded-md box-border' : 'hover:px-3 hover:bg-blue-50 hover:rounded-md ease-in-out hover:transition-all duration-200'])>
-                        <a href="{{ route('informe') }}" class="text-gray-600 w-full flex justify-start items-center">
-                            <span class="material-icons-round text-slate-600 ml-4 mr-2">
-                                info
-                            </span>
-                            Informes
-                        </a>
-                    </li>
-
-                    <li @class(['mb-1 flex', request()->routeIs('welcome') ? 'px-3 font-medium hover:font-semibold bg-blue-100 w-full rounded-md box-border' : 'hover:px-3 hover:bg-blue-50 hover:rounded-md ease-in-out hover:transition-all duration-200'])>
-                        <a href="{{ route('usuarios') }}" class="text-gray-600 w-full flex justify-start items-center">
-                            <span class="material-icons-round text-slate-600 ml-4 mr-2">
-                                    group
-                            </span>
-                            Usuarios
-                        </a>
->>>>>>> 31d0a0f146512717f27e6899ad4ccef6ab6c2c6c
                     </li>
                     <li><a href="{{ route('usuarios') }}" class="text-white flex items-center px-3 py-2 hover:bg-blue-400 rounded-md">
                         <span class="material-icons-round text-white mr-2">group</span>Usuarios</a>
@@ -94,32 +60,20 @@
                     <li><a href="{{ route('profile.edit') }}" class="text-white flex items-center px-3 py-2 hover:bg-blue-400 rounded-md">
                         <span class="material-icons-round text-white mr-2">account_circle</span>Perfil</a>
                     </li>
-
-
                 </ul>
             </div>
         </div>
 
-<<<<<<< HEAD
         <!-- Contenedor principal con el footer al final -->
         <div class="flex-1 flex flex-col min-h-screen lg:ml-64">
             <!-- Contenido principal -->
             <main class="flex-grow p-6">
-=======
-        <div class="flex-grow mx-auto p-6 mt-14 lg:ml-64">
-            <main>
->>>>>>> 31d0a0f146512717f27e6899ad4ccef6ab6c2c6c
                 @yield('content')
             </main>
 
-<<<<<<< HEAD
             <!-- Footer -->
             @include('layouts.footer')
         </div>
-=======
-        <!-- Footer -->
-
->>>>>>> 31d0a0f146512717f27e6899ad4ccef6ab6c2c6c
     </div>
 
     @stack('scripts')
@@ -127,18 +81,9 @@
         document.addEventListener("DOMContentLoaded", function () {
             const userMenuButton = document.getElementById("user-menu-button");
             const userMenu = document.getElementById("user-menu");
-<<<<<<< HEAD
             userMenuButton.addEventListener("click", function () {
                 userMenu.classList.toggle("hidden");
             });
-=======
-
-            userMenuButton.addEventListener("click", function () {
-                userMenu.classList.toggle("hidden");
-            });
-
-            // Cerrar el menú si se hace clic fuera de él
->>>>>>> 31d0a0f146512717f27e6899ad4ccef6ab6c2c6c
             document.addEventListener("click", function (event) {
                 if (!userMenuButton.contains(event.target) && !userMenu.contains(event.target)) {
                     userMenu.classList.add("hidden");
@@ -148,8 +93,5 @@
     </script>
     @vite(['resources/js/panel.js'])
 </body>
-<<<<<<< HEAD
 
-=======
->>>>>>> 31d0a0f146512717f27e6899ad4ccef6ab6c2c6c
 </html>

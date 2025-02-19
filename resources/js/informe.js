@@ -94,7 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     // Función para crear o editar la muestra
-    btnCrear.addEventListener("click", async (event) => {
+    document.getElementById('btncrear').addEventListener('click', async function(event) {
         event.preventDefault();
 
         const nuevaMuestra = {

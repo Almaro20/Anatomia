@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const BASE_URL = "https://anatomia-production.up.railway.app";
+    const BASE_URL = "/informe";
 
 
     const btnCrear = document.querySelector("#btncrear");

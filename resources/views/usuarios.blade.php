@@ -7,13 +7,11 @@ Panel
 @section('content')
 
 
-<div class="container mt-10">
-    <div class="row">
+<div class="container1 mt-10">
+    <div class="row1">
         <!-- Aquí se insertarán dinámicamente las muestras -->
     </div>
 </div>
-
-
 
 
 
@@ -24,6 +22,6 @@ Panel
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
+@vite( ['resources/js/usuarios.js'])
 @endsection
 
-@vite(['resources/js/usuarios.js'])

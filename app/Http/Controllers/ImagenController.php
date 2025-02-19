@@ -11,14 +11,15 @@ class ImagenController extends Controller
 {
     public function subirImagen(Request $request)
     {
-        // Validar que se haya subido una imagen
         $request->validate([
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'zoom'  => 'required|in:x4,x10,x40,x100'
         ]);
-
-        // Obtener la imagen del request
+    
+        // Obtener la imagen y el zoom del request
         $image = $request->file('image');
-        
+        $zoom = $request->input('zoom');
+    
         // Instanciar Cloudinary
         $cloudinary = new Cloudinary([
             'cloud' => [
@@ -27,32 +28,33 @@ class ImagenController extends Controller
                 'api_secret' => env('CLOUDINARY_API_SECRET')
             ]
         ]);
-
+    
         // Subir la imagen a Cloudinary
         try {
             $uploadResponse = $cloudinary->uploadApi()->upload($image->getRealPath(), [
-                'folder' => 'imagenes/'  // Define una carpeta en tu Cloudinary
+                'folder' => 'imagenes/'
             ]);
-
-            // Verificar si la URL fue obtenida correctamente
+    
             $url = $uploadResponse['secure_url'] ?? null;
-
+    
             if (!$url) {
                 return response()->json(['error' => 'La URL de la imagen no se pudo obtener'], 400);
             }
-
-            // Crear la nueva imagen en la base de datos
-            $imagen = new Imagen();
-            $imagen->url = $url;
-            $imagen->save();
-
+    
+            // Guardar la imagen en la base de datos
+            $imagen = Imagen::create(['url' => $url]);
+    
+            // Guardar el zoom en la tabla zooms
+            $imagen->zooms()->create([
+                'zoom' => $zoom
+            ]);
+    
             return response()->json([
                 'message' => 'Imagen subida con éxito',
                 'image_url' => $imagen->url,
+                'zoom' => $zoom
             ]);
-
         } catch (\Exception $e) {
-            // Manejar cualquier error de la API
             return response()->json(['error' => 'Error al subir la imagen: ' . $e->getMessage()], 500);
         }
     }

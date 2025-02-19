@@ -1,14 +1,13 @@
 document.addEventListener("DOMContentLoaded", () => {
     const BASE_URL = "http://localhost/Anatomia/public/";
 
-    // Cargar las muestras desde la API cuando la página se carga
     const cargarUsuarios = async () => {
         try {
             let response = await fetch(`${BASE_URL}api/v3/usuarios/listar`);
-            if (!response.ok) throw new Error(`Error al cargar las muestras: ${response.status}`);
+            if (!response.ok) throw new Error(`Error al cargar los usuarios: ${response.status}`);
 
             let usuarios = await response.json();
-            actualizarMuestrasEnDOM(usuarios);
+            actualizarUsuariosEnDOM(usuarios);
         } catch (error) {
             console.error("Error:", error);
         }
@@ -16,14 +15,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     cargarUsuarios();
 
-    const actualizarMuestrasEnDOM = (usuarios) => {
-        const container = document.querySelector(".container .row");
-        container.innerHTML = "";
-        usuarios.forEach(usuario => agregarMuestraAlDOM(usuario));
+    const actualizarUsuariosEnDOM = (usuarios) => {
+        const container1 = document.querySelector(".container1 .row1");
+        container1.innerHTML = "";
+        usuarios.forEach(usuario => agregarUsuarioAlDOM(usuario));
     };
 
-    const agregarMuestraAlDOM = (usuario) => {
-        const container = document.querySelector(".container .row");
+    const agregarUsuarioAlDOM = (usuario) => {
+        const container1 = document.querySelector(".container1 .row1");
         const div = document.createElement("div");
         div.classList.add("col-md-4", "mt-8");
         div.innerHTML = `
@@ -32,7 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <p><strong>Email:</strong> ${usuario.email}</p>
             </div>`;
 
-        container.appendChild(div);     
+        container1.appendChild(div);     
     };
 
 });

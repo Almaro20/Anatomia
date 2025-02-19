@@ -1,5 +1,6 @@
 <?php
 
+// 2025_02_19_zooms_table.php
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -8,15 +9,15 @@ return new class extends Migration
 {
     public function up()
     {
-        Schema::create('imagenes', function (Blueprint $table) {
-            $table->id();  // ID de la imagen
-            $table->string('url');  // Cloudinary
-            $table->softDeletes();  
+        Schema::create('zooms', function (Blueprint $table) {
+            $table->id();
+            $table->enum('zoom', ['x4', 'x10', 'x40', 'x100']);
+            $table->timestamps();
         });
     }
 
     public function down()
     {
-        Schema::dropIfExists('imagenes');
+        Schema::dropIfExists('zooms');
     }
 };

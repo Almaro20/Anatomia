@@ -7,11 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Imagen extends Model
 {
-    use HasFactory;
+    public function zooms()
+    {
+        return $this->hasMany(Zoom::class);
+    }
 
-    protected $table = 'imagenes';
-    protected $fillable = ['url'];
-
-    // Deshabilitar las marcas de tiempo
-    public $timestamps = false;
+    public function imagenable()
+    {
+        return $this->morphTo();
+    }
 }

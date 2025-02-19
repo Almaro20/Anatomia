@@ -19,6 +19,7 @@ return new class extends Migration
         // Agregar los timestamps
         $table->timestamps();
 
+        $table->foreignId('imagen_id')->constrained('imagenes')->onDelete('cascade');
         $table->foreignId('tipoNaturaleza_id')->constrained('tipo_naturaleza');
         $table->foreignId('formato_id')->constrained('formato');
         $table->foreignId('calidad_id')->constrained('calidad');

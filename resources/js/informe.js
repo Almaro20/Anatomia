@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const BASE_URL = "mysql://root:nnYBorhezYjGPqPgqWgUuPMLutORuTyj@viaduct.proxy.rlwy.net:22796/railway";
+    const BASE_URL = "https://anatomia-production.up.railway.app";
 
 
     const btnCrear = document.querySelector("#btncrear");

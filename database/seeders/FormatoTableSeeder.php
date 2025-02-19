@@ -9,22 +9,20 @@ class FormatoTableSeeder extends Seeder
 {
     public function run()
     {
-        // Insertar el primer formato
         Formato::create([
-            'codigo' => 'A',
-            'nombre' => 'Formato A',
+            'nombre' => 'Fresco',
         ]);
 
-        // Insertar el segundo formato
         Formato::create([
-            'codigo' => 'B',
-            'nombre' => 'Formato B',
+            'nombre' => 'Formol',
         ]);
 
-        // Insertar un tercer formato si es necesario
         Formato::create([
-            'codigo' => 'C',
-            'nombre' => 'Formato C',
+            'nombre' => 'Etanol 70%',
+        ]);
+
+        Formato::create([
+            'nombre' => 'Etanol 100%',
         ]);
     }
 }

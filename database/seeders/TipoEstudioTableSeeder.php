@@ -11,11 +11,12 @@ class TipoEstudioTableSeeder extends Seeder
     {
         // Usamos el modelo Eloquent para insertar los registros
         TipoEstudio::insert([
-            ['nombre' => 'Estudio Clínico'],
-            ['nombre' => 'Estudio Radiológico'],
-            ['nombre' => 'Estudio de Laboratorio'],
-            ['nombre' => 'Estudio Patológico'],
-            ['nombre' => 'Estudio Genético'],
+            ['nombre' => 'Estudio de Biopsias'],
+            ['nombre' => 'Estudio Citológico Buccal'],
+            ['nombre' => 'Estudio Cilogico Cervico-Vaginal'],
+            ['nombre' => 'Estudio Hematologico Completo'],
+            ['nombre' => 'Estudio Microscopico y Quimico de Orina'],
+            ['nombre' => 'Estudio Citologico de Esputo']
         ]);
     }
 }

@@ -9,5 +9,11 @@ class TipoEstudio extends Model
     use HasFactory;
 
     protected $table = 'tipo_estudio';
+    
     protected $fillable = ['nombre'];
+
+    public function tipoNaturalezas()
+    {
+        return $this->hasMany(TipoNaturaleza::class, 'tipoEstudio_id');
+    }
 }

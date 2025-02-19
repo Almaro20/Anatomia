@@ -12,7 +12,7 @@ return new class extends Migration
         $table->id();
         $table->string('codigo');
         $table->date('fechaEntrada');
-        $table->enum('organo', ['BC', 'BB', 'BH', 'BF', 'BES', 'BCB', 'BR', 'BL', 'BU', 'BO', 'BI', 'BTF', 'BEF', 'BPA', 'BT', 'BPI', 'BP']);
+        $table->enum('organo', ['BC', 'BB', 'BH', 'BF', 'BES', 'BCB', 'BR', 'BL', 'BU', 'BO', 'BI', 'BTF', 'BEF', 'BPA', 'BT', 'BPI', 'BP'])->nullable();
         $table->text('descripcionMuestra');
         $table->softDeletes();
 

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+use App\Models\Organo;
 use App\Models\Calidad;
 use Illuminate\Http\Request;
+use App\Models\TipoNaturaleza;
+use App\Http\Controllers\Controller;
 
 class CalidadController extends Controller
 {
@@ -21,4 +23,17 @@ class CalidadController extends Controller
         return response()->json($calidades, 200);
     }
 
+    // CalidadController.php
+    public function getByTipoNaturaleza($tipoNaturalezaId)
+    {
+    $calidades = Calidad::where('tipoNaturaleza_id', $tipoNaturalezaId)->get();
+    return response()->json($calidades);
+    }
+
+    public function getByOrgano($organoId)
+{
+    $organo = Organo::findOrFail($organoId);
+    $calidades = Calidad::where('codigo', 'LIKE', $organo->codigo . '%')->get();
+    return response()->json($calidades);
+}
 }

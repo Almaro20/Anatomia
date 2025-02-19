@@ -39,51 +39,38 @@ Panel
                         <input type="date" id="fecha" name="fecha" class="w-full border border-gray-300 rounded-lg px-3 py-2">
                     </div>
                     <div>
+                        <label for="tipoEstudio" class="block text-sm font-medium text-gray-700">Tipo de Estudio</label>
+                        <select id="tipoEstudio" name="tipoEstudio" class="w-full border border-gray-300 rounded-lg px-3 py-2">
+                            <option value="">Seleccione un tipo de estudio</option>
+                        </select>
+                    </div>
+                    
+                    <div>
                         <label for="naturaleza" class="block text-sm font-medium text-gray-700">Naturaleza de la muestra</label>
-                        <select id="naturaleza" name="naturaleza" class="w-full border border-gray-300 rounded-lg px-3 py-2">
-                            <option>Tipo</option>
+                        <select id="naturaleza" name="naturaleza" class="w-full border border-gray-300 rounded-lg px-3 py-2" disabled>
+                            <option value="">Seleccione naturaleza</option>
                         </select>
                     </div>
+                    
                     <div>
-                        <label for="biopsia" class="block text-sm font-medium text-gray-700">Opciones biopsia</label>
-                        <select id="biopsia" name="biopsia" class="w-full border border-gray-300 rounded-lg px-3 py-2">
-                            <option>Órgano</option>
+                        <label for="biopsia" class="block text-sm font-medium text-gray-700">Órgano (solo para biopsias)</label>
+                        <select id="biopsia" name="biopsia" class="w-full border border-gray-300 rounded-lg px-3 py-2" disabled>
+                            <option value="">Seleccione órgano</option>
                         </select>
                     </div>
+                    
                     <div>
-                        <label for="conservacion" class="block text-sm font-medium text-gray-700">Conservación de muestra</label>
-                        <select id="conservacion" name="conservacion" class="w-full border border-gray-300 rounded-lg px-3 py-2">
-                            <option>Formato</option>
+                        <label for="calidad" class="block text-sm font-medium text-gray-700">Calidad de la muestra</label>
+                        <select id="calidad" name="calidad" class="w-full border border-gray-300 rounded-lg px-3 py-2" disabled>
+                            <option value="">Seleccione calidad</option>
                         </select>
                     </div>
-                    <div>
-                        <label for="procedencia" class="block text-sm font-medium text-gray-700">Centro de procedencia</label>
-                        <select id="procedencia" name="procedencia" class="w-full border border-gray-300 rounded-lg px-3 py-2">
-                            <option>Sede</option>
-                        </select>
-                    </div>
+                        <
+                       
                     <div>
                         <label for="descripcion" class="block text-sm font-medium text-gray-700">Descripción</label>
                         <input type="text" id="descripcion" name="descripcion" class="w-full border border-gray-300 rounded-lg px-3 py-2">
                     </div>
-
-                    <!-- Campo de imagen -->
-                    <div>
-                        <label for="image" class="block text-sm font-medium text-gray-700">Subir Imagen</label>
-                        <input type="file" id="image" name="image" accept="image/*" class="w-full border border-gray-300 rounded-lg px-3 py-2" required>
-                    </div>
-
-                    <!-- Campo de zoom -->
-                    <div>
-                        <label for="zoom" class="block text-sm font-medium text-gray-700">Selecciona el nivel de zoom:</label>
-                        <select id="zoom" name="zoom" class="w-full border border-gray-300 rounded-lg px-3 py-2" required>
-                            <option value="x4">x4</option>
-                            <option value="x10">x10</option>
-                            <option value="x40">x40</option>
-                            <option value="x100">x100</option>
-                        </select>
-                    </div>
-
                 </div>
                 <div class="mt-4 flex justify-end">
                     <button type="button" class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 mr-2" onclick="cerrarModal()">Cancelar</button>

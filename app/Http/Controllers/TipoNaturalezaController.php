@@ -12,4 +12,12 @@ class TipoNaturalezaController extends Controller
     {
         return response()->json(TipoNaturaleza::all(), 200);
     }
+
+    public function getByTipoEstudio($tipoEstudioId)
+    {
+    $tiposNaturaleza = TipoNaturaleza::where('tipoEstudio_id', $tipoEstudioId)->get();
+    return response()->json($tiposNaturaleza);
+    }
 }
+
+

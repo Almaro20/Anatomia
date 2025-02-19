@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Models\Organo;
+use App\Models\Calidad;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class OrganoController extends Controller
 {
@@ -23,6 +24,7 @@ class OrganoController extends Controller
         return response()->json(['error' => 'Órgano no encontrado'], 404);
     }
 }
+
 
 }
 

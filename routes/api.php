@@ -47,4 +47,15 @@ Route::prefix('v4')->group(function () {
 
     Route::get('/interpretaciones', [InterpretacionController::class, 'index']);
     Route::get('/interpretaciones/{codigo}', [InterpretacionController::class, 'getByCodigo']);
+
+    Route::get('calidades/{tipoNaturalezaId}', [CalidadController::class, 'getByTipoNaturaleza']);
+    Route::get('calidades/organo/{organoId}', [CalidadController::class, 'getByOrgano']);
 });
+
+
+// En api.php
+Route::get('tipos-estudio', [TipoEstudioController::class, 'index']);
+Route::get('tipos-naturaleza/{tipoEstudioId}', [TipoNaturalezaController::class, 'getByTipoEstudio']);
+Route::get('organos', [OrganoController::class, 'index']);
+Route::get('calidades/tipo-naturaleza/{tipoNaturalezaId}', [CalidadController::class, 'getByTipoNaturaleza']);
+Route::get('calidades/organo/{organoId}', [CalidadController::class, 'getByOrgano']);

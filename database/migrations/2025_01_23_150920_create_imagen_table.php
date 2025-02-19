@@ -8,17 +8,15 @@ return new class extends Migration
 {
     public function up()
     {
-        Schema::create('imagen', function (Blueprint $table) {
-            $table->id();
-            $table->string('ruta');
-            $table->string('zoom');
-            $table->softDeletes();
-
+        Schema::create('imagenes', function (Blueprint $table) {
+            $table->id();  // ID de la imagen
+            $table->string('url');  // Cloudinary
+            $table->softDeletes();  
         });
     }
 
     public function down()
     {
-        Schema::dropIfExists('imagen');
+        Schema::dropIfExists('imagenes');
     }
 };

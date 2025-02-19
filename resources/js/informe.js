@@ -144,13 +144,12 @@ document.addEventListener("DOMContentLoaded", () => {
         const muestraId = event.getAttribute('data-id');
 
         // Redirigir al endpoint que genera el PDF
-        const url = `/public/imprimir/muestra/${muestraId}`;
+        const url = `${BASE_URL}imprimir/muestra/${muestraId}`;
 
         // Realizar la solicitud para descargar el PDF
         window.open(url, '_blank');
     };
 
-    // Mantener la carga de opciones dinámicas con BASE_URL
     const cargarOpciones = async (endpoint, selectId) => {
         try {
             const response = await fetch(`${BASE_URL}${endpoint}`);

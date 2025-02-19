@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -8,6 +9,9 @@ class Imagen extends Model
 {
     use HasFactory;
 
-    protected $table = 'imagen';
-    protected $fillable = ['ruta', 'descripcion'];
+    protected $table = 'imagenes';
+    protected $fillable = ['url'];
+
+    // Deshabilitar las marcas de tiempo
+    public $timestamps = false;
 }

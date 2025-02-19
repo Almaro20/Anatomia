@@ -11,9 +11,8 @@ return new class extends Migration
         Schema::create('formato', function (Blueprint $table) {
             $table->id(); // Clave primaria
             $table->string('nombre');
-            $table->string('codigo');
             $table->softDeletes();
-            $table->timestamps();  // Esto agrega las columnas created_at y updated_at
+            $table->timestamps(); 
 
             $table->engine = 'InnoDB';
         });

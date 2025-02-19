@@ -13,16 +13,12 @@ class CalidadController extends Controller
         return response()->json(Calidad::all(), 200);
     }
 
-    public function getByTipo(Request $request, $tipo)
+    public function getByCodigo($codigo)
     {
-        // Filtrar por prefijo en el código
-        $calidades = Calidad::where('codigo', 'LIKE', "$tipo.%")->get();
-
-        if ($calidades->isEmpty()) {
-            return response()->json(['message' => 'No se encontraron calidades para el tipo especificado'], 404);
-        }
+        $calidades = Calidad::where('codigo', 'like', "$codigo.%")
+            ->get();
 
         return response()->json($calidades, 200);
     }
-}
 
+}

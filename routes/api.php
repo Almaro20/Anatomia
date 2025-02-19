@@ -42,5 +42,5 @@ Route::prefix('v3')->group(function () {
 
 Route::prefix('v4')->group(function () {
     Route::get('calidades', [CalidadController::class, 'index']);
-    Route::get('calidades/{tipo}', [CalidadController::class, 'getByTipo']); // Nuevo endpoint
+    Route::get('/calidades/{codigo}', [CalidadController::class, 'getByCodigo']);
 });

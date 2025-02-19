@@ -39,3 +39,8 @@ Route::prefix('v3')->group(function () {
     Route::delete('usuarios/eliminar/{id}', [UserController::class, 'delete']);
 
 });
+
+Route::prefix('v4')->group(function () {
+    Route::get('calidades', [CalidadController::class, 'index']);
+    Route::get('calidades/{tipo}', [CalidadController::class, 'getByTipo']); // Nuevo endpoint
+});

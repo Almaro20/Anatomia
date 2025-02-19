@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id(); // Clave primaria
             $table->string('calidad');
             $table->foreignId('idMuestras')->constrained('muestra');
-            $table->foreignId('idInterpretacion')->constrained('interpretacion');
+            $table->foreignId('idInterpretacion')->constrained('interpretacion')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });

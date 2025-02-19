@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
+    const BASE_URL = "http://localhost/public/";
 
-    const BASE_URL = "http://localhost:8080/public/";
 
     const btnCrear = document.querySelector("#btncrear");
     let muestraEditando = null;

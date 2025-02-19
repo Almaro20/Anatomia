@@ -11,7 +11,7 @@ return new class extends Migration
     {
         Schema::create('zooms', function (Blueprint $table) {
             $table->id();
-            $table->enum('zoom', ['x4', 'x10', 'x40', 'x100']);
+            $table->string('zoom');
             $table->timestamps();
         });
     }

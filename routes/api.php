@@ -1,15 +1,16 @@
 <?php
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\MuestraController;
-use App\Http\Controllers\OrganoController;
 use App\Http\Controllers\SedeController;
-use App\Http\Controllers\TipoEstudioController;
-use App\Http\Controllers\TipoNaturalezaController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ZoomController;
+use App\Http\Controllers\ImagenController;
+use App\Http\Controllers\OrganoController;
 use App\Http\Controllers\CalidadController;
 use App\Http\Controllers\FormatoController;
-use App\Http\Controllers\ImagenController;
+use App\Http\Controllers\MuestraController;
+use App\Http\Controllers\TipoEstudioController;
 use App\Http\Controllers\InterpretacionController;
+use App\Http\Controllers\TipoNaturalezaController;
 
 Route::prefix('v1')->group(function () {
     Route::get('organos', [OrganoController::class, 'index']);
@@ -20,6 +21,7 @@ Route::prefix('v1')->group(function () {
     Route::get('calidades', [CalidadController::class, 'index']);
     Route::get('formatos', [FormatoController::class, 'index']);
     Route::get('imagenes', [ImagenController::class, 'index']);
+    Route::get('/zooms', [ZoomController::class, 'index']);
 });
 
 Route::prefix('v2')->group(function () {

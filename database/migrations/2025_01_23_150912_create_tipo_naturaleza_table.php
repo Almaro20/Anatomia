@@ -12,11 +12,11 @@ return new class extends Migration
             $table->id();
             $table->string('codigo');
             $table->string('nombre');
-            $table->unsignedBigInteger('tipoEstudio_id');
+            $table->foreignId('tipoEstudio_id')->constrained('tipo_estudio')->onDelete('cascade');
             $table->softDeletes();
-        
-           
-        
+
+
+
             $table->engine = 'InnoDB';
         });
     }

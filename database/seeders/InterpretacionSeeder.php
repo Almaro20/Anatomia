@@ -14,7 +14,7 @@ class InterpretacionSeeder extends Seeder
      */
     public function run()
     {
-        $interpretaciones = [
+        $interpretacion = [
             //corazon
             ['codigo' => '1.1', 'descripcion' => 'Se observa una arquitectura cardíaca conservada, con una adecuada distribución de miocitos y estructuras vasculares.'],
             ['codigo' => '1.2', 'descripcion' => 'No se observan signos evidentes de necrosis en el tejido cardíaco, lo que sugiere una integridad estructural relativamente normal.'],
@@ -339,6 +339,6 @@ class InterpretacionSeeder extends Seeder
 
         ];
 
-        DB::table('interpretaciones')->insert($interpretaciones);
+        DB::table('interpretacion')->insert($interpretacion);
     }
 }

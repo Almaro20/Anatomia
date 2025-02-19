@@ -12,13 +12,21 @@ return new class extends Migration
             $table->id();
             $table->string('codigo');
             $table->string('nombre');
+            $table->unsignedBigInteger('tipoEstudio_id');
             $table->softDeletes();
-
+        
+           
+        
+            $table->engine = 'InnoDB';
         });
     }
 
     public function down()
     {
+        Schema::table('tipo_naturaleza', function (Blueprint $table) {
+            $table->dropForeign(['tipoEstudio_id']);
+        });
+
         Schema::dropIfExists('tipo_naturaleza');
     }
 };

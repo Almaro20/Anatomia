@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PDFController;
+use App\Http\Controllers\ImagenController;
 
 /*Route::get('/', function () {
     return view('welcome');
@@ -30,12 +32,6 @@ Route::get('/principal', function () {
     return view('principal');
 })->name('principal');
 
-use Barryvdh\DomPDF\Facade\PDF;
-
-// routes/web.php
-
-use App\Http\Controllers\PDFController;
-
 
 Route::get('/imprimir/muestra/{id}', [PDFController::class, 'generarPDF']);
 
@@ -47,3 +43,16 @@ Route::middleware('auth')->group(function () { //esto es pa la movida esa d tene
 });
 
 require __DIR__.'/auth.php';
+
+
+
+
+
+
+Route::post('/subir-imagen', [ImagenController::class, 'subirImagen'])
+->name('subir-imagen');
+
+
+Route::get('/imagen', function () {
+    return view('imagen');
+})->name('imagen');

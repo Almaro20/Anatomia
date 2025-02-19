@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -9,12 +8,11 @@ return new class extends Migration
     public function up()
     {
         Schema::create('tipo_estudio', function (Blueprint $table) {
-            $table->id();
+            $table->id();  // Esto crea una columna 'id' como unsignedBigInteger automáticamente
             $table->string('nombre');
             $table->string('descripcion')->default('Descripción por defecto')->change();
-            $table->softDeletes(); 
-
-
+            $table->softDeletes();
+        
             $table->engine = 'InnoDB';
         });
     }

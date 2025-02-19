@@ -1,6 +1,10 @@
 document.addEventListener("DOMContentLoaded", () => {
+<<<<<<< HEAD
     const BASE_URL = "http://localhost/public/";
 
+=======
+    const BASE_URL = "http://localhost/Anatomia/public/";
+>>>>>>> 5c32cda71541d9591a4cc06980abe1732d14fb5b
     const btnCrear = document.querySelector("#btncrear");
     let muestraEditando = null;
 
@@ -143,13 +147,12 @@ document.addEventListener("DOMContentLoaded", () => {
         const muestraId = event.getAttribute('data-id');
 
         // Redirigir al endpoint que genera el PDF
-        const url = `/public/imprimir/muestra/${muestraId}`;
+        const url = `${BASE_URL}imprimir/muestra/${muestraId}`;
 
         // Realizar la solicitud para descargar el PDF
         window.open(url, '_blank');
     };
 
-    // Mantener la carga de opciones dinámicas con BASE_URL
     const cargarOpciones = async (endpoint, selectId) => {
         try {
             const response = await fetch(`${BASE_URL}${endpoint}`);

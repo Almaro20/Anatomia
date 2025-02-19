@@ -13,10 +13,10 @@ class TipoEstudioTableSeeder extends Seeder
         TipoEstudio::insert([
             ['nombre' => 'Estudio de Biopsias'],
             ['nombre' => 'Estudio Citológico Buccal'],
-            ['nombre' => 'Estudio Cilogico Cervico-Vaginal'],
-            ['nombre' => 'Estudio Hematologico Completo'],
-            ['nombre' => 'Estudio Microscopico y Quimico de Orina'],
-            ['nombre' => 'Estudio Citologico de Esputo']
+            ['nombre' => 'Estudio Citológico Cérvico-Vaginal'],
+            ['nombre' => 'Estudio Hematológico Completo'],
+            ['nombre' => 'Estudio Microscópico y Químico de Orina'],
+            ['nombre' => 'Estudio Citológico de Esputo']
         ]);
     }
 }

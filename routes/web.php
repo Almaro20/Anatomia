@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ApiListController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PDFController;
@@ -41,6 +42,10 @@ Route::middleware('auth')->group(function () { //esto es pa la movida esa d tene
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+// Para ver las rutas disponibles
+Route::get('/rutas', [ApiListController::class, 'listarRutas']);
+
 
 require __DIR__.'/auth.php';
 

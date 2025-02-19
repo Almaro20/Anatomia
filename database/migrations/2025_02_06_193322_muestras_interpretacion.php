@@ -14,19 +14,10 @@ return new class extends Migration
         Schema::create('muestras_interpretacion', function (Blueprint $table) {
             $table->id(); // Clave primaria
             $table->string('calidad');
-            $table->unsignedBigInteger('idMuestras');
-            $table->unsignedBigInteger('idInterpretacion');
+            $table->foreignId('idMuestras')->constrained('muestra');
+            $table->foreignId('idInterpretacion')->constrained('interpretacion');
+            $table->timestamps();
             $table->softDeletes();
-
-
-            // Verificar si las tablas existen antes de agregar claves foráneas
-            if (Schema::hasTable('muestra')) {
-                $table->foreign('idMuestras')->references('id')->on('muestra')->onDelete('cascade');
-            }
-
-            if (Schema::hasTable('interpretacion')) {
-                $table->foreign('idInterpretacion')->references('id')->on('interpretacion')->onDelete('cascade');
-            }
         });
     }
 

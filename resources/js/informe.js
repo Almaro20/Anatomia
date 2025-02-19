@@ -1,10 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
-<<<<<<< HEAD
-    const BASE_URL = "http://localhost/public/";
+    const BASE_URL = "https://anatomia-production.up.railway.app";
 
-=======
-    const BASE_URL = "http://localhost/Anatomia/public/";
->>>>>>> 5c32cda71541d9591a4cc06980abe1732d14fb5b
+
     const btnCrear = document.querySelector("#btncrear");
     let muestraEditando = null;
 

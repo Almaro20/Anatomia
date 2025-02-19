@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const BASE_URL = "http://localhost/public/";
+    const BASE_URL = "mysql://root:nnYBorhezYjGPqPgqWgUuPMLutORuTyj@viaduct.proxy.rlwy.net:22796/railway";
 
 
     const btnCrear = document.querySelector("#btncrear");

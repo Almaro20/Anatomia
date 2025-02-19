@@ -8,7 +8,7 @@
     <title>@yield('title')</title>
     <link rel="icon" type="image/ico" href="{{ asset('img/favicon.ico') }}"/>
 
-   
+
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
@@ -23,7 +23,7 @@
                         <img class="h-12" src="{{ asset('img/logo.png') }}" alt="logo" />
                     </a>
                 </div>
-    
+
                 <div class="relative">
                     <button class="flex items-center text-gray-600 focus:outline-none" id="user-menu-button">
                         {{ Auth::user()->name }}
@@ -48,9 +48,9 @@
                 <div class="flex flex-col">
                     <h1 class="text-lg font-bold px-3">Bienvenido</h1>
                 </div>
-        
+
                 <hr class="my-4 border-gray-300" />
-        
+
                 <ul class="text-sm mt-2 leading-8">
                     <li @class(['mb-1 flex', request()->routeIs('dashboard') ? 'px-3 font-medium hover:font-semibold bg-blue-100 w-full rounded-md box-border' : 'hover:px-3 hover:bg-blue-50 hover:rounded-md ease-in-out hover:transition-all duration-200'])>
                         <a href="{{ route('dashboard') }}" class="text-gray-600 w-full flex justify-start items-center">
@@ -68,7 +68,7 @@
                             </span>
                             Informes
                         </a>
-                    </li> 
+                    </li>
 
                     <li @class(['mb-1 flex', request()->routeIs('welcome') ? 'px-3 font-medium hover:font-semibold bg-blue-100 w-full rounded-md box-border' : 'hover:px-3 hover:bg-blue-50 hover:rounded-md ease-in-out hover:transition-all duration-200'])>
                         <a href="{{ route('usuarios') }}" class="text-gray-600 w-full flex justify-start items-center">
@@ -89,18 +89,20 @@
                             Perfil
                         </a>
                     </li>
+
+
                 </ul>
             </div>
         </div>
 
         <div class="flex-grow mx-auto p-6 mt-14 lg:ml-64">
             <main>
-                @yield('content')     
+                @yield('content')
             </main>
         </div>
 
         <!-- Footer -->
-       
+
     </div>
 
     @stack('scripts')
@@ -108,11 +110,11 @@
         document.addEventListener("DOMContentLoaded", function () {
             const userMenuButton = document.getElementById("user-menu-button");
             const userMenu = document.getElementById("user-menu");
-    
+
             userMenuButton.addEventListener("click", function () {
                 userMenu.classList.toggle("hidden");
             });
-    
+
             // Cerrar el menú si se hace clic fuera de él
             document.addEventListener("click", function (event) {
                 if (!userMenuButton.contains(event.target) && !userMenu.contains(event.target)) {

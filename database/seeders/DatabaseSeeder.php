@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             FormatoTableSeeder::class,
             OrganoSeeder::class,
             CalidadSeeder::class,
+            ZoomTableSeeder::class,
             UserTableSeeder::class,
             MuestraSeeder::class,
             InterpretacionSeeder::class

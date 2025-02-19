@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
-    
-    const BASE_URL = "/informe";
+
+    const BASE_URL = "";
 
 
     const btnCrear = document.querySelector("#btncrear");

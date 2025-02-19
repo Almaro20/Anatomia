@@ -9,6 +9,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CalidadController;
 use App\Http\Controllers\FormatoController;
 use App\Http\Controllers\ImagenController;
+use App\Http\Controllers\InterpretacionController;
 
 Route::prefix('v1')->group(function () {
     Route::get('organos', [OrganoController::class, 'index']);
@@ -43,4 +44,7 @@ Route::prefix('v3')->group(function () {
 Route::prefix('v4')->group(function () {
     Route::get('calidades', [CalidadController::class, 'index']);
     Route::get('/calidades/{codigo}', [CalidadController::class, 'getByCodigo']);
+
+    Route::get('/interpretaciones', [InterpretacionController::class, 'index']);
+    Route::get('/interpretaciones/{codigo}', [InterpretacionController::class, 'getByCodigo']);
 });

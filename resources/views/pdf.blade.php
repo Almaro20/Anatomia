@@ -297,9 +297,7 @@
             <p>Sede: {{ $muestra->sede['nombre'] }}</p>
         </div>
 
-        <div class="qr-code">
-            <!-- Aquí puedes agregar un código QR si lo deseas -->
-        </div>
+
     </div>
 </body>
 </html>

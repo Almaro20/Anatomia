@@ -88,6 +88,22 @@ Panel
           </select>
         </div>
       </div>
+      <!-- Dentro del formulario en modalInforme -->
+      <div class="mb-4">
+        <label for="imagen" class="block text-sm font-medium text-gray-700">Imagen</label>
+        <input type="file" id="imagen" name="imagen" class="mt-1 block w-full text-sm text-gray-700 border-gray-300 rounded-md" accept="image/*">
+      </div>
+
+      <div class="mb-4">
+        <label for="zoom" class="block text-sm font-medium text-gray-700">Nivel de Zoom</label>
+        <select id="zoom" name="zoom" class="mt-1 block w-full text-sm text-gray-700 border-gray-300 rounded-md">
+            <option value="4">4x</option>
+            <option value="10">10x</option>
+            <option value="40">40x</option>
+            <option value="100">100x</option>
+        </select>
+      </div>
+
       <!-- Descripción en ancho completo -->
       <div>
         <label for="descripcion" class="block text-sm font-medium">Descripción</label>

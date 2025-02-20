@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Informe de Muestra</title>
+    <title>Informe Detallado de Muestra</title>
     <style>
         /* Fuente Moderna */
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
@@ -142,65 +142,164 @@
             color: #2c3e50;
             border-radius: 8px;
         }
+
+        /* Nuevos estilos */
+        .header-logo {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .header-logo img {
+            max-width: 200px;
+        }
+
+        .info-section {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+
+        .info-section h3 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .campo {
+            background-color: white;
+            padding: 12px;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .campo strong {
+            color: #2c3e50;
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        .campo span {
+            color: #34495e;
+            font-size: 15px;
+        }
+
+        .estado-muestra {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 14px;
+            font-weight: 500;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .estado-activo {
+            background-color: #27ae60;
+            color: white;
+        }
+
+        .estado-inactivo {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #eee;
+            font-size: 12px;
+            color: #7f8c8d;
+            text-align: center;
+        }
+
+        .qr-code {
+            text-align: right;
+            margin-top: 20px;
+        }
+
+        .qr-code img {
+            width: 100px;
+            height: 100px;
+        }
     </style>
 </head>
 <body>
-
     <div class="container">
-        <!-- Encabezado -->
+        <div class="header-logo">
+            <h1 style="color: #2c3e50;">Informe de Muestra</h1>
+        </div>
+
         <div class="page-header">
-            <div class="logo">Informe de Muestra</div>
-            <div class="fecha">{{ date('d M, Y') }}</div>
+            <div class="logo">Código: {{ $muestra->codigo }}</div>
+            <div class="fecha">Generado el: {{ date('d/m/Y H:i') }}</div>
         </div>
 
-        <!-- Información General del Informe -->
-        <h2 class="titulo">Detalles del la Muestra</h2>
-
-        <div class="section">
-            <div class="campo">
-                <strong>Código:</strong> {{ $muestra->codigo ?? 'No disponible' }}
-            </div>
-            <div class="campo">
-                <strong>Fecha:</strong> {{ $muestra->fechaEntrada ?? 'No disponible' }}
-            </div>
-        </div>
-        
-        <div class="section">
-            <div class="campo">
-                <strong>Órgano:</strong> {{ $muestra->organo ?? 'No disponible' }}
-            </div>
-            <div class="campo">
-                <strong>Descripción:</strong> {{ $muestra->descripcionMuestra ?? 'No disponible' }}
-            </div>
-        </div>
-        
-        <div class="section">
-            <div class="campo">
-                <strong>Tipo de Naturaleza:</strong> {{ $muestra->naturaleza ?? 'No disponible' }}
-            </div>
-            <div class="campo">
-                <strong>Conservación:</strong> {{ $muestra->conservacion ?? 'No disponible' }}
-            </div>
-            <div class="campo">
-                <strong>Procedencia:</strong> {{ $muestra->procedencia ?? 'No disponible' }}
+        <div class="info-section">
+            <h3>Información General</h3>
+            <div class="grid-container">
+                <div class="campo">
+                    <strong>Fecha de Entrada:</strong>
+                    <span>{{ \Carbon\Carbon::parse($muestra->fechaEntrada)->format('d/m/Y') }}</span>
+                </div>
+                <div class="campo">
+                    <strong>Órgano:</strong>
+                    <span>{{ $muestra->organo ?? 'No especificado' }}</span>
+                </div>
+                <div class="campo">
+                    <strong>Tipo de Naturaleza:</strong>
+                    <span>{{ $muestra->tipoNaturaleza['nombre'] }} ({{ $muestra->tipoNaturaleza['codigo'] }})</span>
+                </div>
+                <div class="campo">
+                    <strong>Formato:</strong>
+                    <span>{{ $muestra->formato['nombre'] }}</span>
+                </div>
             </div>
         </div>
 
-        <!-- Si es necesario añadir una tabla de detalles adicionales -->
-        <div class="section">
-            <h3 class="table-header">Detalles Adicionales</h3>
-            <table class="data-table">
-                <tr>
-                    <th>Detalle 1</th>
-                    <td>{{ $muestra->detalle1 }}</td>
-                </tr>
-                <tr>
-                    <th>Detalle 2</th>
-                    <td>{{ $muestra->detalle2 }}</td>
-                </tr>
-            </table>
+        <div class="info-section">
+            <h3>Detalles de la Muestra</h3>
+            <div class="grid-container">
+                <div class="campo">
+                    <strong>Calidad:</strong>
+                    <span>
+                        <strong>Código:</strong> {{ $muestra->calidad['codigo'] }}<br>
+                        <strong>Descripción:</strong> {{ $muestra->calidad['descripcion'] }}
+                    </span>
+                </div>
+                <div class="campo">
+                    <strong>Sede:</strong>
+                    <span>{{ $muestra->sede['nombre'] }} ({{ $muestra->sede['codigo'] }})</span>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="info-section">
+            <h3>Descripción de la Muestra</h3>
+            <div class="campo" style="margin-bottom: 20px;">
+                <span>{{ $muestra->descripcionMuestra }}</span>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Este documento es un informe oficial generado el {{ date('d/m/Y') }}</p>
+            <p>Para verificar la autenticidad de este documento, contacte con el laboratorio</p>
+            <p>Sede: {{ $muestra->sede['nombre'] }}</p>
+        </div>
+
+        <div class="qr-code">
+            <!-- Aquí puedes agregar un código QR si lo deseas -->
         </div>
     </div>
-
 </body>
 </html>

@@ -43,7 +43,7 @@ class Muestra extends Model
 
     public function calidad()
     {
-        return $this->belongsTo(Calidad::class, 'calidad_id');
+        return $this->belongsTo(Calidad::class, 'calidad_id', 'id');
     }
 
     public function sede()

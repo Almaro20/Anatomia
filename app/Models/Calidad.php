@@ -10,17 +10,17 @@ class Calidad extends Model
     use HasFactory;
 
     protected $table = 'calidad';
-    protected $primaryKey = 'calidad_id';
+    protected $primaryKey = 'id';
     public $timestamps = false;
 
     protected $fillable = [
         'codigo',
         'descripcion',
-        'tipo_estudio_id', // Debe ser fillable
+        'tipoEstudio_id',
     ];
 
     public function tipoEstudio()
     {
-        return $this->belongsTo(TipoEstudio::class, 'tipo_estudio_id'); // Relación correcta
+        return $this->belongsTo(TipoEstudio::class, 'tipoEstudio_id');
     }
 }

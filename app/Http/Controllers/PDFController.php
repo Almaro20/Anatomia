@@ -10,31 +10,41 @@ class PDFController extends Controller
 {
     public function generarPDF($id)
     {
-        // Buscar la muestra por su ID
-        $muestra = Muestra::findOrFail($id);
+        // Buscar la muestra por su ID con todas las relaciones existentes
+        $muestra = Muestra::with([
+            'tipoNaturaleza',
+            'formato',
+            'calidad',
+            'sede',
+            'user'
+            // 'imagen' lo quitamos ya que aún no está implementado
+        ])->findOrFail($id);
 
         // Crear una nueva instancia de DOMPDF
         $dompdf = new Dompdf();
 
-        // Opciones para DOMPDF (si quieres configurar cosas como el tamaño de la página)
+        // Configurar opciones
         $options = new Options();
         $options->set('isHtml5ParserEnabled', true);
         $options->set('isPhpEnabled', true);
+        $options->set('isRemoteEnabled', true);
         $dompdf->setOptions($options);
 
-        // El contenido HTML que será transformado en PDF
+        // Renderizar la vista
         $html = view('pdf', compact('muestra'))->render();
 
-        // Cargar el contenido HTML
+        // Cargar el HTML
         $dompdf->loadHtml($html);
 
-        // (Opcional) Establecer el tamaño del papel y orientación
+        // Establecer el tamaño del papel y orientación
         $dompdf->setPaper('A4', 'portrait');
 
         // Renderizar el PDF
         $dompdf->render();
 
-        // Descargar el PDF generado
-        return $dompdf->stream("informe_muestra_{$muestra->codigo}.pdf");
+        // Descargar el PDF
+        return $dompdf->stream("informe_muestra_{$muestra->codigo}.pdf", [
+            "Attachment" => false
+        ]);
     }
 }

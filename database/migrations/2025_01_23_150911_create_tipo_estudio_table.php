@@ -10,7 +10,7 @@ return new class extends Migration
         Schema::create('tipo_estudio', function (Blueprint $table) {
             $table->id();  // Esto crea una columna 'id' como unsignedBigInteger automáticamente
             $table->string('nombre');
-            $table->string('descripcion')->default('Descripción por defecto');
+            $table->string('codigo')->nullable();
             $table->softDeletes();
 
             $table->engine = 'InnoDB';
@@ -19,6 +19,8 @@ return new class extends Migration
 
     public function down()
     {
-        Schema::dropIfExists('tipo_estudio');
+        Schema::table('tipo_estudio', function (Blueprint $table) {
+            $table->dropColumn('codigo');
+        });
     }
 };

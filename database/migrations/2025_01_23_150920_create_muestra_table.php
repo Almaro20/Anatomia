@@ -21,10 +21,10 @@ return new class extends Migration
 
         $table->foreignId('tipoNaturaleza_id')->constrained('tipo_naturaleza');
         $table->foreignId('formato_id')->constrained('formato');
-        $table->foreignId('calidad_id')->constrained('calidad');
+        $table->foreignId('calidad_id')->constrained('calidad')->nullable();
         $table->foreignId('sede_id')->constrained('sede');
-        $table->foreignId('user_id')->constrained('user');
-        $table->foreignId('imagen_id')->nullable()->constrained('imagenes');
+        $table->foreignId('user_id')->constrained('user')->nullable();
+        $table->foreignId('imagen_id')->nullable()->constrained('imagenes')->nullable();
 
 
             $table->engine = 'InnoDB';

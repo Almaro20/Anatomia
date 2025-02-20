@@ -20,66 +20,89 @@ Panel
 
 
 
-<!-- Modal -->
-<div id="modalInforme" tabindex="-1" aria-hidden="true" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center">
-    <div class="bg-white rounded-lg shadow-lg w-3/4 md:w-1/2">
-        <div class="p-5 border-b flex justify-between items-center">
-            <h3 class="text-xl font-semibold">Nuevo Informe</h3>
-            <button class="text-gray-500 hover:text-gray-700" onclick="cerrarModal()">&times;</button>
-        </div>
-        <div class="p-5">
-            <form>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                        <label for="codigo" class="block text-sm font-medium text-gray-700">Código de la muestra</label>
-                        <input type="text" id="codigo" name="codigo" class="w-full border border-gray-300 rounded-lg px-3 py-2">
-                    </div>
-                    <div>
-                        <label for="fecha" class="block text-sm font-medium text-gray-700">Fecha</label>
-                        <input type="date" id="fecha" name="fecha" class="w-full border border-gray-300 rounded-lg px-3 py-2">
-                    </div>
-                    <div>
-                        <label for="tipoEstudio" class="block text-sm font-medium text-gray-700">Tipo de Estudio</label>
-                        <select id="tipoEstudio" name="tipoEstudio" class="w-full border border-gray-300 rounded-lg px-3 py-2">
-                            <option value="">Seleccione un tipo de estudio</option>
-                        </select>
-                    </div>
-                    
-                    <div>
-                        <label for="naturaleza" class="block text-sm font-medium text-gray-700">Naturaleza de la muestra</label>
-                        <select id="naturaleza" name="naturaleza" class="w-full border border-gray-300 rounded-lg px-3 py-2" disabled>
-                            <option value="">Seleccione naturaleza</option>
-                        </select>
-                    </div>
-                    
-                    <div>
-                        <label for="biopsia" class="block text-sm font-medium text-gray-700">Órgano (solo para biopsias)</label>
-                        <select id="biopsia" name="biopsia" class="w-full border border-gray-300 rounded-lg px-3 py-2" disabled>
-                            <option value="">Seleccione órgano</option>
-                        </select>
-                    </div>
-                    
-                    <div>
-                        <label for="calidad" class="block text-sm font-medium text-gray-700">Calidad de la muestra</label>
-                        <select id="calidad" name="calidad" class="w-full border border-gray-300 rounded-lg px-3 py-2" disabled>
-                            <option value="">Seleccione calidad</option>
-                        </select>
-                    </div>
-                        <
-                       
-                    <div>
-                        <label for="descripcion" class="block text-sm font-medium text-gray-700">Descripción</label>
-                        <input type="text" id="descripcion" name="descripcion" class="w-full border border-gray-300 rounded-lg px-3 py-2">
-                    </div>
-                </div>
-                <div class="mt-4 flex justify-end">
-                    <button type="button" class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 mr-2" onclick="cerrarModal()">Cancelar</button>
-                    <button id="btncrear" type="submit" class="px-4 py-2 bg-blue-700 text-white rounded-lg hover:bg-blue-800">Guardar Informe</button>
-                </div>
-            </form>
-        </div>
+
+<div id="modalInforme" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+  <div class="bg-white p-6 rounded-lg w-full max-w-md">
+    <!-- Cabecera del Modal -->
+    <div class="flex justify-between items-center mb-4">
+      <h3 class="text-xl font-semibold">Crear / Editar Muestra</h3>
+      <button type="button" onclick="cerrarModal()" class="text-gray-600 hover:text-gray-900 text-2xl">&times;</button>
     </div>
+    <!-- Cuerpo del Modal -->
+    <form id="formInforme" class="space-y-4">
+      <!-- Código -->
+      <div>
+        <label for="codigo" class="block text-sm font-medium">Código</label>
+        <input type="text" id="codigo" class="mt-1 block w-full border rounded px-3 py-2" placeholder="Ingrese el código">
+      </div>
+      <!-- Fecha de Entrada -->
+      <div>
+        <label for="fecha" class="block text-sm font-medium">Fecha de Entrada</label>
+        <input type="date" id="fecha" class="mt-1 block w-full border rounded px-3 py-2">
+      </div>
+      <!-- Tipo de Estudio -->
+      <div>
+        <label for="tipoEstudio" class="block text-sm font-medium">Tipo de Estudio</label>
+        <select id="tipoEstudio" class="mt-1 block w-full border rounded px-3 py-2">
+          <option value="">Seleccione un tipo de estudio</option>
+          <!-- Se llenará dinámicamente -->
+        </select>
+      </div>
+      <!-- Tipo de Naturaleza -->
+      <div>
+        <label for="naturaleza" class="block text-sm font-medium">Tipo de Naturaleza</label>
+        <select id="naturaleza" class="mt-1 block w-full border rounded px-3 py-2" disabled>
+          <option value="">Seleccione naturaleza</option>
+          <!-- Se llenará dinámicamente -->
+        </select>
+      </div>
+      <!-- Órgano (para Biopsia) -->
+      <div>
+        <label for="biopsia" class="block text-sm font-medium">Órgano (Biopsia)</label>
+        <select id="biopsia" class="mt-1 block w-full border rounded px-3 py-2" disabled>
+          <option value="">Seleccione órgano</option>
+          <!-- Se llenará dinámicamente -->
+        </select>
+      </div>
+      <!-- Calidad -->
+      <div>
+        <label for="calidad" class="block text-sm font-medium">Calidad</label>
+        <select id="calidad" class="mt-1 block w-full border rounded px-3 py-2" disabled>
+          <option value="">Seleccione calidad</option>
+          <!-- Se llenará dinámicamente -->
+        </select>
+      </div>
+      <!-- Conservación / Formato -->
+      <div>
+        <label for="conservacion" class="block text-sm font-medium">Conservación</label>
+        <select id="conservacion" class="mt-1 block w-full border rounded px-3 py-2">
+          <option value="">Seleccione formato</option>
+          <!-- Se llenará dinámicamente -->
+        </select>
+      </div>
+      <!-- Procedencia / Sede -->
+      <div>
+        <label for="procedencia" class="block text-sm font-medium">Procedencia</label>
+        <select id="procedencia" class="mt-1 block w-full border rounded px-3 py-2">
+          <option value="">Seleccione sede</option>
+          <!-- Se llenará dinámicamente -->
+        </select>
+      </div>
+      <!-- Descripción -->
+      <div>
+        <label for="descripcion" class="block text-sm font-medium">Descripción</label>
+        <textarea id="descripcion" class="mt-1 block w-full border rounded px-3 py-2" rows="3" placeholder="Descripción de la muestra"></textarea>
+      </div>
+      <!-- Botón de Envío -->
+      <div class="flex justify-end">
+        <button id="btncrear" type="submit" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
+          Guardar Informe
+        </button>
+      </div>
+    </form>
+  </div>
 </div>
+        
 
 
 

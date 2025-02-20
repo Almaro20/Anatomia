@@ -49,9 +49,6 @@ Route::prefix('v4')->group(function () {
 
     Route::get('/interpretaciones', [InterpretacionController::class, 'index']);
     Route::get('/interpretaciones/{codigo}', [InterpretacionController::class, 'getByCodigo']);
-
-    Route::get('calidades/{tipoNaturalezaId}', [CalidadController::class, 'getByTipoNaturaleza']);
-    Route::get('calidades/organo/{organoId}', [CalidadController::class, 'getByOrgano']);
 });
 
 

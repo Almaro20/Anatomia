@@ -103,21 +103,20 @@ document.addEventListener("DOMContentLoaded", () => {
         await cargarTiposEstudio();
         document.querySelector("#tipoEstudio").value = muestra.tipoEstudio_id;
 
-        // 2. Cargar naturalezas y setear valor
+        // 2. Cargar naturalezas y setear el valor
         await cargarTiposNaturaleza(muestra.tipoEstudio_id);
         document.querySelector("#naturaleza").value = muestra.tipoNaturaleza_id;
 
         // 3. Dependiendo de si es biopsia o no, cargar calidades
         if (esBiopsia(muestra.tipoEstudio_id)) {
-            // Biopsia: cargar órganos y luego calidades según el órgano
+            // Para biopsia: cargar órganos y luego calidades según el órgano
             await cargarOrganos();
             document.querySelector("#biopsia").value = muestra.organo;
             await cargarCalidadesPorOrgano(muestra.organo);
         } else {
-            // No es biopsia: se usa el código del tipo de estudio
-            const tipoEstudioSelect = document.querySelector("#tipoEstudio");
-            const selectedTipo = tipoEstudioSelect.options[tipoEstudioSelect.selectedIndex];
-            const codigoEstudio = selectedTipo.getAttribute('data-codigo');  // <== Aquí obtenemos el código (C, H, U, E, B, etc.)
+            // Para no-biopsia: usar el código del tipo de estudio
+            const selectedTipo = document.querySelector(`#tipoEstudio option[value="${muestra.tipoEstudio_id}"]`);
+            const codigoEstudio = selectedTipo ? selectedTipo.getAttribute('data-codigo') : '';
             if (codigoEstudio) {
                 await cargarCalidadesPorTipoEstudio(codigoEstudio);
             }
@@ -128,7 +127,7 @@ document.addEventListener("DOMContentLoaded", () => {
         document.querySelector("#conservacion").value = muestra.formato_id;
         document.querySelector("#procedencia").value = muestra.sede_id;
 
-        // Mostrar el modal
+        // Mostrar el modal y cambiar el texto del botón
         document.getElementById("modalInforme").classList.remove("hidden");
         btnCrear.innerText = "Actualizar Informe";
     };
@@ -336,10 +335,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Función para verificar si es una biopsia
     const esBiopsia = (tipoEstudioId) => {
-        // Busca el texto en el select
-        const tipoEstudioSelect = document.querySelector("#tipoEstudio");
-        const opcionSeleccionada = tipoEstudioSelect.options[tipoEstudioSelect.selectedIndex];
-        return opcionSeleccionada.text.toLowerCase().includes('biopsia');
+        const option = document.querySelector(`#tipoEstudio option[value="${tipoEstudioId}"]`);
+        return option ? option.text.toLowerCase().includes('biopsia') : false;
     };
 
     // Función para crear/actualizar una muestra

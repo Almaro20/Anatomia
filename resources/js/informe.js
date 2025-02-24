@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const BASE_URL = "http://localhost/Anatomia/public/";
+    const BASE_URL = "http://localhost:8080/public/";
     const btnCrear = document.querySelector("#btncrear");
     let muestraEditando = null;
     let muestrasCreadas = new Set();
@@ -44,13 +44,13 @@ document.addEventListener("DOMContentLoaded", () => {
                     <div class="flex gap-2 mt-2">
                         <button class="btn-eliminar bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700" data-id="${muestra.id}">Eliminar</button>
                         <button class="btn-editar bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700" data-id="${muestra.id}">Editar</button>
-                        <button 
-                            class="btn-imprimir bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+                        <button
+                            class="btn-imprimir bg-yellow-500 text-black px-4 py-2 rounded hover:bg-yellow-600 font-semibold"
                             data-id="${muestra.id}"
                         >
                             Imprimir
                         </button>
-                        </div>
+                    </div>
                 </div>`;
 
             const container = document.querySelector(".container .row");

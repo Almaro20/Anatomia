@@ -13,7 +13,7 @@
 </head>
 
 <body class="bg-gray-100 text-sm">
-    <nav class="bg-gradient-to-r from-blue-300 to-blue-400 fixed top-0 w-full z-50 shadow-md">
+    <nav class="bg-gradient-to-r from-blue-800 to-black fixed top-0 w-full z-50 shadow-md">
         <div class="mx-auto max-w-full sm:px-4 lg:px-8">
             <div class="flex justify-between items-center h-14">
                 <div class="flex items-center transition-all duration-200 ease-in-out">
@@ -41,7 +41,7 @@
     <div class="flex min-h-screen pt-14">
         <!-- Panel lateral -->
         <div id="mostrar_menu" class="select-none transform -translate-x-full lg:translate-x-0 transition-all duration-200 ease-in-out opacity-0 lg:opacity-100 invisible lg:visible fixed top-14 left-0 h-screen bg-gray-100 z-50">
-            <div class="w-64 h-full px-6 py-4 bg-blue-500 shadow-lg">
+            <div class="w-64 h-full px-6 py-4 bg-blue-800 shadow-lg">
                 <div class="flex flex-col">
                     <h1 class="text-lg font-bold px-3 text-white">Bienvenido</h1>
                 </div>

@@ -44,13 +44,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     <div class="flex gap-2 mt-2">
                         <button class="btn-eliminar bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700" data-id="${muestra.id}">Eliminar</button>
                         <button class="btn-editar bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700" data-id="${muestra.id}">Editar</button>
-                        <button 
-                            class="btn-imprimir bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-                            data-id="${muestra.id}"
-                        >
-                            Imprimir
-                        </button>
-                        </div>
+                        <button class="btn-imprimir bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700" data-id="${muestra.id}">Imprimir</button>
+                    </div>
                 </div>`;
 
             const container = document.querySelector(".container .row");

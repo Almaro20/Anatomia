@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('muestras_interpretacion', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('idMuestras')->constrained('muestra');
-            $table->foreignId('idInterpretacion')->constrained('interpretacion');
+            $table->foreignId('idMuestras')->constrained('muestra')->onDelete('cascade');
+            $table->foreignId('idInterpretacion')->constrained('interpretacion')->onDelete('cascade');
+            $table->text('descripcion')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

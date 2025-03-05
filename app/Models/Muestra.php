@@ -3,10 +3,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Muestra extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $table = 'muestra';
 
@@ -63,7 +64,7 @@ class Muestra extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function interpretaciones()
+    public function muestrasInterpretaciones()
     {
         return $this->hasMany(MuestrasInterpretacion::class, 'idMuestras');
     }

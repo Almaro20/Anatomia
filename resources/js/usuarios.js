@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <p><strong>Email:</strong> ${usuario.email}</p>
             </div>`;
 
-        container1.appendChild(div);     
+        container1.appendChild(div);
     };
 
 });

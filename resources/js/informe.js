@@ -110,7 +110,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // Agregar la fila al contenedor correcto
             const container = document.querySelector('#informesContainer');
             container.appendChild(row);
-            
+
             // Marcar la muestra como creada
             muestrasCreadas.add(muestra.id);
         } catch (error) {
@@ -289,7 +289,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // Obtener los datos completos de la muestra
             const response = await fetch(`${BASE_URL}api/v2/muestras/ver/${muestra.id}`);
             if (!response.ok) throw new Error('Error al cargar la muestra');
-            
+
             const muestraData = await response.json();
             muestraEditando = muestraData;
 
@@ -332,19 +332,19 @@ document.addEventListener("DOMContentLoaded", () => {
             // Mostrar imagen si existe
             const container = document.querySelector("#imagenesPreview");
             container.innerHTML = '';
-            
+
             if (muestraData.imagen) {
                 const imgContainer = document.createElement('div');
                 imgContainer.className = 'relative';
-                
+
                 const img = document.createElement('img');
                 img.src = muestraData.imagen.url;
                 img.className = 'w-full h-48 object-cover rounded';
-                
+
                 const zoomText = document.createElement('span');
                 zoomText.className = 'absolute bottom-0 right-0 bg-black bg-opacity-50 text-white px-2 py-1 text-sm rounded';
                 zoomText.textContent = muestraData.imagen.zoom.zoom;
-                
+
                 const deleteBtn = document.createElement('button');
                 deleteBtn.className = 'absolute top-2 right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600';
                 deleteBtn.innerHTML = '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>';
@@ -352,7 +352,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     imgContainer.remove();
                     imagenesSeleccionadas.clear();
                 };
-                
+
                 imgContainer.appendChild(img);
                 imgContainer.appendChild(zoomText);
                 imgContainer.appendChild(deleteBtn);
@@ -623,8 +623,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 mostrarNotificacion('Por favor seleccione un zoom para las imágenes', 'error');
                 return;
             }
-            
-            // Agregar las nuevas imágenes
+
             Array.from(imagenesInput.files).forEach(file => {
                 formData.append('imagenes[]', file);
             });
@@ -644,7 +643,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         try {
-            const url = muestraEditando 
+            const url = muestraEditando
                 ? `${BASE_URL}api/v2/muestras/editar/${muestraEditando.id}`
                 : `${BASE_URL}api/v2/muestras/crear`;
 
@@ -706,15 +705,15 @@ document.addEventListener("DOMContentLoaded", () => {
             reader.onload = function(e) {
                 const imgContainer = document.createElement('div');
                 imgContainer.className = 'relative';
-                
+
                 const img = document.createElement('img');
                 img.src = e.target.result;
                 img.className = 'w-full h-48 object-cover rounded';
-                
+
                 const zoomText = document.createElement('span');
                 zoomText.className = 'absolute bottom-0 right-0 bg-black bg-opacity-50 text-white px-2 py-1 text-sm rounded';
                 zoomText.textContent = zoom;
-                
+
                 const deleteBtn = document.createElement('button');
                 deleteBtn.className = 'absolute top-2 right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600';
                 deleteBtn.innerHTML = '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>';
@@ -723,7 +722,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     fileInput.value = '';
                     zoomSelect.value = '';
                 };
-                
+
                 imgContainer.appendChild(img);
                 imgContainer.appendChild(zoomText);
                 imgContainer.appendChild(deleteBtn);
@@ -736,11 +735,11 @@ document.addEventListener("DOMContentLoaded", () => {
     // Inicializar la aplicación
     const inicializarApp = async () => {
         await cargarMuestras();
-        
+
         // Event listeners para imágenes
         const imageInput = document.getElementById('imagen');
         const zoomSelect = document.getElementById('zoom');
-        
+
         imageInput.addEventListener('change', () => {
             const zoom = zoomSelect.value;
             if (!zoom) {

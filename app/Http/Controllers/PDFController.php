@@ -11,14 +11,15 @@ class PDFController extends Controller
     public function generarPDF($id)
     {
         try {
-            // Obtener la muestra
+            // Obtener la muestra con todas sus relaciones incluyendo las interpretaciones
             $muestra = Muestra::with([
                 'tipoEstudio',
                 'tipoNaturaleza',
                 'formato',
                 'calidad',
                 'sede',
-                'user'
+                'user',
+                'muestrasInterpretaciones.interpretacion'
             ])->findOrFail($id);
 
             // Crear una nueva instancia de DOMPDF
@@ -46,7 +47,7 @@ class PDFController extends Controller
         } catch (\Exception $e) {
             Log::error('Error en PDF: ' . $e->getMessage());
             Log::error('Stack trace: ' . $e->getTraceAsString());
-            
+
             return response()->json([
                 'error' => 'Error al generar el PDF',
                 'details' => $e->getMessage()

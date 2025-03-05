@@ -57,13 +57,12 @@ Route::prefix('v4')->group(function () {
 });
 
 Route::prefix('v5')->group(function () {
-    Route::get('muestras-interpretacion/listar', [MuestrasInterpretacionController::class, 'index']);
-    Route::post('muestras-interpretacion/crear', [MuestrasInterpretacionController::class, 'create']);
-    Route::get('muestras-interpretacion/ver/{id}', [MuestrasInterpretacionController::class, 'getById']);
-    Route::put('muestras-interpretacion/editar/{id}', [MuestrasInterpretacionController::class, 'update']);
-    Route::delete('muestras-interpretacion/eliminar/{id}', [MuestrasInterpretacionController::class, 'delete']);
-    Route::get('muestras-interpretacion/interpretaciones-disponibles/{muestraId}',
-        [MuestrasInterpretacionController::class, 'getInterpretacionesDisponibles']);
+    Route::prefix('muestras-interpretacion')->group(function () {
+        Route::get('/listar', [MuestrasInterpretacionController::class, 'index']);
+        Route::get('/interpretaciones-disponibles/{muestraId}', [MuestrasInterpretacionController::class, 'getInterpretacionesDisponibles']);
+        Route::post('/crear', [MuestrasInterpretacionController::class, 'store']);
+        Route::delete('/{id}', [MuestrasInterpretacionController::class, 'delete']);
+    });
 });
 
 // En api.php

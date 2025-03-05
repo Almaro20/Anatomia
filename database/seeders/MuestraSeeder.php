@@ -57,24 +57,26 @@ class MuestraSeeder extends Seeder
                 'fechaEntrada' => '2024-02-06',
                 'organo' => 'BC',
                 'descripcionMuestra' => 'Muestra de tejido blando.',
+                'tipoEstudio_id' => $tipoEstudio[0],
                 'tipoNaturaleza_id' => $tipoNaturaleza[0],
                 'formato_id' => $formato[0],
                 'calidad_id' => $calidad[0],
                 'sede_id' => $sede[0],
                 'user_id' => $users[0],
-                'imagen_id' => $imagenes[0], // Añadido imagen_id
+                'imagen_id' => $imagenes[0],
             ],
             [
                 'codigo' => 'M002',
                 'fechaEntrada' => '2024-02-06',
                 'organo' => 'BC',
                 'descripcionMuestra' => 'Muestra de tejido cardiaco.',
-                'tipoNaturaleza_id' => $tipoNaturaleza[1] ?? null,
-                'formato_id' => $formato[1] ?? null,
-                'calidad_id' => $calidad[1] ?? null,
-                'sede_id' => $sede[1] ?? null,
-                'user_id' => $users[1] ?? null,
-                'imagen_id' => $imagenes[0], // Añadido imagen_id (usando la misma imagen por simplicidad)
+                'tipoEstudio_id' => $tipoEstudio[1] ?? $tipoEstudio[0],
+                'tipoNaturaleza_id' => $tipoNaturaleza[1] ?? $tipoNaturaleza[0],
+                'formato_id' => $formato[1] ?? $formato[0],
+                'calidad_id' => $calidad[1] ?? $calidad[0],
+                'sede_id' => $sede[1] ?? $sede[0],
+                'user_id' => $users[1] ?? $users[0],
+                'imagen_id' => $imagenes[0],
             ]
         ];
 

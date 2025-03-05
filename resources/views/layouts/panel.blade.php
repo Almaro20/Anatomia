@@ -47,18 +47,41 @@
                 </div>
                 <hr class="my-4 border-blue-300" />
                 <ul class="text-sm mt-2 leading-8">
-                    <li><a href="{{ route('dashboard') }}" class="text-white flex items-center px-3 py-2 hover:bg-blue-400 rounded-md">
-                        <span class="material-icons-round text-white mr-2">account_balance</span>Inicio</a>
+                    <li>
+                        <a href="{{ route('dashboard') }}" 
+                           class="text-white flex items-center px-3 py-2 rounded-md transition-all duration-200 ease-in-out {{ request()->routeIs('dashboard') ? 'bg-white/20 shadow-lg' : 'hover:bg-blue-700' }}">
+                            <span class="material-icons-round text-white mr-2">account_balance</span>
+                            <span class="{{ request()->routeIs('dashboard') ? 'font-semibold' : '' }}">Inicio</span>
+                        </a>
                     </li>
-                    <li><a href="{{ route('informe') }}" class="text-white flex items-center px-3 py-2 hover:bg-blue-400 rounded-md">
-                        <span class="material-icons-round text-white mr-2">info</span>Informes</a>
+                    <li>
+                        <a href="{{ route('informe') }}" 
+                           class="text-white flex items-center px-3 py-2 rounded-md transition-all duration-200 ease-in-out {{ request()->routeIs('informe') ? 'bg-white/20 shadow-lg' : 'hover:bg-blue-700' }}">
+                            <span class="material-icons-round text-white mr-2">info</span>
+                            <span class="{{ request()->routeIs('informe') ? 'font-semibold' : '' }}">Muestras</span>
+                        </a>
                     </li>
-                    <li><a href="{{ route('usuarios') }}" class="text-white flex items-center px-3 py-2 hover:bg-blue-400 rounded-md">
-                        <span class="material-icons-round text-white mr-2">group</span>Usuarios</a>
+                    <li>
+                        <a href="{{ route('interpretaciones') }}" 
+                           class="text-white flex items-center px-3 py-2 rounded-md transition-all duration-200 ease-in-out {{ request()->routeIs('interpretaciones') ? 'bg-white/20 shadow-lg' : 'hover:bg-blue-700' }}">
+                            <span class="material-icons-round text-white mr-2">visibility</span>
+                            <span class="{{ request()->routeIs('interpretaciones') ? 'font-semibold' : '' }}">Interpretaciones</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('usuarios') }}" 
+                           class="text-white flex items-center px-3 py-2 rounded-md transition-all duration-200 ease-in-out {{ request()->routeIs('usuarios') ? 'bg-white/20 shadow-lg' : 'hover:bg-blue-700' }}">
+                            <span class="material-icons-round text-white mr-2">group</span>
+                            <span class="{{ request()->routeIs('usuarios') ? 'font-semibold' : '' }}">Usuarios</span>
+                        </a>
                     </li>
                     <hr class="my-4 border-blue-300" />
-                    <li><a href="{{ route('profile.edit') }}" class="text-white flex items-center px-3 py-2 hover:bg-blue-400 rounded-md">
-                        <span class="material-icons-round text-white mr-2">account_circle</span>Perfil</a>
+                    <li>
+                        <a href="{{ route('profile.edit') }}" 
+                           class="text-white flex items-center px-3 py-2 rounded-md transition-all duration-200 ease-in-out {{ request()->routeIs('profile.edit') ? 'bg-white/20 shadow-lg' : 'hover:bg-blue-700' }}">
+                            <span class="material-icons-round text-white mr-2">account_circle</span>
+                            <span class="{{ request()->routeIs('profile.edit') ? 'font-semibold' : '' }}">Perfil</span>
+                        </a>
                     </li>
                 </ul>
             </div>

@@ -33,6 +33,9 @@ Route::get('/principal', function () {
     return view('principal');
 })->name('principal');
 
+Route::get('/interpretaciones', function () {
+    return view('interpretaciones');
+})->name('interpretaciones');
 
 Route::get('/imprimir/muestra/{id}', [PDFController::class, 'generarPDF']);
 

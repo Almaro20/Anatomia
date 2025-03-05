@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const btnGuardar = document.querySelector("#btnGuardar");
     let muestraEditando = null;
     let muestrasCreadas = new Set();
+    let imagenesSeleccionadas = new Map(); // Para almacenar las imágenes y sus zooms
 
     // Función para mostrar notificaciones
     const mostrarNotificacion = (mensaje, tipo = 'success') => {
@@ -207,45 +208,156 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
 
+    // Función para abrir el modal
+    window.abrirModal = async () => {
+        document.getElementById('modalInforme').classList.remove('hidden');
+        muestraEditando = null;
+        document.querySelector("#btnGuardar").textContent = "Guardar Informe";
+
+        // Limpiar campos
+        document.querySelector("#codigo").value = "";
+        document.querySelector("#fecha").value = "";
+        document.querySelector("#biopsia").value = "";
+        document.querySelector("#descripcion").value = "";
+        document.querySelector("#tipoEstudio").value = "";
+        document.querySelector("#naturaleza").value = "";
+        document.querySelector("#formato").value = "";
+        document.querySelector("#calidad").value = "";
+        document.querySelector("#procedencia").value = "";
+        document.querySelector("#imagenesPreview").innerHTML = "";
+
+        // Deshabilitar campos que dependen de selecciones previas
+        document.querySelector("#naturaleza").disabled = true;
+        document.querySelector("#biopsia").disabled = true;
+        document.querySelector("#calidad").disabled = true;
+
+        // Cargar datos iniciales
+        await Promise.all([
+            cargarTiposEstudio(),
+            cargarFormatos(),
+            cargarSedes()
+        ]);
+    };
+
+    // Función para cargar los formatos
+    const cargarFormatos = async () => {
+        try {
+            const response = await fetch(`${BASE_URL}api/v1/formatos`);
+            if (!response.ok) throw new Error('Error al cargar formatos');
+
+            const formatos = await response.json();
+            const select = document.querySelector("#formato");
+            select.innerHTML = '<option value="">Seleccione formato</option>';
+
+            formatos.forEach(formato => {
+                const option = document.createElement('option');
+                option.value = formato.id;
+                option.textContent = formato.nombre;
+                select.appendChild(option);
+            });
+        } catch (error) {
+            console.error("Error:", error);
+            mostrarNotificacion("Error al cargar formatos", "error");
+        }
+    };
+
+    // Función para cargar las sedes
+    const cargarSedes = async () => {
+        try {
+            const response = await fetch(`${BASE_URL}api/v1/sedes`);
+            if (!response.ok) throw new Error('Error al cargar sedes');
+
+            const sedes = await response.json();
+            const select = document.querySelector("#procedencia");
+            select.innerHTML = '<option value="">Seleccione sede</option>';
+
+            sedes.forEach(sede => {
+                const option = document.createElement('option');
+                option.value = sede.id;
+                option.textContent = sede.nombre;
+                select.appendChild(option);
+            });
+        } catch (error) {
+            console.error("Error:", error);
+            mostrarNotificacion("Error al cargar sedes", "error");
+        }
+    };
+
     // Función para abrir el modal de edición
     const abrirModalEdicion = async (muestra) => {
         try {
-            muestraEditando = muestra;
+            // Obtener los datos completos de la muestra
+            const response = await fetch(`${BASE_URL}api/v2/muestras/ver/${muestra.id}`);
+            if (!response.ok) throw new Error('Error al cargar la muestra');
+            
+            const muestraData = await response.json();
+            muestraEditando = muestraData;
+
+            // Cargar datos iniciales
+            await Promise.all([
+                cargarTiposEstudio(),
+                cargarFormatos(),
+                cargarSedes()
+            ]);
 
             // Llenar los campos del formulario
-            document.querySelector("#codigo").value = muestra.codigo;
-            document.querySelector("#fecha").value = muestra.fechaEntrada;
-            document.querySelector("#descripcion").value = muestra.descripcionMuestra;
+            document.querySelector("#codigo").value = muestraData.codigo;
+            document.querySelector("#fecha").value = muestraData.fechaEntrada;
+            document.querySelector("#descripcion").value = muestraData.descripcionMuestra;
+            document.querySelector("#formato").value = muestraData.formato_id;
+            document.querySelector("#procedencia").value = muestraData.sede_id;
 
-            // 1. Cargar tipos de estudio y setear el valor
-            await cargarTiposEstudio();
-            document.querySelector("#tipoEstudio").value = muestra.tipoEstudio_id;
+            // Cargar y establecer tipo de estudio
+            document.querySelector("#tipoEstudio").value = muestraData.tipoEstudio_id;
+            await cargarTiposNaturaleza(muestraData.tipoEstudio_id);
+            document.querySelector("#naturaleza").value = muestraData.tipoNaturaleza_id;
 
-            // 2. Cargar naturalezas y setear el valor
-            await cargarTiposNaturaleza(muestra.tipoEstudio_id);
-            document.querySelector("#naturaleza").value = muestra.tipoNaturaleza_id;
-
-            // 3. Dependiendo de si es biopsia o no, cargar calidades
-            if (esBiopsia(muestra.tipoEstudio_id)) {
-                // Para biopsia: cargar órganos y luego calidades según el órgano
+            // Manejar biopsia vs no biopsia
+            if (esBiopsia(muestraData.tipoEstudio_id)) {
                 await cargarOrganos();
-                document.querySelector("#biopsia").value = muestra.organo;
-                if (muestra.organo) {
-                    await cargarCalidadesPorOrgano(muestra.organo);
+                document.querySelector("#biopsia").value = muestraData.organo;
+                if (muestraData.organo) {
+                    await cargarCalidadesPorOrgano(muestraData.organo);
                 }
             } else {
-                // Para no-biopsia: usar el código del tipo de estudio
-                const selectedTipo = document.querySelector(`#tipoEstudio option[value="${muestra.tipoEstudio_id}"]`);
+                const selectedTipo = document.querySelector(`#tipoEstudio option[value="${muestraData.tipoEstudio_id}"]`);
                 const codigoEstudio = selectedTipo ? selectedTipo.getAttribute('data-codigo') : '';
                 if (codigoEstudio) {
                     await cargarCalidadesPorTipoEstudio(codigoEstudio);
                 }
             }
 
-            // 4. Rellenar el resto de selects
-            document.querySelector("#calidad").value = muestra.calidad_id;
-            document.querySelector("#conservacion").value = muestra.formato_id;
-            document.querySelector("#procedencia").value = muestra.sede_id;
+            document.querySelector("#calidad").value = muestraData.calidad_id;
+
+            // Mostrar imagen si existe
+            const container = document.querySelector("#imagenesPreview");
+            container.innerHTML = '';
+            
+            if (muestraData.imagen) {
+                const imgContainer = document.createElement('div');
+                imgContainer.className = 'relative';
+                
+                const img = document.createElement('img');
+                img.src = muestraData.imagen.url;
+                img.className = 'w-full h-48 object-cover rounded';
+                
+                const zoomText = document.createElement('span');
+                zoomText.className = 'absolute bottom-0 right-0 bg-black bg-opacity-50 text-white px-2 py-1 text-sm rounded';
+                zoomText.textContent = muestraData.imagen.zoom.zoom;
+                
+                const deleteBtn = document.createElement('button');
+                deleteBtn.className = 'absolute top-2 right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600';
+                deleteBtn.innerHTML = '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>';
+                deleteBtn.onclick = () => {
+                    imgContainer.remove();
+                    imagenesSeleccionadas.clear();
+                };
+                
+                imgContainer.appendChild(img);
+                imgContainer.appendChild(zoomText);
+                imgContainer.appendChild(deleteBtn);
+                container.appendChild(imgContainer);
+            }
 
             // Mostrar el modal y cambiar el texto del botón
             document.getElementById("modalInforme").classList.remove("hidden");
@@ -466,90 +578,90 @@ document.addEventListener("DOMContentLoaded", () => {
     btnGuardar.addEventListener('click', async function(event) {
         event.preventDefault();
 
-        const formData = {
-            codigo: document.querySelector("#codigo").value,
-            fechaEntrada: document.querySelector("#fecha").value,
-            organo: document.querySelector("#biopsia").value,
-            descripcionMuestra: document.querySelector("#descripcion").value,
-            tipoEstudio_id: document.querySelector("#tipoEstudio").value,
-            tipoNaturaleza_id: document.querySelector("#naturaleza").value,
-            formato_id: document.querySelector("#conservacion").value,
-            calidad_id: document.querySelector("#calidad").value,
-            sede_id: document.querySelector("#procedencia").value,
-            user_id: 1 // Ajusta al usuario actual
-        };
+        // Crear FormData para enviar tanto datos como archivos
+        const formData = new FormData();
 
-        // Validaciones mínimas
-        if (!formData.codigo || !formData.tipoEstudio_id || !formData.tipoNaturaleza_id) {
-            mostrarNotificacion("Por favor complete todos los campos requeridos", "error");
+        // Obtener todos los valores del formulario
+        const codigo = document.querySelector("#codigo").value;
+        const fechaEntrada = document.querySelector("#fecha").value;
+        const tipoEstudio = document.querySelector("#tipoEstudio").value;
+        const naturaleza = document.querySelector("#naturaleza").value;
+        const organo = document.querySelector("#biopsia").value;
+        const calidad = document.querySelector("#calidad").value;
+        const formato = document.querySelector("#formato").value;
+        const procedencia = document.querySelector("#procedencia").value;
+        const descripcion = document.querySelector("#descripcion").value;
+
+        // Validar campos requeridos
+        if (!codigo || !fechaEntrada || !tipoEstudio || !naturaleza || !calidad || !formato || !procedencia) {
+            mostrarNotificacion('Por favor complete todos los campos requeridos', 'error');
             return;
         }
 
-        if (esBiopsia(formData.tipoEstudio_id) && !formData.organo) {
-            mostrarNotificacion("Por favor seleccione un órgano para la biopsia", "error");
-            return;
+        // Agregar los campos del formulario
+        formData.append('codigo', codigo);
+        formData.append('fechaEntrada', fechaEntrada);
+        formData.append('tipoEstudio_id', tipoEstudio);
+        formData.append('tipoNaturaleza_id', naturaleza);
+        formData.append('organo', organo);
+        formData.append('descripcionMuestra', descripcion);
+        formData.append('formato_id', formato);
+        formData.append('calidad_id', calidad);
+        formData.append('sede_id', procedencia);
+        formData.append('user_id', 1);
+
+        // Obtener las imágenes y el zoom
+        const imagenesInput = document.querySelector("#imagen");
+        const zoomSelect = document.querySelector("#zoom");
+        const imagenesPreview = document.querySelector("#imagenesPreview");
+
+        // Manejar imágenes
+        if (imagenesInput.files.length > 0) {
+            const zoom = zoomSelect.value;
+            if (!zoom) {
+                mostrarNotificacion('Por favor seleccione un zoom para las imágenes', 'error');
+                return;
+            }
+            
+            Array.from(imagenesInput.files).forEach(file => {
+                formData.append('imagenes[]', file);
+            });
+            formData.append('zooms', JSON.stringify([zoom]));
+        } else if (muestraEditando && imagenesPreview.children.length === 0) {
+            formData.append('eliminar_imagen', 'true');
         }
 
         try {
-            const url = muestraEditando
+            const url = muestraEditando 
                 ? `${BASE_URL}api/v2/muestras/editar/${muestraEditando.id}`
                 : `${BASE_URL}api/v2/muestras/crear`;
 
+            const method = muestraEditando ? 'PUT' : 'POST';
+
+            // Para PUT requests, necesitamos agregar el método _method
+            if (method === 'PUT') {
+                formData.append('_method', 'PUT');
+            }
+
             const response = await fetch(url, {
-                method: muestraEditando ? 'PUT' : 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
-                body: JSON.stringify(formData)
+                method: 'POST', // Siempre usamos POST con FormData
+                body: formData
             });
 
             if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.message || `Error: ${response.status}`);
+                const error = await response.json();
+                throw new Error(error.message || 'Error al guardar la muestra');
             }
 
             const data = await response.json();
-            mostrarNotificacion(muestraEditando ? "Muestra actualizada con éxito" : "Muestra creada con éxito", "success");
-
-            // Si estamos editando, eliminamos el código anterior del Set
-            if (muestraEditando) {
-                muestrasCreadas.delete(muestraEditando.codigo);
-            }
-
-            // Agregamos el nuevo código al Set
-            muestrasCreadas.add(formData.codigo);
-
+            mostrarNotificacion(muestraEditando ? 'Muestra actualizada con éxito' : 'Muestra creada con éxito');
             cerrarModal();
-            await cargarMuestras(); // Esperamos a que se recarguen las muestras
+            cargarMuestras();
         } catch (error) {
-            console.error("Error:", error);
-            mostrarNotificacion(error.message || "Error al guardar la muestra", "error");
+            console.error('Error:', error);
+            mostrarNotificacion(error.message, 'error');
         }
     });
-
-    // Función para abrir el modal
-    window.abrirModal = () => {
-        document.getElementById('modalInforme').classList.remove('hidden');
-        muestraEditando = null;
-        document.querySelector("#btnGuardar").textContent = "Guardar Informe";
-
-        // Limpiar campos
-        document.querySelector("#codigo").value = "";
-        document.querySelector("#fecha").value = "";
-        document.querySelector("#biopsia").value = "";
-        document.querySelector("#descripcion").value = "";
-        document.querySelector("#tipoEstudio").value = "";
-        document.querySelector("#naturaleza").value = "";
-        document.querySelector("#conservacion").value = "";
-        document.querySelector("#calidad").value = "";
-        document.querySelector("#procedencia").value = "";
-
-        // Deshabilitar campos que dependen de selecciones previas
-        document.querySelector("#naturaleza").disabled = true;
-        document.querySelector("#biopsia").disabled = true;
-        document.querySelector("#calidad").disabled = true;
-    };
 
     // Función para cerrar el modal
     window.cerrarModal = () => {
@@ -567,49 +679,72 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
 
+    // Función para manejar la previsualización de imágenes
+    const handleImagePreview = () => {
+        const fileInput = document.getElementById('imagen');
+        const zoomSelect = document.getElementById('zoom');
+        const container = document.getElementById('imagenesPreview');
+        const files = fileInput.files;
+        const zoom = zoomSelect.value;
+
+        if (!zoom) {
+            mostrarNotificacion('Por favor seleccione un nivel de zoom primero', 'error');
+            fileInput.value = '';
+            return;
+        }
+
+        // Limpiar el contenedor
+        container.innerHTML = '';
+
+        Array.from(files).forEach(file => {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const imgContainer = document.createElement('div');
+                imgContainer.className = 'relative';
+                
+                const img = document.createElement('img');
+                img.src = e.target.result;
+                img.className = 'w-full h-48 object-cover rounded';
+                
+                const zoomText = document.createElement('span');
+                zoomText.className = 'absolute bottom-0 right-0 bg-black bg-opacity-50 text-white px-2 py-1 text-sm rounded';
+                zoomText.textContent = zoom;
+                
+                const deleteBtn = document.createElement('button');
+                deleteBtn.className = 'absolute top-2 right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600';
+                deleteBtn.innerHTML = '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>';
+                deleteBtn.onclick = () => {
+                    imgContainer.remove();
+                    fileInput.value = '';
+                    zoomSelect.value = '';
+                };
+                
+                imgContainer.appendChild(img);
+                imgContainer.appendChild(zoomText);
+                imgContainer.appendChild(deleteBtn);
+                container.appendChild(imgContainer);
+            };
+            reader.readAsDataURL(file);
+        });
+    };
+
     // Inicializar la aplicación
     const inicializarApp = async () => {
-        try {
-            // 1. Cargar tipos de estudio
-            await cargarTiposEstudio();
-
-            // 2. Cargar formatos y sedes
-            const formatosResponse = await fetch(`${BASE_URL}api/v1/formatos`);
-            const sedesResponse = await fetch(`${BASE_URL}api/v1/sedes`);
-            if (!formatosResponse.ok || !sedesResponse.ok) {
-                throw new Error('Error al cargar datos iniciales');
+        await cargarMuestras();
+        
+        // Event listeners para imágenes
+        const imageInput = document.getElementById('imagen');
+        const zoomSelect = document.getElementById('zoom');
+        
+        imageInput.addEventListener('change', () => {
+            const zoom = zoomSelect.value;
+            if (!zoom) {
+                mostrarNotificacion('Por favor seleccione un nivel de zoom primero', 'error');
+                imageInput.value = '';
+                return;
             }
-
-            const formatos = await formatosResponse.json();
-            const sedes = await sedesResponse.json();
-
-            // Poblar selects de formatos y sedes
-            const conservacionSelect = document.querySelector("#conservacion");
-            const procedenciaSelect = document.querySelector("#procedencia");
-
-            conservacionSelect.innerHTML = '<option value="">Seleccione formato</option>';
-            procedenciaSelect.innerHTML = '<option value="">Seleccione sede</option>';
-
-            formatos.forEach(formato => {
-                const option = document.createElement('option');
-                option.value = formato.id;
-                option.textContent = formato.nombre;
-                conservacionSelect.appendChild(option);
-            });
-
-            sedes.forEach(sede => {
-                const option = document.createElement('option');
-                option.value = sede.id;
-                option.textContent = sede.nombre;
-                procedenciaSelect.appendChild(option);
-            });
-
-            // 3. Cargar muestras existentes
-            await cargarMuestras();
-        } catch (error) {
-            console.error("Error inicializando la aplicación:", error);
-            mostrarNotificacion("Error al inicializar la aplicación", "error");
-        }
+            handleImagePreview();
+        });
     };
 
     // Iniciar la aplicación

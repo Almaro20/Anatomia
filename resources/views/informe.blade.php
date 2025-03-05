@@ -41,15 +41,15 @@ Clinica SerranitoxXx
     </div>
 </div>
 
-<div id="modalInforme" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
-    <div class="bg-white p-6 rounded-lg w-full max-w-4xl">
+<div id="modalInforme" class="fixed inset-0 flex items-start justify-center bg-black bg-opacity-50 p-4 overflow-y-auto hidden">
+    <div class="bg-white p-6 rounded-lg w-full max-w-4xl my-8">
       <!-- Cabecera del Modal -->
-      <div class="flex justify-between items-center mb-4">
+      <div class="flex justify-between items-center mb-4 sticky top-0 bg-white z-10">
         <h3 class="text-xl font-semibold">Crear / Editar Muestra</h3>
         <button type="button" onclick="cerrarModal()" class="text-gray-600 hover:text-gray-900 text-2xl">&times;</button>
       </div>
       <!-- Cuerpo del Modal -->
-      <form id="formInforme" class="space-y-4" onsubmit="return false;">
+      <form id="formInforme" class="space-y-4 max-h-[80vh] overflow-y-auto" onsubmit="return false;">
         <!-- Grid de campos -->
         <div class="grid grid-cols-2 gap-4">
           <!-- Código -->
@@ -96,8 +96,8 @@ Clinica SerranitoxXx
           </div>
           <!-- Conservación / Formato -->
           <div>
-            <label for="conservacion" class="block text-sm font-medium">Conservación</label>
-            <select id="conservacion" class="mt-1 block w-full border rounded px-3 py-2">
+            <label for="formato" class="block text-sm font-medium">Formato</label>
+            <select id="formato" class="mt-1 block w-full border rounded px-3 py-2">
               <option value="">Seleccione formato</option>
               <!-- Se llenará dinámicamente -->
             </select>
@@ -116,6 +116,30 @@ Clinica SerranitoxXx
           <label for="descripcion" class="block text-sm font-medium">Descripción</label>
           <textarea id="descripcion" class="mt-1 block w-full border rounded px-3 py-2" rows="3" placeholder="Descripción de la muestra"></textarea>
         </div>
+
+        <!-- Sección de imágenes -->
+        <div class="space-y-4">
+          <div class="flex gap-4 items-end">
+            <div class="flex-1">
+              <label for="imagen" class="block text-sm font-medium">Imágenes</label>
+              <input type="file" id="imagen" accept="image/*" multiple class="mt-1 block w-full border rounded px-3 py-2">
+            </div>
+            <div class="w-48">
+              <label for="zoom" class="block text-sm font-medium">Zoom</label>
+              <select id="zoom" class="mt-1 block w-full border rounded px-3 py-2">
+                <option value="">Seleccione zoom</option>
+                <option value="4x">4x</option>
+                <option value="10x">10x</option>
+                <option value="40x">40x</option>
+                <option value="100x">100x</option>
+              </select>
+            </div>
+          </div>
+          <div id="imagenesPreview" class="grid grid-cols-3 gap-4">
+            <!-- Las previsualizaciones se insertarán aquí dinámicamente -->
+          </div>
+        </div>
+
         <!-- Botón de Envío -->
         <div class="flex justify-end">
           <button type="button" id="btnGuardar" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">

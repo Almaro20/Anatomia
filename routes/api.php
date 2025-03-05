@@ -23,6 +23,10 @@ Route::prefix('v1')->group(function () {
     Route::get('formatos', [FormatoController::class, 'index']);
     Route::get('imagenes', [ImagenController::class, 'index']);
     Route::get('/zooms', [ZoomController::class, 'index']);
+    Route::post('imagenes/subir', [ImagenController::class, 'subirImagen']);
+    Route::post('imagenes/subir-multiple', [ImagenController::class, 'subirImagenes']);
+    Route::delete('imagenes/{id}', [ImagenController::class, 'eliminarImagen']);
+    Route::get('imagenes/{id}', [ImagenController::class, 'obtenerImagen']);
 });
 
 Route::prefix('v2')->group(function () {

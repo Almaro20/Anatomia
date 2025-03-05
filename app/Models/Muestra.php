@@ -22,7 +22,8 @@ class Muestra extends Model
         'calidad_id',
         'sede_id',
         'user_id',
-        'descripcionMuestra'
+        'descripcionMuestra',
+        'imagen_id'
     ];
 
 
@@ -65,5 +66,10 @@ class Muestra extends Model
     public function interpretaciones()
     {
         return $this->hasMany(MuestrasInterpretacion::class, 'idMuestras');
+    }
+
+    public function imagen()
+    {
+        return $this->belongsTo(Imagen::class, 'imagen_id');
     }
 }

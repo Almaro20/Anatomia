@@ -9,10 +9,11 @@ class Zoom extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['imagen_id', 'zoom'];
+    protected $table = 'zooms';
+    protected $fillable = ['zoom'];
 
-    public function imagen()
+    public function imagenes()
     {
-        return $this->belongsTo(Imagen::class);
+        return $this->hasMany(Imagen::class);
     }
 }

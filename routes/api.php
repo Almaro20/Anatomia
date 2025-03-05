@@ -11,6 +11,7 @@ use App\Http\Controllers\MuestraController;
 use App\Http\Controllers\TipoEstudioController;
 use App\Http\Controllers\InterpretacionController;
 use App\Http\Controllers\TipoNaturalezaController;
+use App\Http\Controllers\MuestrasInterpretacionController;
 
 Route::prefix('v1')->group(function () {
     Route::get('organos', [OrganoController::class, 'index']);
@@ -51,6 +52,13 @@ Route::prefix('v4')->group(function () {
     Route::get('/interpretaciones/{codigo}', [InterpretacionController::class, 'getByCodigo']);
 });
 
+Route::prefix('v5')->group(function () {
+    Route::get('muestras-interpretacion/listar', [MuestrasInterpretacionController::class, 'index']);
+    Route::post('muestras-interpretacion/crear', [MuestrasInterpretacionController::class, 'create']);
+    Route::get('muestras-interpretacion/ver/{id}', [MuestrasInterpretacionController::class, 'getById']);
+    Route::put('muestras-interpretacion/editar/{id}', [MuestrasInterpretacionController::class, 'update']);
+    Route::delete('muestras-interpretacion/eliminar/{id}', [MuestrasInterpretacionController::class, 'delete']);
+});
 
 // En api.php
 Route::get('tipos-estudio', [TipoEstudioController::class, 'index']);

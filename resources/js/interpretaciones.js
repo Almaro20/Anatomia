@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const BASE_URL = "http://localhost:8080/public/";
+    const BASE_URL = "http://localhost/Anatomia/public/";
 
     // Función para mostrar notificaciones
     const mostrarNotificacion = (mensaje, tipo = 'success') => {
@@ -94,7 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                             'Interpretación no disponible'
                                         }
                                     </span>
-                                    <button onclick="eliminarInterpretacion(${interp.id})" class="text-red-600 hover:text-red-800">
+                                    <button class="eliminar-interpretacion text-red-600 hover:text-red-800" data-id="${interp.id}">
                                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
                                         </svg>
@@ -128,22 +128,33 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Función para eliminar una interpretación
     const eliminarInterpretacion = async (id) => {
-        if (!confirm('¿Está seguro de que desea eliminar esta interpretación?')) return;
+            try {
+                const response = await fetch(`${BASE_URL}api/v5/muestras-interpretacion/eliminar/${id}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
 
-        try {
-            const response = await fetch(`${BASE_URL}api/v5/muestras-interpretacion/eliminar/${id}`, {
-                method: 'DELETE'
-            });
+                if (!response.ok) throw new Error('Error al eliminar la interpretación');
 
-            if (!response.ok) throw new Error('Error al eliminar la interpretación');
-
-            mostrarNotificacion('Interpretación eliminada con éxito');
-            cargarMuestras(); // Recargar la lista
-        } catch (error) {
-            console.error("Error:", error);
-            mostrarNotificacion("Error al eliminar la interpretación", "error");
+                toastr.success('Interpretación eliminada con éxito');
+                cargarMuestras(); // Recargar la lista
+            } catch (error) {
+                console.error("Error:", error);
+                toastr.error("Error al eliminar la interpretación");
+            }
         }
-    };
+        
+
+    // Agregar event listeners para los botones de eliminar
+    document.addEventListener('click', function(e) {
+        const btnEliminar = e.target.closest('.eliminar-interpretacion');
+        if (btnEliminar) {
+            const id = btnEliminar.dataset.id;
+            eliminarInterpretacion(id);
+        }
+    });
 
     // Función para abrir el modal de nueva interpretación
     const abrirModalNuevaInterpretacion = async (muestraId) => {

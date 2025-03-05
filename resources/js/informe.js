@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const BASE_URL = "http://localhost:8080/public/";
+    const BASE_URL = "http://localhost/Anatomia/public/";
     const btnCrear = document.querySelector("#btncrear");
     const btnGuardar = document.querySelector("#btnGuardar");
     let muestraEditando = null;
@@ -66,10 +66,11 @@ document.addEventListener("DOMContentLoaded", () => {
             const formatos = await formatoResponse.json();
             const formato = formatos.find(f => f.id === muestra.formato_id)?.nombre || 'Desconocido';
 
-            const tr = document.createElement("tr");
-            tr.innerHTML = `
+            const row = document.createElement('tr');
+            row.className = 'border-b';
+            row.innerHTML = `
                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                    ${muestra.codigo}
+                    ${muestra.codigo || ''}
                 </td>
                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                     ${tipoEstudio}
@@ -78,32 +79,42 @@ document.addEventListener("DOMContentLoaded", () => {
                     ${formato}
                 </td>
                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm flex gap-2">
-                    <button class="btn-eliminar text-red-600 hover:text-red-900" data-id="${muestra.id}">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
+                    <button class="editar-muestra text-blue-600 hover:text-blue-800">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
                         </svg>
                     </button>
-                    <button class="btn-editar text-blue-600 hover:text-blue-900" data-id="${muestra.id}">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                            <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+                    <button class="eliminar-muestra text-red-600 hover:text-red-800">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
                         </svg>
                     </button>
-                    <button class="btn-imprimir text-green-600 hover:text-green-900" data-id="${muestra.id}">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M5 4v3H4a2 2 0 00-2 2v3a2 2 0 002 2h1v2a2 2 0 002 2h6a2 2 0 002-2v-2h1a2 2 0 002-2V9a2 2 0 00-2-2h-1V4a2 2 0 00-2-2H7a2 2 0 00-2 2zm8 0H7v3h6V4zm0 8H7v4h6v-4z" clip-rule="evenodd"/>
+                    <button class="imprimir-muestra text-green-600 hover:text-green-800">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/>
                         </svg>
                     </button>
-                </td>`;
+                </td>
+            `;
 
-            const container = document.querySelector("tbody#informesContainer");
-            container.appendChild(tr);
+            // Agregar eventos a los botones
+            const btnEditar = row.querySelector('.editar-muestra');
+            const btnEliminar = row.querySelector('.eliminar-muestra');
+            const btnImprimir = row.querySelector('.imprimir-muestra');
 
-            // Event listeners para los botones
-            tr.querySelector(".btn-eliminar").addEventListener("click", () => eliminarMuestra(muestra.id, tr));
-            tr.querySelector(".btn-editar").addEventListener("click", () => abrirModalEdicion(muestra));
-            tr.querySelector(".btn-imprimir").addEventListener("click", () => imprimirMuestra(muestra.id));
+            btnEditar.addEventListener('click', () => abrirModalEdicion(muestra));
+            btnEliminar.addEventListener('click', () => eliminarMuestra(muestra.id, row));
+            btnImprimir.addEventListener('click', () => imprimirMuestra(muestra.id));
+
+            // Agregar la fila al contenedor correcto
+            const container = document.querySelector('#informesContainer');
+            container.appendChild(row);
+            
+            // Marcar la muestra como creada
+            muestrasCreadas.add(muestra.id);
         } catch (error) {
             console.error("Error al agregar muestra al DOM:", error);
+            mostrarNotificacion("Error al mostrar la muestra", "error");
         }
     };
 
@@ -122,18 +133,77 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Función para eliminar una muestra
     const eliminarMuestra = async (id, elemento) => {
+        // Configurar toastr para este caso específico
+        toastr.options = {
+            closeButton: true,
+            timeOut: 0,
+            extendedTimeOut: 0,
+            positionClass: "toast-top-center",
+            preventDuplicates: true,
+            onclick: null
+        };
+
+        // Mostrar el mensaje de confirmación con toastr
+        toastr.warning(
+            '<div class="flex flex-col space-y-2">' +
+            '<div>¿Está seguro de que desea eliminar esta muestra?</div>' +
+            '<div class="flex justify-end space-x-2">' +
+            '<button class="px-3 py-1 bg-gray-500 text-white rounded hover:bg-gray-600" onclick="toastr.clear()">Cancelar</button>' +
+            '<button class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600" onclick="confirmarEliminacion(' + id + ')">Eliminar</button>' +
+            '</div>' +
+            '</div>',
+            'Confirmar eliminación',
+            {
+                allowHtml: true,
+                closeButton: false,
+                progressBar: false
+            }
+        );
+    };
+
+    // Función para manejar la confirmación de eliminación
+    window.confirmarEliminacion = async (id) => {
         try {
             const response = await fetch(`${BASE_URL}api/v2/muestras/eliminar/${id}`, {
-                method: "DELETE"
+                method: 'DELETE',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
             });
 
-            if (!response.ok) throw new Error(`Error al eliminar la muestra: ${response.status}`);
+            const data = await response.json();
 
-            mostrarNotificacion("Muestra eliminada con éxito", "success");
-            elemento.remove();
+            if (!response.ok) {
+                let errorMessage = data.message || 'Error al eliminar la muestra';
+                if (errorMessage.includes('foreign key constraint fails')) {
+                    errorMessage = 'No se puede eliminar la muestra porque tiene interpretaciones asociadas. Por favor, elimine primero las interpretaciones.';
+                } else if (errorMessage.includes('No query results for model')) {
+                    errorMessage = 'La muestra ya no existe en el sistema. La página se actualizará.';
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 2000);
+                }
+                throw new Error(errorMessage);
+            }
+
+            // Limpiar el toastr de confirmación
+            toastr.clear();
+
+            // Eliminar el elemento del DOM
+            const row = document.querySelector(`tr:has(button[onclick*="eliminarMuestra(${id})"])`);
+            if (row) {
+                row.remove();
+                // Mostrar mensaje de éxito
+                toastr.success('Muestra eliminada con éxito');
+            } else {
+                // Si no encontramos la fila, recargamos la lista de muestras
+                cargarMuestras();
+            }
         } catch (error) {
             console.error("Error:", error);
-            mostrarNotificacion("Error al eliminar la muestra", "error");
+            toastr.clear(); // Limpiar el toastr de confirmación
+            toastr.error(error.message);
         }
     };
 

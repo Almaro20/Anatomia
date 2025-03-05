@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Muestra;
+use Illuminate\Support\Facades\Log;
 
 class MuestraController extends Controller
 {
@@ -33,11 +34,22 @@ class MuestraController extends Controller
     }
 
     public function delete($id) {
-        $muestra = Muestra::find($id);
-        if (!$muestra) {
-            return response()->json(['message' => 'Muestra no encontrada'], 404);
+        try {
+            $muestra = Muestra::findOrFail($id);
+            
+            // Primero eliminamos las interpretaciones asociadas usando forceDelete
+            $muestra->interpretaciones()->forceDelete();
+            
+            // Luego eliminamos la muestra
+            $muestra->delete();
+            
+            return response()->json(['message' => 'Muestra eliminada correctamente'], 200);
+        } catch (\Exception $e) {
+            \Log::error('Error al eliminar muestra: ' . $e->getMessage());
+            return response()->json([
+                'message' => 'Error al eliminar la muestra: ' . $e->getMessage(),
+                'error' => $e->getMessage()
+            ], 500);
         }
-        $muestra->delete();
-        return response()->json(['message' => 'Muestra eliminada'], 200);
     }
 }

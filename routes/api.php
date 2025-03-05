@@ -58,6 +58,8 @@ Route::prefix('v5')->group(function () {
     Route::get('muestras-interpretacion/ver/{id}', [MuestrasInterpretacionController::class, 'getById']);
     Route::put('muestras-interpretacion/editar/{id}', [MuestrasInterpretacionController::class, 'update']);
     Route::delete('muestras-interpretacion/eliminar/{id}', [MuestrasInterpretacionController::class, 'delete']);
+    Route::get('muestras-interpretacion/interpretaciones-disponibles/{muestraId}',
+        [MuestrasInterpretacionController::class, 'getInterpretacionesDisponibles']);
 });
 
 // En api.php

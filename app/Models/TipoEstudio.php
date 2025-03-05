@@ -9,8 +9,11 @@ class TipoEstudio extends Model
     use HasFactory;
 
     protected $table = 'tipo_estudio';
-    
-    protected $fillable = ['nombre'];
+
+    protected $fillable = [
+        'codigo',
+        'nombre'
+    ];
 
     public function tipoNaturalezas()
     {

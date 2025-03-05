@@ -13,18 +13,21 @@ class MuestrasInterpretacion extends Model
     protected $table = 'muestras_interpretacion';
 
     protected $fillable = [
-        'calidad',
         'idMuestras',
         'idInterpretacion'
     ];
 
+    protected $dates = ['deleted_at'];
+
+    // Relación con Muestra
     public function muestra()
     {
-        return $this->belongsTo(Muestra::class, 'idMuestras');
+        return $this->belongsTo(Muestra::class, 'idMuestras', 'id');
     }
 
+    // Relación con Interpretacion
     public function interpretacion()
     {
-        return $this->belongsTo(Interpretacion::class, 'idInterpretacion');
+        return $this->belongsTo(Interpretacion::class, 'idInterpretacion', 'id');
     }
 }

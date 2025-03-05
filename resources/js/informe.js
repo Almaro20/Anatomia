@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const BASE_URL = "http://localhost/Anatomia/public/";
+    const BASE_URL = "http://localhost:8080/public/";
     const btnCrear = document.querySelector("#btncrear");
     const btnGuardar = document.querySelector("#btnGuardar");
     let muestraEditando = null;
@@ -427,7 +427,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const response = await fetch(url, {
                 method: muestraEditando ? 'PUT' : 'POST',
-                headers: { 
+                headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json'
                 },
@@ -446,7 +446,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (muestraEditando) {
                 muestrasCreadas.delete(muestraEditando.codigo);
             }
-            
+
             // Agregamos el nuevo código al Set
             muestrasCreadas.add(formData.codigo);
 

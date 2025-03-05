@@ -23,7 +23,8 @@ class DatabaseSeeder extends Seeder
             ZoomTableSeeder::class,
             UserTableSeeder::class,
             MuestraSeeder::class,
-            InterpretacionSeeder::class
+            InterpretacionSeeder::class,
+            MuestrasInterpretacionSeeder::class,
         ]);
     }
 }

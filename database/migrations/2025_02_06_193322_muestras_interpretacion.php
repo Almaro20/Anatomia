@@ -12,10 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('muestras_interpretacion', function (Blueprint $table) {
-            $table->id(); // Clave primaria
-            $table->string('calidad');
+            $table->id();
             $table->foreignId('idMuestras')->constrained('muestra');
-            $table->foreignId('idInterpretacion')->constrained('interpretacion')->onDelete('cascade');
+            $table->foreignId('idInterpretacion')->constrained('interpretacion');
             $table->timestamps();
             $table->softDeletes();
         });

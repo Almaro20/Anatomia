@@ -11,7 +11,16 @@ class Interpretacion extends Model
 
     protected $table = 'interpretacion';
 
-    protected $fillable = ['nombre'];
+    protected $fillable = [
+        'codigo',
+        'descripcion'
+    ];
 
     public $timestamps = false;
+
+    // Relación con MuestrasInterpretacion
+    public function muestrasInterpretaciones()
+    {
+        return $this->hasMany(MuestrasInterpretacion::class, 'idInterpretacion');
+    }
 }

@@ -16,6 +16,7 @@ class Muestra extends Model
         'codigo',
         'fechaEntrada',
         'tipoNaturaleza_id',
+        'tipoEstudio_id',
         'organo',
         'formato_id',
         'calidad_id',
@@ -26,6 +27,11 @@ class Muestra extends Model
 
 
     // Relaciones
+    public function tipoEstudio()
+    {
+        return $this->belongsTo(TipoEstudio::class, 'tipoEstudio_id');
+    }
+
     public function tipoNaturaleza()
     {
         return $this->belongsTo(TipoNaturaleza::class, 'tipoNaturaleza_id');

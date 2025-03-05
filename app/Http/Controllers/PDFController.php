@@ -4,47 +4,53 @@ namespace App\Http\Controllers;
 
 use App\Models\Muestra;
 use Dompdf\Dompdf;
-use Dompdf\Options;
+use Illuminate\Support\Facades\Log;
 
 class PDFController extends Controller
 {
     public function generarPDF($id)
     {
-        // Buscar la muestra por su ID con todas las relaciones existentes
-        $muestra = Muestra::with([
-            'tipoNaturaleza',
-            'formato',
-            'calidad',
-            'sede',
-            'user'
-            // 'imagen' lo quitamos ya que aún no está implementado
-        ])->findOrFail($id);
+        try {
+            // Obtener la muestra
+            $muestra = Muestra::with([
+                'tipoEstudio',
+                'tipoNaturaleza',
+                'formato',
+                'calidad',
+                'sede',
+                'user'
+            ])->findOrFail($id);
 
-        // Crear una nueva instancia de DOMPDF
-        $dompdf = new Dompdf();
+            // Crear una nueva instancia de DOMPDF
+            $dompdf = new Dompdf();
 
-        // Configurar opciones
-        $options = new Options();
-        $options->set('isHtml5ParserEnabled', true);
-        $options->set('isPhpEnabled', true);
-        $options->set('isRemoteEnabled', true);
-        $dompdf->setOptions($options);
+            // Renderizar la vista a HTML
+            $html = view('pdf', ['muestra' => $muestra])->render();
 
-        // Renderizar la vista
-        $html = view('pdf', compact('muestra'))->render();
+            // Cargar el HTML en DOMPDF
+            $dompdf->loadHtml($html);
 
-        // Cargar el HTML
-        $dompdf->loadHtml($html);
+            // Renderizar el PDF (obligatorio)
+            $dompdf->render();
 
-        // Establecer el tamaño del papel y orientación
-        $dompdf->setPaper('A4', 'portrait');
+            // Obtener el contenido del PDF
+            $output = $dompdf->output();
 
-        // Renderizar el PDF
-        $dompdf->render();
+            // Devolver como respuesta con los headers correctos
+            return response($output, 200, [
+                'Content-Type' => 'application/pdf',
+                'Content-Disposition' => 'inline; filename="informe.pdf"',
+                'Content-Length' => strlen($output)
+            ]);
 
-        // Descargar el PDF
-        return $dompdf->stream("informe_muestra_{$muestra->codigo}.pdf", [
-            "Attachment" => false
-        ]);
+        } catch (\Exception $e) {
+            Log::error('Error en PDF: ' . $e->getMessage());
+            Log::error('Stack trace: ' . $e->getTraceAsString());
+            
+            return response()->json([
+                'error' => 'Error al generar el PDF',
+                'details' => $e->getMessage()
+            ], 500);
+        }
     }
 }

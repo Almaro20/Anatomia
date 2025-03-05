@@ -488,7 +488,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Función para imprimir una muestra
     const imprimirMuestra = (muestraId) => {
-        window.open(`${BASE_URL}imprimir/muestra/${muestraId}`, '_blank');
+        try {
+            const url = `${BASE_URL}imprimir/muestra/${muestraId}`;
+            window.open(url, '_blank');
+        } catch (error) {
+            console.error("Error al abrir el PDF:", error);
+            mostrarNotificacion("Error al generar el PDF", "error");
+        }
     };
 
     // Inicializar la aplicación

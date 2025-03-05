@@ -617,18 +617,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Manejar imágenes
         if (imagenesInput.files.length > 0) {
+            // Si hay nuevas imágenes seleccionadas
             const zoom = zoomSelect.value;
             if (!zoom) {
                 mostrarNotificacion('Por favor seleccione un zoom para las imágenes', 'error');
                 return;
             }
             
+            // Agregar las nuevas imágenes
             Array.from(imagenesInput.files).forEach(file => {
                 formData.append('imagenes[]', file);
             });
-            formData.append('zooms', JSON.stringify([zoom]));
-        } else if (muestraEditando && imagenesPreview.children.length === 0) {
-            formData.append('eliminar_imagen', 'true');
+            
+            // Agregar los zooms correspondientes
+            const zooms = Array(imagenesInput.files.length).fill(zoom);
+            formData.append('zooms', JSON.stringify(zooms));
+        } else if (muestraEditando) {
+            // Si estamos en modo edición
+            if (imagenesPreview.children.length === 0) {
+                // Si no hay imágenes en el preview, significa que queremos eliminar la imagen existente
+                formData.append('eliminar_imagen', 'true');
+            } else if (!muestraEditando.imagen) {
+                // Si no había imagen antes y no se agregó ninguna nueva, no hacemos nada con las imágenes
+                formData.append('sin_cambios_imagen', 'true');
+            }
         }
 
         try {
@@ -636,15 +648,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 ? `${BASE_URL}api/v2/muestras/editar/${muestraEditando.id}`
                 : `${BASE_URL}api/v2/muestras/crear`;
 
-            const method = muestraEditando ? 'PUT' : 'POST';
-
-            // Para PUT requests, necesitamos agregar el método _method
-            if (method === 'PUT') {
-                formData.append('_method', 'PUT');
-            }
-
             const response = await fetch(url, {
-                method: 'POST', // Siempre usamos POST con FormData
+                method: muestraEditando ? 'PUT' : 'POST',
                 body: formData
             });
 

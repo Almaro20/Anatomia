@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('interpretacion', function (Blueprint $table) {
             $table->id();
-            $table->string('codigo')->unique(); // Código único
+            $table->string('codigo')->unique();// Código único
             $table->text('descripcion'); // Descripción larga
             $table->timestamps();
         });

@@ -53,108 +53,120 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     // Función para mostrar las muestras en el DOM
-    const mostrarMuestrasEnDOM = (muestras) => {
+    const mostrarMuestrasEnDOM = (data) => {
         const container = document.getElementById('informesContainer');
         container.innerHTML = '';
 
-        muestras.forEach(muestra => {
-            // Crear el elemento de la muestra
-            const muestraElement = document.createElement('tr');
-            muestraElement.className = 'border-b';
-
-            // Contenido inicial de la muestra (siempre visible)
-            muestraElement.innerHTML = `
-                <td class="px-5 py-5 text-sm">
-                    <div class="flex items-center">
-                        <button class="toggle-interpretaciones mr-2">
-                            <svg class="w-4 h-4 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                            </svg>
-                        </button>
-                        ${muestra.codigo || 'Sin código'}
-                    </div>
-                </td>
-                <td class="px-5 py-5 text-sm">${muestra.descripcionMuestra || 'Sin descripción'}</td>
-                <td class="px-5 py-5 text-sm">${muestra.tipoEstudio || 'Sin tipo de estudio'}</td>
-            `;
-
-            // Contenedor para las interpretaciones (inicialmente oculto)
-            const interpretacionesContainer = document.createElement('tr');
-            interpretacionesContainer.className = 'interpretaciones-container hidden';
-            interpretacionesContainer.innerHTML = `
-                <td colspan="3" class="px-5 py-3">
-                    <div class="pl-8">
-                        <h4 class="font-semibold mb-2">Interpretaciones:</h4>
-                        <ul class="space-y-2 mb-4">
-                            ${muestra.interpretaciones.map(interp => `
-                                <li class="flex items-center justify-between bg-gray-50 p-2 rounded">
-                                    <span>
-                                        ${interp.interpretacion ?
-                                            `${interp.interpretacion.codigo} - ${interp.interpretacion.descripcion}` :
-                                            'Interpretación no disponible'
-                                        }
-                                    </span>
-                                    <button class="eliminar-interpretacion text-red-600 hover:text-red-800" data-id="${interp.id}">
-                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
-                                        </svg>
-                                    </button>
-                                </li>
-                            `).join('')}
-                        </ul>
-                        <button onclick="abrirModalNuevaInterpretacion(${muestra.id})"
-                                class="flex items-center text-blue-600 hover:text-blue-800">
-                            <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-                            </svg>
-                            Añadir interpretación
-                        </button>
-                    </div>
-                </td>
-            `;
-
-            container.appendChild(muestraElement);
-            container.appendChild(interpretacionesContainer);
-
-            // Añadir evento para mostrar/ocultar interpretaciones
-            const toggleButton = muestraElement.querySelector('.toggle-interpretaciones');
-            toggleButton.addEventListener('click', () => {
-                const arrow = toggleButton.querySelector('svg');
-                arrow.classList.toggle('rotate-180');
-                interpretacionesContainer.classList.toggle('hidden');
+        // Agrupar las interpretaciones por muestra
+        const muestrasPorId = new Map();
+        data.forEach(item => {
+            const muestra = item.muestra;
+            if (!muestrasPorId.has(muestra.id)) {
+                muestrasPorId.set(muestra.id, {
+                    ...muestra,
+                    interpretaciones: []
+                });
+            }
+            muestrasPorId.get(muestra.id).interpretaciones.push({
+                id: item.id,
+                interpretacion: item.interpretacion,
+                descripcion: item.descripcion
             });
         });
+
+        // Convertir el Map a Array, ordenar por ID de muestra y renderizar
+        Array.from(muestrasPorId.values())
+            .sort((a, b) => a.id - b.id)
+            .forEach(muestra => {
+                // Crear la fila principal de la muestra
+                const muestraRow = document.createElement('tr');
+                muestraRow.className = 'border-b';
+                muestraRow.innerHTML = `
+                    <td class="px-5 py-5 text-sm">
+                        <div class="flex items-center">
+                            <button class="toggle-interpretaciones mr-2">
+                                <svg class="w-4 h-4 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                </svg>
+                            </button>
+                            ${muestra.codigo}
+                        </div>
+                    </td>
+                    <td class="px-5 py-5 text-sm">${muestra.tipoEstudio}</td>
+                    <td class="px-5 py-5 text-sm"></td>
+                `;
+
+                // Crear la fila de interpretaciones (inicialmente oculta)
+                const interpretacionesRow = document.createElement('tr');
+                interpretacionesRow.className = 'interpretaciones-container hidden';
+                interpretacionesRow.innerHTML = `
+                    <td colspan="3" class="px-5 py-3 bg-gray-50">
+                        <div class="pl-6 space-y-3">
+                            ${muestra.interpretaciones.map(interp => `
+                                <div class="flex justify-between items-start p-3 bg-white rounded shadow-sm">
+                                    <div class="flex-1">
+                                        <div class="font-semibold text-gray-900">${interp.interpretacion.codigo}</div>
+                                        <div class="text-gray-700">${interp.interpretacion.descripcion}</div>
+                                        ${interp.descripcion ? `
+                                            <div class="mt-2 text-sm text-gray-600">
+                                                <span class="font-medium">Observaciones:</span> ${interp.descripcion}
+                                            </div>
+                                        ` : ''}
+                                    </div>
+                                    <button onclick="eliminarInterpretacion(${interp.id})" class="ml-4 text-red-600 hover:text-red-800">
+                                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                            `).join('')}
+                            <div class="flex justify-end pt-3">
+                                <button onclick="abrirModalNuevaInterpretacion(${muestra.id})"
+                                        class="text-blue-600 hover:text-blue-900 font-medium">
+                                    + Añadir Interpretación
+                                </button>
+                            </div>
+                        </div>
+                    </td>
+                `;
+
+                // Agregar las filas al contenedor
+                container.appendChild(muestraRow);
+                container.appendChild(interpretacionesRow);
+
+                // Agregar el evento para mostrar/ocultar interpretaciones
+                const toggleButton = muestraRow.querySelector('.toggle-interpretaciones');
+                toggleButton.addEventListener('click', () => {
+                    const arrow = toggleButton.querySelector('svg');
+                    arrow.classList.toggle('rotate-180');
+                    interpretacionesRow.classList.toggle('hidden');
+                });
+            });
     };
 
     // Función para eliminar una interpretación
     const eliminarInterpretacion = async (id) => {
-            try {
-                const response = await fetch(`${BASE_URL}api/v5/muestras-interpretacion/eliminar/${id}`, {
-                    method: 'DELETE',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                });
+        try {
+            const response = await fetch(`${BASE_URL}api/v5/muestras-interpretacion/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
+            });
 
-                if (!response.ok) throw new Error('Error al eliminar la interpretación');
-
-                toastr.success('Interpretación eliminada con éxito');
-                cargarMuestras(); // Recargar la lista
-            } catch (error) {
-                console.error("Error:", error);
-                toastr.error("Error al eliminar la interpretación");
+            if (!response.ok) {
+                const error = await response.json();
+                throw new Error(error.message || 'Error al eliminar la interpretación');
             }
-        }
-        
 
-    // Agregar event listeners para los botones de eliminar
-    document.addEventListener('click', function(e) {
-        const btnEliminar = e.target.closest('.eliminar-interpretacion');
-        if (btnEliminar) {
-            const id = btnEliminar.dataset.id;
-            eliminarInterpretacion(id);
+            mostrarNotificacion('Interpretación eliminada con éxito');
+            await cargarMuestras(); // Recargar la lista
+        } catch (error) {
+            console.error("Error:", error);
+            mostrarNotificacion(error.message, "error");
         }
-    });
+    };
 
     // Función para abrir el modal de nueva interpretación
     const abrirModalNuevaInterpretacion = async (muestraId) => {
@@ -183,17 +195,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     <!-- Body -->
                     <div class="p-6 space-y-6">
-                        <div class="mb-4">
-                            <label class="block text-gray-700 text-sm font-bold mb-2" for="interpretacionSelect">
-                                Seleccione una interpretación
-                            </label>
-                            <select id="interpretacionSelect"
-                                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                                <option value="">Seleccione una interpretación</option>
-                                ${interpretaciones.map(i => `
-                                    <option value="${i.id}">${i.codigo} - ${i.descripcion}</option>
-                                `).join('')}
-                            </select>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-gray-700 text-sm font-bold mb-2" for="interpretacionSelect">
+                                    Seleccione una interpretación
+                                </label>
+                                <select id="interpretacionSelect" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                                    <option value="">Seleccione una interpretación</option>
+                                    ${interpretaciones.map(i => `
+                                        <option value="${i.id}">${i.codigo} - ${i.descripcion}</option>
+                                    `).join('')}
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-gray-700 text-sm font-bold mb-2" for="descripcionTextarea">
+                                    Descripción (opcional)
+                                </label>
+                                <textarea id="descripcionTextarea"
+                                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    rows="3"
+                                    placeholder="Agregue una descripción opcional"></textarea>
+                            </div>
                         </div>
                     </div>
 
@@ -202,7 +225,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         <button class="cancelar bg-gray-500 text-white active:bg-gray-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
                             Cancelar
                         </button>
-                        <button class="guardar bg-blue-600 text-black active:bg-blue-700 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+                        <button class="guardar bg-blue-600 text-white active:bg-blue-700 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
                             Guardar
                         </button>
                     </div>
@@ -222,34 +245,40 @@ document.addEventListener("DOMContentLoaded", () => {
             });
 
             modal.querySelector('.guardar').onclick = async () => {
-                const interpretacionId = modal.querySelector('#interpretacionSelect').value;
-
-                if (!interpretacionId) {
-                    mostrarNotificacion('Por favor seleccione una interpretación', 'error');
-                    return;
-                }
-
                 try {
+                    const interpretacionId = modal.querySelector('#interpretacionSelect').value;
+                    const descripcion = modal.querySelector('#descripcionTextarea').value;
+
+                    if (!interpretacionId) {
+                        mostrarNotificacion('Por favor seleccione una interpretación', 'error');
+                        return;
+                    }
+
                     const response = await fetch(`${BASE_URL}api/v5/muestras-interpretacion/crear`, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
+                            'Accept': 'application/json'
                         },
                         body: JSON.stringify({
                             idMuestras: muestraId,
-                            idInterpretacion: interpretacionId
+                            idInterpretacion: interpretacionId,
+                            descripcion: descripcion
                         })
                     });
 
+                    const data = await response.json();
+
                     if (!response.ok) {
-                        const error = await response.json();
-                        throw new Error(error.message || 'Error al crear la interpretación');
+                        throw new Error(data.message || 'Error al crear la interpretación');
                     }
 
                     mostrarNotificacion('Interpretación añadida con éxito');
                     cerrarModal();
-                    cargarMuestras();
+                    await cargarMuestras();
+
                 } catch (error) {
+                    console.error('Error:', error);
                     mostrarNotificacion(error.message, 'error');
                 }
             };

@@ -13,65 +13,41 @@ class MuestrasInterpretacionController extends Controller
     public function index()
     {
         try {
-            Log::info("Iniciando carga de muestras con interpretaciones");
-
-            // Primero verificar si hay muestras
-            $muestrasCount = Muestra::count();
-            Log::info("Total de muestras encontradas: " . $muestrasCount);
-
-            // Cargar las muestras con sus relaciones
-            $muestras = Muestra::with(['interpretaciones.interpretacion', 'tipoEstudio'])
-                ->get();
-
-            Log::info("Muestras cargadas con éxito", [
-                'total_muestras' => $muestras->count(),
-                'primera_muestra' => $muestras->first() ? [
-                    'id' => $muestras->first()->id,
-                    'codigo' => $muestras->first()->codigo
-                ] : null
-            ]);
-
-            // Transformar los datos
-            $muestrasFormateadas = $muestras->map(function ($muestra) {
-                try {
-                    return [
-                        'id' => $muestra->id,
-                        'codigo' => $muestra->codigo,
-                        'descripcionMuestra' => $muestra->descripcionMuestra,
-                        'tipoEstudio' => $muestra->tipoEstudio ? $muestra->tipoEstudio->nombre : null,
-                        'organo' => $muestra->organo,
-                        'interpretaciones' => $muestra->interpretaciones->map(function ($interp) {
-                            return [
-                                'id' => $interp->id,
-                                'calidad' => $interp->calidad,
-                                'interpretacion' => $interp->interpretacion ? [
-                                    'id' => $interp->interpretacion->id,
-                                    'codigo' => $interp->interpretacion->codigo,
-                                    'descripcion' => $interp->interpretacion->descripcion
-                                ] : null
-                            ];
-                        })->toArray()
-                    ];
-                } catch (\Exception $e) {
-                    Log::error("Error procesando muestra ID: " . $muestra->id, [
-                        'error' => $e->getMessage()
-                    ]);
-                    return null;
-                }
-            })->filter()->values();
+            $muestrasInterpretaciones = MuestrasInterpretacion::with([
+                'muestra.tipoEstudio',
+                'interpretacion'
+            ])
+            ->orderBy('created_at', 'desc')
+            ->get()
+            ->map(function ($item) {
+                return [
+                    'id' => $item->id,
+                    'muestra' => [
+                        'id' => $item->muestra->id,
+                        'codigo' => $item->muestra->codigo,
+                        'organo' => $item->muestra->organo,
+                        'tipoEstudio' => $item->muestra->tipoEstudio->nombre ?? 'No disponible'
+                    ],
+                    'interpretacion' => [
+                        'id' => $item->interpretacion->id,
+                        'codigo' => $item->interpretacion->codigo,
+                        'descripcion' => $item->interpretacion->descripcion
+                    ],
+                    'descripcion' => $item->descripcion
+                ];
+            });
 
             return response()->json([
                 'status' => true,
-                'message' => 'Listado recuperado exitosamente',
-                'data' => $muestrasFormateadas
-            ], 200);
+                'message' => 'Listado obtenido exitosamente',
+                'data' => $muestrasInterpretaciones
+            ]);
 
         } catch (\Exception $e) {
-            Log::error("Error en MuestrasInterpretacionController@index", [
+            \Log::error('Error en MuestrasInterpretacionController@index', [
                 'message' => $e->getMessage(),
                 'file' => $e->getFile(),
-                'line' => $e->getLine(),
-                'trace' => $e->getTraceAsString()
+                'line' => $e->getLine()
             ]);
 
             return response()->json([
@@ -135,69 +111,38 @@ class MuestrasInterpretacionController extends Controller
         }
     }
 
-    public function create(Request $request)
+    public function store(Request $request)
     {
         try {
-            Log::info("Iniciando creación de interpretación", [
-                'request' => $request->all()
-            ]);
+            \Log::info('Datos recibidos:', $request->all());
 
-            $request->validate([
+            $validated = $request->validate([
                 'idMuestras' => 'required|exists:muestra,id',
-                'idInterpretacion' => 'required|exists:interpretacion,id'
+                'idInterpretacion' => 'required|exists:interpretacion,id',
+                'descripcion' => 'nullable|string'
             ]);
 
-            $muestra = Muestra::with('tipoEstudio')->findOrFail($request->idMuestras);
-            $interpretacion = Interpretacion::findOrFail($request->idInterpretacion);
+            \Log::info('Datos validados:', $validated);
 
-            Log::info("Muestra e interpretación encontradas", [
-                'muestra' => $muestra->toArray(),
-                'interpretacion' => $interpretacion->toArray()
-            ]);
-
-            // Determinar qué código debería tener la interpretación
-            $codigoEsperado = '';
-            if ($muestra->tipoEstudio->nombre === 'Estudio de Biopsias') {
-                $codigoEsperado = $muestra->organo . '.';
-            } else {
-                $codigoEsperado = $muestra->tipoEstudio->codigo . '.';
-            }
-
-            // Verificar que el código de la interpretación coincide exactamente
-            if (!str_starts_with($interpretacion->codigo, $codigoEsperado)) {
-                Log::warning("Código de interpretación no coincide", [
-                    'esperado' => $codigoEsperado,
-                    'recibido' => $interpretacion->codigo
-                ]);
-
-                return response()->json([
-                    'status' => false,
-                    'message' => 'La interpretación seleccionada no corresponde al tipo de estudio o órgano de la muestra'
-                ], 400);
-            }
-
-            // Crear la relación
             $muestraInterpretacion = MuestrasInterpretacion::create([
                 'idMuestras' => $request->idMuestras,
-                'idInterpretacion' => $request->idInterpretacion
+                'idInterpretacion' => $request->idInterpretacion,
+                'descripcion' => $request->descripcion
             ]);
 
-            Log::info("Interpretación creada exitosamente", [
-                'muestraInterpretacion' => $muestraInterpretacion->toArray()
-            ]);
-
-            $muestraInterpretacion->load(['muestra', 'interpretacion']);
+            \Log::info('Interpretación creada:', $muestraInterpretacion->toArray());
 
             return response()->json([
                 'status' => true,
                 'message' => 'Interpretación creada exitosamente',
-                'data' => $muestraInterpretacion
+                'data' => $muestraInterpretacion->load(['interpretacion', 'muestra'])
             ], 201);
 
         } catch (\Exception $e) {
-            Log::error("Error creando interpretación", [
-                'error' => $e->getMessage(),
-                'trace' => $e->getTraceAsString()
+            \Log::error('Error en store:', [
+                'message' => $e->getMessage(),
+                'line' => $e->getLine(),
+                'file' => $e->getFile()
             ]);
 
             return response()->json([

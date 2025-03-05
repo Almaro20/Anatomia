@@ -85,6 +85,41 @@
             margin-top: 10px;
             border-radius: 4px;
         }
+
+        .interpretacion-box {
+            background-color: white;
+            border: 1px solid #e2e8f0;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+        }
+
+        .interpretacion-divider {
+            border: 0;
+            border-top: 1px dashed #cbd5e0;
+            margin: 15px 0;
+        }
+
+        .no-interpretaciones {
+            color: #718096;
+            font-style: italic;
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* Ajustamos el estilo de la info-grid para las interpretaciones */
+        .interpretacion-box .info-grid {
+            margin-bottom: 0;
+        }
+
+        .interpretacion-box .info-label {
+            color: #4a5568;
+            font-weight: 600;
+        }
+
+        .interpretacion-box .info-value {
+            color: #2d3748;
+        }
     </style>
 </head>
 <body>
@@ -148,6 +183,37 @@
         <div class="descripcion-box">
             {{ $muestra->descripcionMuestra ?? 'Sin descripción disponible' }}
         </div>
+    </div>
+
+    <div class="section">
+        <h2>Interpretaciones</h2>
+        @if($muestra->muestrasInterpretaciones->count() > 0)
+            @foreach($muestra->muestrasInterpretaciones as $muestraInterpretacion)
+                <div class="interpretacion-box">
+                    <div class="info-grid">
+                        <div class="info-row">
+                            <div class="info-label">Código:</div>
+                            <div class="info-value">{{ $muestraInterpretacion->interpretacion->codigo }}</div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-label">Interpretación:</div>
+                            <div class="info-value">{{ $muestraInterpretacion->interpretacion->descripcion }}</div>
+                        </div>
+                        @if($muestraInterpretacion->descripcion)
+                            <div class="info-row">
+                                <div class="info-label">Observaciones:</div>
+                                <div class="info-value">{{ $muestraInterpretacion->descripcion }}</div>
+                            </div>
+                        @endif
+                    </div>
+                </div>
+                @if(!$loop->last)
+                    <hr class="interpretacion-divider">
+                @endif
+            @endforeach
+        @else
+            <p class="no-interpretaciones">No hay interpretaciones registradas para esta muestra.</p>
+        @endif
     </div>
 
     <div class="footer">
